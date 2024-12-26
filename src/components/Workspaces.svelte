@@ -44,6 +44,28 @@
     >
       <i class="ti ti-switch-{glazewm?.tilingDirection}"></i>
     </button>
+    {#each glazewm.bindingModes as bindingMode, i}
+      <div class="flex items-center">
+        <button class="pb-[4px]"
+          onclick={() => {
+            switch (bindingMode.name.toLowerCase()) {
+              case "pause":
+                glazewm!.runCommand("wm-disable-binding-mode --name pause");
+                break;
+              
+              case "resize":
+                glazewm!.runCommand("wm-disable-binding-mode --name resize");
+                break;
+            
+              default:
+                break;
+            }
+          }}
+        >
+          {bindingMode.displayName ?? bindingMode.name}
+        </button>
+      </div>
+    {/each}
     <div class="flex items-center gap-1">
       {#if glazewm.focusedWorkspace}
         {#each glazewm.focusedWorkspace!.children as child}
