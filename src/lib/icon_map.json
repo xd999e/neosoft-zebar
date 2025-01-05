@@ -1,7 +1,7 @@
 [
   {
     "iconName": "ti-terminal-2",
-    "appNames": ["alacritty", "wezterm", "wezterm-gui", "windowsterminal"]
+    "appNames": ["alacritty", "wezterm", "wezterm-gui", "windowsterminal", "wt"]
   },
   {
     "iconName": "ti-brand-vscode",
@@ -25,7 +25,7 @@
   },
   {
     "iconName": "ti-brand-chrome",
-    "appNames": ["chrome"]
+    "appNames": ["chrome", "chromium", "thorium"]
   },
   {
     "iconName": "ti-brand-firefox",
@@ -49,7 +49,7 @@
   },
   {
     "iconName": "ti-spy",
-    "appNames": ["azure vpn client"]
+    "appNames": ["azure vpn client", "AutoHotkey Window Spy", "ProtonVPN", "clash-verge"]
   },
   {
     "iconName": "ti-screenshot",
@@ -57,11 +57,11 @@
   },
   {
     "iconName": "ti-settings",
-    "appNames": ["control panel", "settings"]
+    "appNames": ["control panel", "settings", "FanControl"]
   },
   {
     "iconName": "ti-folder",
-    "appNames": ["explorer"]
+    "appNames": ["explorer", "dopus"]
   },
   {
     "iconName": "ti-photo",
@@ -94,5 +94,61 @@
   {
     "iconName": "ti-brand-steam",
     "appNames": ["steam"]
+  },
+  {
+    "iconName": "hexagon-letter-v",
+    "appNames": ["neovide", "gvim"]
+  },
+  {
+    "iconName": "ti-brand-docker",
+    "appNames": ["Docker Desktop"]
+  },
+  {
+    "iconName": "ti-brand-kotlin",
+    "appNames": ["clion64", "idea64", "pycharm64", "webstorm64", "goland64", "rider64", "rustrover64"]
+  },
+  {
+    "iconName": "ti-brand-telegram",
+    "appNames": ["telegram", "unigram"]
+  },
+  {
+    "iconName": "ti-brand-wechat",
+    "appNames": ["WeChat"]
+  },
+  {
+    "iconName": "ti-brand-qq",
+    "appNames": ["QQ"]
+  },
+  {
+    "iconName": "ti-brand-xbox",
+    "appNames": ["Xbox"]
+  },
+  {
+    "iconName": "ti-check",
+    "appNames": ["Microsoft To Do"]
+  },
+  {
+    "iconName": "ti-music",
+    "appNames": ["Media Player", "AppleMusic", "Cider"]
+  },
+  {
+    "iconName": "ti-markdown",
+    "appNames": ["Typora"]
+  },
+  {
+    "iconName": "ti-notebook",
+    "appNames": ["Obsidian", "zotero"]
+  },
+  {
+    "iconName": "ti-file-type-pdf",
+    "appNames": ["SumatraPDF", "Acrobat Reader", "Foxit Reader", "sioyek"]
+  },
+  {
+    "iconName": "ti-file-zip",
+    "appNames": ["7zFM", "WinRAR", "WinZip", "bandizip"]
+  },
+  {
+    "iconName": "ti-brand-android",
+    "appNames": ["MuMuPlayer"]
   }
 ]
