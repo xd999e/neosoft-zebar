@@ -48,21 +48,27 @@
   });
 </script>
 
-<div
-  class="grid grid-cols-3 items-center h-bar my-zby mx-zbx text-zb-text text-zb-size font-base"
->
-  <Group class="justify-self-start">
-    <LeftGroup battery={battery!} cpu={cpu!} memory={memory!} />
-  </Group>
-  <Group class="justify-self-center">
-    <Workspaces glazewm={glazewm!} />
-  </Group>
-  <Group class="justify-self-end">
-    <RightGroup
-      date={date!}
-      glazewm={glazewm!}
-      network={network!}
-      weather={weather!}
-    />
-  </Group>
+<div class="backdrop-blur-sm">
+  <div
+    class="grid grid-cols-3 items-center h-bar my-zby mx-zbx text-zb-text text-zb-size font-base"
+  >
+    <Group class="justify-self-start">
+      <LeftGroup battery={battery!} cpu={cpu!} memory={memory!} />
+    </Group>
+    <Group
+      class="justify-self-center {glazewm?.currentMonitor.hasFocus
+        ? 'workspace-group-highlighted border-4'
+        : ''}"
+    >
+      <Workspaces glazewm={glazewm!} />
+    </Group>
+    <Group class="justify-self-end">
+      <RightGroup
+        date={date!}
+        glazewm={glazewm!}
+        network={network!}
+        weather={weather!}
+      />
+    </Group>
+  </div>
 </div>

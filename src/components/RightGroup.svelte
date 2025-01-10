@@ -14,6 +14,20 @@
 
 <div class="flex flex-row gap-3 items-center">
   <NowPlaying glazewm={glazewm}/>
+  <div class="">
+    {#if network?.traffic}
+    <div class="flex flex-row items-center gap-1">
+      {#if network.traffic.received}
+        <i class="ti ti-arrow-down"></i>
+        <span class="min-w-20 inline-block text-left">{network.traffic.received.iecValue.toFixed(2)} {network.traffic.received.iecUnit}</span>
+      {/if}
+      {#if network.traffic.transmitted}
+        <i class="ti ti-arrow-up"></i>
+        <span class="min-w-20 inline-block text-left">{network.traffic.transmitted.iecValue.toFixed(2)} {network.traffic.transmitted.iecUnit}</span>
+      {/if}
+    </div>
+    {/if}
+  </div>
   <div class="flex flex-row items-center gap-1">
     {#if network?.defaultInterface?.type === "ethernet"}
       <i class="ti ti-network"></i>
@@ -33,7 +47,7 @@
     {/if}
   </div>
   {#if weather}
-    <div>
+    <div class="truncate">
       {#if weather.status === "clear_day"}
         <i class="nf nf-weather-day_sunny"></i>
       {:else if weather.status === "clear_night"}

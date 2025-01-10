@@ -8,7 +8,7 @@
 </script>
 
 <div
-  class="flex items-center h-100 w-fit p-1 bg-zb-base border-zb-border rounded-base border shadow-bar {rest.class}"
+  class="flex items-center h-100 w-fit py-1 px-3 bg-zb-base border-zb-border rounded-base border shadow-bar {rest.class}"
 >
   {@render children()}
 </div>

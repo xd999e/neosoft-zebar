@@ -1,12 +1,14 @@
 {
+  "$schema": "https://raw.githubusercontent.com/glzr-io/zebar/v2.5.0/resources/widget-schema.json",
   "htmlPath": "./index.html",
-  "zOrder": "normal",
+  "zOrder": "top_most",
   "shownInTaskbar": false,
   "focused": false,
   "resizable": false,
   "transparent": true,
-  "defaultPlacements": [
+  "presets": [
     {
+      "name": "default",
       "anchor": "top_left",
       "offsetX": "0px",
       "offsetY": "0px",
@@ -14,6 +16,11 @@
       "height": "60px",
       "monitorSelection": {
         "type": "all"
+      },
+      "dockToEdge": {
+        "enabled": false,
+        "edge": null,
+        "windowMargin": "0px"
       }
     }
   ]
