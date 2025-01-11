@@ -30,6 +30,7 @@ export default {
             3: "hsl(var(--ws-4) / <alpha-value> )",
             4: "hsl(var(--ws-5) / <alpha-value> )"
           },
+          accent: "hsl(var(--accent))",
           "tiling-direction": "hsl(var(--tiling-direction) / <alpha-value> )",
           spotify: {
             playing: "hsl(var(--now-playing) / <alpha-value> )",
@@ -81,6 +82,11 @@ export default {
     "text-zb-ws-2",
     "text-zb-ws-3",
     "text-zb-ws-4",
+    "border-zb-ws-0",
+    "border-zb-ws-1",
+    "border-zb-ws-2",
+    "border-zb-ws-3",
+    "border-zb-ws-4",
     "justify-self-start",
     "justify-self-center",
     "justify-self-end"

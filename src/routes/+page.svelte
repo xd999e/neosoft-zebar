@@ -61,7 +61,7 @@
     </Group>
     <Group
       class="justify-self-center {glazewm?.currentMonitor.hasFocus
-        ? 'workspace-group-highlighted border-4'
+        ? '!border-zb-accent border-4'
         : ''}"
     >
       <Workspaces glazewm={glazewm!} />

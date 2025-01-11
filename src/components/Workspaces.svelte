@@ -36,8 +36,8 @@
     {#each glazewm.allWorkspaces as  workspace, i }
         {#if glazewm.currentWorkspaces.some((ws) => workspaceEquals(ws, workspace))}
           <Button
-            class="workspace-button text-zb-ws-{i} {workspace.isDisplayed
-              ? 'highlighted'
+            class="box-border mx-1 px-6 text-zb-ws-{i} {workspace.isDisplayed
+              ? `border-zb-ws-${i} hover:border-blend-80` 
               : ''}"
             text={workspace.name}
             callback={() =>

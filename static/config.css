@@ -19,6 +19,7 @@
 
   /* colors */
   --text: var(--rp-text);
+  --accent: var(--rp-accent);
   --bg: var(--rp-overlay);
   --border: var(--rp-highlight-low);
   --shadow: var(--rp-highlight-low);
@@ -42,21 +43,6 @@
   --now-playing: var(--rp-pine);
   --network: var(--rp-text);
   --weather: var(--rp-text);
-}
-
-/* custom */
-.workspace-button {
-  padding-inline: 1.5rem !important;
-  margin-inline: .25rem;
-  box-sizing: border-box;
-}
-
-.workspace-button.highlighted {
-  border-color: currentColor !important;
-}
-
-.workspace-group-highlighted {
-  border-color: rgb(134, 127, 209) !important;
 }
 
 * {
