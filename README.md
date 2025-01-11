@@ -3,6 +3,12 @@
 An Zebar configuration for Zebar V2 build in Svelte with Tailwind. If you are
 still using V1 of Zebar the old config is available in the [V1 branch](https://github.com/adriankarlen/neobrutal-zebar/tree/v1).
 
+> [!IMPORTANT]
+> 
+> I am no longer using a Windows computer and therefore the repo has been
+> archived. If you are interested in continuing the development I will stick
+> around in the GlazeWM Discord for a while, and you can contact me there.
+
 ## ✨ Features
 
 - Process icons for current workspace, with current focus indicator.
@@ -155,7 +161,7 @@ Utilizes [Catppuccin Palette](https://github.com/catppuccin/palette/blob/main/do
 --weather: var(--ctp-mocha-text);
 ```
 
-##### src/components/RightGroup.svelte
+##### src/components/LeftGroup.svelte
 
 ```svelte
 <!-- replace this line -->
