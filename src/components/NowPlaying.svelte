@@ -1,25 +1,22 @@
 <script lang="ts">
-  import type { GlazeWmOutput } from "zebar";
+  import type { GlazeWmOutput, MediaOutput } from "zebar";
 
-  let { glazewm }: { glazewm: GlazeWmOutput } = $props();
+  let { glazewm, media }: { glazewm: GlazeWmOutput, media: MediaOutput } = $props();
 </script>
 
-{#if glazewm}
-  <div class="flex items-center gap-1">
-    {#each glazewm.allWorkspaces as workspace}
-      {#each workspace.children as child}
-        {#if child.type == "window" && child.processName.toLowerCase() === "spotify"}
-          {#if child.title.toLowerCase() === "spotify premium"}
-            <i class="ti ti-music-off text-zb-spotify-paused"></i>
-            nothing is playing
-          {:else}
-            <i class="ti ti-music text-zb-spotify-playing"></i>
-            <span class="max-w-md truncate">
-              {child.title}
-            </span>
-          {/if}
-        {/if}
-      {/each}
-    {/each}
-  </div>
+{#if glazewm?.allMonitors && glazewm?.currentMonitor?.id === glazewm.allMonitors[0]?.id && media?.currentSession}
+      <div class="flex items-center gap-3">
+        <button class="hover:text-zb-spotify-playing" aria-label="Previous" onclick={() => media.previous()}>
+          <i class="ti ti-player-skip-back"></i>
+        </button>
+        <button class="hover:text-zb-spotify-playing duration-150"  aria-label="Toggle" onclick={() => media.togglePlayPause()}>
+          <i class="ti ti-{media.currentSession.isPlaying ? 'player-pause' : 'player-play'}"></i>
+          <span class="max-w-md truncate">
+            {media.currentSession.title}
+          </span>
+        </button>
+        <button class="hover:text-zb-spotify-playing" aria-label="Next" onclick={() => media.next()}>
+          <i class="ti ti-player-skip-forward"></i>
+        </button>
+      </div>
 {/if}

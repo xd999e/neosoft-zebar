@@ -35,6 +35,6 @@
   "type": "module",
   "dependencies": {
     "glazewm": "^1.5.2",
-    "zebar": "^2.2.1"
+    "zebar": "^2.6.1"
   }
 }

@@ -8,7 +8,8 @@
     MemoryOutput,
     DateOutput,
     NetworkOutput,
-    WeatherOutput
+    WeatherOutput,
+    MediaOutput,
   } from "zebar";
 
   import "../app.css";
@@ -24,6 +25,7 @@
   let memory = $state<MemoryOutput | null>();
   let network = $state<NetworkOutput | null>();
   let weather = $state<WeatherOutput | null>();
+  let media = $state<MediaOutput | null>();
 
   onMount(() => {
     const providers = zebar.createProviderGroup({
@@ -33,7 +35,8 @@
       glazewm: { type: "glazewm" },
       memory: { type: "memory" },
       network: { type: "network" },
-      weather: { type: "weather" }
+      weather: { type: "weather" },
+      media: { type: "media" }
     });
 
     providers.onOutput(() => {
@@ -44,6 +47,7 @@
       memory = providers.outputMap.memory;
       network = providers.outputMap.network;
       weather = providers.outputMap.weather;
+      media = providers.outputMap.media;
     });
   });
 </script>
@@ -68,6 +72,7 @@
         glazewm={glazewm!}
         network={network!}
         weather={weather!}
+        media={media!}
       />
     </Group>
   </div>

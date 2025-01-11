@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DateOutput, GlazeWmOutput, NetworkOutput, WeatherOutput } from "zebar";
+  import type { DateOutput, GlazeWmOutput, NetworkOutput, WeatherOutput, MediaOutput } from "zebar";
   import NowPlaying from "./NowPlaying.svelte";
 
   type RightGroupProps = {
@@ -7,13 +7,15 @@
     glazewm: GlazeWmOutput;
     network: NetworkOutput;
     weather: WeatherOutput;
+    media: MediaOutput;
   };
 
-  let { date, glazewm, network, weather }: RightGroupProps = $props();
+  let { date, glazewm, network, weather, media }: RightGroupProps = $props();
+
 </script>
 
 <div class="flex flex-row gap-3 items-center">
-  <NowPlaying glazewm={glazewm}/>
+  <NowPlaying glazewm={glazewm!} media={media!}/>
   <div class="">
     {#if network?.traffic}
     <div class="flex flex-row items-center gap-1">
