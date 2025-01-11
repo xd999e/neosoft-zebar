@@ -14,7 +14,7 @@
 
 </script>
 
-<div class="flex flex-row gap-3 items-center">
+<div class="flex flex-row gap-3 items-center overflow-hidden">
   <NowPlaying glazewm={glazewm!} media={media!}/>
   <div class="">
     {#if network?.traffic}
