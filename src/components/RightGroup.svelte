@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DateOutput, GlazeWmOutput, NetworkOutput, WeatherOutput } from "zebar";
+  import type { DateOutput, GlazeWmOutput, NetworkOutput, WeatherOutput, MediaOutput } from "zebar";
   import NowPlaying from "./NowPlaying.svelte";
 
   type RightGroupProps = {
@@ -7,13 +7,29 @@
     glazewm: GlazeWmOutput;
     network: NetworkOutput;
     weather: WeatherOutput;
+    media: MediaOutput;
   };
 
-  let { date, glazewm, network, weather }: RightGroupProps = $props();
+  let { date, glazewm, network, weather, media }: RightGroupProps = $props();
+
 </script>
 
 <div class="flex flex-row gap-3 items-center">
-  <NowPlaying glazewm={glazewm}/>
+  <NowPlaying glazewm={glazewm!} media={media!}/>
+  <div class="">
+    {#if network?.traffic}
+    <div class="flex flex-row items-center gap-1">
+      {#if network.traffic.received}
+        <i class="ti ti-arrow-down"></i>
+        <span class="min-w-20 inline-block text-left">{network.traffic.received.iecValue.toFixed(2)} {network.traffic.received.iecUnit}</span>
+      {/if}
+      {#if network.traffic.transmitted}
+        <i class="ti ti-arrow-up"></i>
+        <span class="min-w-20 inline-block text-left">{network.traffic.transmitted.iecValue.toFixed(2)} {network.traffic.transmitted.iecUnit}</span>
+      {/if}
+    </div>
+    {/if}
+  </div>
   <div class="flex flex-row items-center gap-1">
     {#if network?.defaultInterface?.type === "ethernet"}
       <i class="ti ti-network"></i>
@@ -33,7 +49,7 @@
     {/if}
   </div>
   {#if weather}
-    <div>
+    <div class="truncate">
       {#if weather.status === "clear_day"}
         <i class="nf nf-weather-day_sunny"></i>
       {:else if weather.status === "clear_night"}

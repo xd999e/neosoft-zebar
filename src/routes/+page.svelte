@@ -8,7 +8,8 @@
     MemoryOutput,
     DateOutput,
     NetworkOutput,
-    WeatherOutput
+    WeatherOutput,
+    MediaOutput,
   } from "zebar";
 
   import "../app.css";
@@ -24,6 +25,7 @@
   let memory = $state<MemoryOutput | null>();
   let network = $state<NetworkOutput | null>();
   let weather = $state<WeatherOutput | null>();
+  let media = $state<MediaOutput | null>();
 
   onMount(() => {
     const providers = zebar.createProviderGroup({
@@ -33,7 +35,8 @@
       glazewm: { type: "glazewm" },
       memory: { type: "memory" },
       network: { type: "network" },
-      weather: { type: "weather" }
+      weather: { type: "weather" },
+      media: { type: "media" }
     });
 
     providers.onOutput(() => {
@@ -44,25 +47,33 @@
       memory = providers.outputMap.memory;
       network = providers.outputMap.network;
       weather = providers.outputMap.weather;
+      media = providers.outputMap.media;
     });
   });
 </script>
 
-<div
-  class="grid grid-cols-3 items-center h-bar my-zby mx-zbx text-zb-text text-zb-size font-base"
->
-  <Group class="justify-self-start">
-    <LeftGroup battery={battery!} cpu={cpu!} memory={memory!} />
-  </Group>
-  <Group class="justify-self-center">
-    <Workspaces glazewm={glazewm!} />
-  </Group>
-  <Group class="justify-self-end">
-    <RightGroup
-      date={date!}
-      glazewm={glazewm!}
-      network={network!}
-      weather={weather!}
-    />
-  </Group>
+<div class="backdrop-blur-sm">
+  <div
+    class="grid grid-cols-3 items-center h-bar my-zby mx-zbx text-zb-text text-zb-size font-base"
+  >
+    <Group class="justify-self-start">
+      <LeftGroup battery={battery!} cpu={cpu!} memory={memory!} />
+    </Group>
+    <Group
+      class="justify-self-center {glazewm?.currentMonitor.hasFocus
+        ? 'workspace-group-highlighted border-4'
+        : ''}"
+    >
+      <Workspaces glazewm={glazewm!} />
+    </Group>
+    <Group class="justify-self-end">
+      <RightGroup
+        date={date!}
+        glazewm={glazewm!}
+        network={network!}
+        weather={weather!}
+        media={media!}
+      />
+    </Group>
+  </div>
 </div>

@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Window } from "glazewm";
   import type { GlazeWmOutput } from "zebar";
+  import type { Workspace } from "glazewm";
 
   import iconMap from "$lib/icon_map.json";
   import ignoredApps from "$lib/ignored_apps.json";
@@ -23,19 +24,26 @@
 
     return entry?.iconName ?? "ti-background";
   };
+  let { glazewm }: { glazewm: GlazeWmOutput } = $props();
 
-  let { glazewm } : { glazewm: GlazeWmOutput}= $props()
+  const workspaceEquals = (ws1: Workspace, ws2: Workspace) => {
+    return ws1.id === ws2.id;
+  };
 </script>
 
 {#if glazewm}
   <div class="flex flex-row gap-2 items-center">
-    {#each glazewm.currentWorkspaces as workspace, i}
-      <Button
-        iconClass="ti {workspace.hasFocus ? 'ti-point-filled' : 'ti-point'}"
-        class="text-zb-ws-{i}"
-        callback={() =>
-          glazewm!.runCommand(`focus --workspace ${workspace.name}`)}
-      />
+    {#each glazewm.allWorkspaces as  workspace, i }
+        {#if glazewm.currentWorkspaces.some((ws) => workspaceEquals(ws, workspace))}
+          <Button
+            class="workspace-button text-zb-ws-{i} {workspace.isDisplayed
+              ? 'highlighted'
+              : ''}"
+            text={workspace.name}
+            callback={() =>
+              glazewm!.runCommand(`focus --workspace ${workspace.name}`)}
+          />
+        {/if}
     {/each}
     <button
       aria-label="tiling-direction"
@@ -67,8 +75,8 @@
       </div>
     {/each}
     <div class="flex items-center gap-1">
-      {#if glazewm.focusedWorkspace}
-        {#each glazewm.focusedWorkspace!.children as child}
+      {#if glazewm.displayedWorkspace}
+        {#each glazewm.displayedWorkspace!.children as child}
           {#if child.type == "window" && child.state.type != "minimized"}
             {@const icon = getProcessIcon(child as Window)}
             {#if icon}
