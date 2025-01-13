@@ -12,6 +12,8 @@
     MediaOutput,
   } from "zebar";
 
+  import { Effect } from "@tauri-apps/api/window";
+
   import "../app.css";
   import Group from "../components/Group.svelte";
   import LeftGroup from "../components/LeftGroup.svelte";
@@ -49,6 +51,20 @@
       weather = providers.outputMap.weather;
       media = providers.outputMap.media;
     });
+
+/*     
+    Found a way to set window effects
+    Requires adding the following line to packages/desktop/capabilities/widget.json under permissions (zebar source code):
+        "core:window:allow-set-effects"
+    Then rebuild and install zebar.
+    
+    It is then possible to set window effects like so:
+    const window = zebar?.currentWidget()?.window;
+    window.tauri.setEffects({ effects: [Effect.Acrylic]})
+
+    This is a temporary solution while waiting for https://github.com/glzr-io/zebar/pull/133 (one might say it's even better)
+    I will come back to this later to play around with it.
+ */
   });
 </script>
 
