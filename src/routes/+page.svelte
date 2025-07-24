@@ -68,28 +68,27 @@
   });
 </script>
 
-<div class="backdrop-blur-sm">
-  <div
-    class="grid grid-cols-3 items-center h-bar my-zby mx-zbx text-zb-text text-zb-size font-base"
+<div
+  class="grid grid-cols-3 items-center h-bar my-zby mx-zbx text-zb-text text-zb-size font-base"
+>
+  <Group class="justify-self-start">
+    <LeftGroup battery={battery!} cpu={cpu!} memory={memory!} />
+  </Group>
+  <Group
+    class="justify-self-center {glazewm?.currentMonitor.hasFocus
+      ? '!border-zb-accent border-4'
+      : ''}"
   >
-    <Group class="justify-self-start">
-      <LeftGroup battery={battery!} cpu={cpu!} memory={memory!} />
-    </Group>
-    <Group
-      class="justify-self-center {glazewm?.currentMonitor.hasFocus
-        ? '!border-zb-accent border-4'
-        : ''}"
-    >
-      <Workspaces glazewm={glazewm!} />
-    </Group>
-    <Group class="justify-self-end">
-      <RightGroup
-        date={date!}
-        glazewm={glazewm!}
-        network={network!}
-        weather={weather!}
-        media={media!}
-      />
-    </Group>
-  </div>
+    <Workspaces glazewm={glazewm!} />
+  </Group>
+  <Group class="justify-self-end">
+    <RightGroup
+      date={date!}
+      glazewm={glazewm!}
+      network={network!}
+      weather={weather!}
+      media={media!}
+    />
+  </Group>
 </div>
+

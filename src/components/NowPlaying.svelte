@@ -20,10 +20,10 @@
     </button>
     <button class="relative gap-x-2 inline-flex items-center justify-center group transition duration-150 hover:text-zb-accent"  aria-label="Toggle" onclick={() => media.togglePlayPause()}>
       <i class="ti ti-{media.currentSession.isPlaying ? 'player-pause' : 'player-play'}"></i>
-      <span class="min-w-24 transition duration-300 ease-in-out group-hover:translate-y-full group-hover:opacity-0">
-        <span class="max-w-md truncate">
+      <span class="min-w-24 max-w-md transition duration-300 ease-in-out group-hover:translate-y-full group-hover:opacity-0">
+        <p class="truncate">
           {media.currentSession.title}
-        </span>
+        </p>
       </span>
       <span class="absolute ml-5 inset-0 flex items-center justify-center transform -translate-y-full opacity-0 transition-all duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
         {secondsToHms(media.currentSession.position)}/{secondsToHms(media.currentSession.endTime)}

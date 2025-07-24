@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Window } from "glazewm";
+  import type { SplitContainer, Window } from "glazewm";
   import type { GlazeWmOutput } from "zebar";
   import type { Workspace } from "glazewm";
 
@@ -29,21 +29,33 @@
   const workspaceEquals = (ws1: Workspace, ws2: Workspace) => {
     return ws1.id === ws2.id;
   };
+
+  const getWindows = (workspace: Workspace | SplitContainer) => {
+    let allWindows: Window[] = [];
+    for (const child of workspace.children) {
+      if (child.type === "window") {
+        allWindows.push(child as Window);
+      } else if (child.type === "split") {
+        allWindows.push(...getWindows(child));
+      }
+    }
+    return allWindows;
+  };
 </script>
 
 {#if glazewm}
   <div class="flex flex-row gap-2 items-center">
-    {#each glazewm.allWorkspaces as  workspace, i }
-        {#if glazewm.currentWorkspaces.some((ws) => workspaceEquals(ws, workspace))}
-          <Button
-            class="box-border mx-1 px-6 text-zb-ws-{i} {workspace.isDisplayed
-              ? `border-zb-ws-${i} hover:border-blend-80` 
-              : ''}"
-            text={workspace.name}
-            callback={() =>
-              glazewm!.runCommand(`focus --workspace ${workspace.name}`)}
-          />
-        {/if}
+    {#each glazewm.allWorkspaces as workspace, i}
+      {#if glazewm.currentWorkspaces.some( (ws) => workspaceEquals(ws, workspace) )}
+        <Button
+          class="box-border mx-1 px-6 text-zb-ws-{i} {workspace.isDisplayed
+            ? `border-zb-ws-${i} hover:border-blend-80`
+            : ''}"
+          text={workspace.name}
+          callback={() =>
+            glazewm!.runCommand(`focus --workspace ${workspace.name}`)}
+        />
+      {/if}
     {/each}
     <button
       aria-label="tiling-direction"
@@ -54,17 +66,18 @@
     </button>
     {#each glazewm.bindingModes as bindingMode, i}
       <div class="flex items-center">
-        <button class="pb-[4px]"
+        <button
+          class="pb-[4px]"
           onclick={() => {
             switch (bindingMode.name.toLowerCase()) {
               case "pause":
                 glazewm!.runCommand("wm-disable-binding-mode --name pause");
                 break;
-              
+
               case "resize":
                 glazewm!.runCommand("wm-disable-binding-mode --name resize");
                 break;
-            
+
               default:
                 break;
             }
@@ -76,18 +89,16 @@
     {/each}
     <div class="flex items-center gap-1">
       {#if glazewm.displayedWorkspace}
-        {#each glazewm.displayedWorkspace!.children as child}
-          {#if child.type == "window" && child.state.type != "minimized"}
-            {@const icon = getProcessIcon(child as Window)}
-            {#if icon}
-              <span
-                class={child.hasFocus
-                  ? "text-zb-focused-process"
-                  : "text-zb-process"}
-              >
-                <i class="ti {icon}"></i>
-              </span>
-            {/if}
+        {#each getWindows(glazewm.displayedWorkspace) as child}
+          {@const icon = getProcessIcon(child as Window)}
+          {#if icon}
+            <span
+              class={child.hasFocus
+                ? "text-zb-focused-process"
+                : "text-zb-process"}
+            >
+              <i class="ti {icon}"></i>
+            </span>
           {/if}
         {/each}
       {/if}
