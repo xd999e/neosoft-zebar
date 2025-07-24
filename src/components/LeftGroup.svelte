@@ -13,21 +13,24 @@
   let { battery, cpu, memory }: LeftGroupProps = $props();
 </script>
 
-<div class="flex flex-row gap-3 items-center">
+<div class="flex flex-row gap-3 items-center overflow-hidden">
   <Button class="text-zb-icon" iconClass="heart-filled" />
-  <div class="flex gap-1 items-center">
-    <i class="ti ti-ruler-2"></i>
-    <Meter class="bg-zb-memory" percent={Math.round(memory?.usage ?? 0)} />
+  <div class="w-10 h-8">
+    <Meter class="stroke-zb-memory" percent={Math.round(memory?.usage ?? 0)}>
+      <i class="ti ti-ruler-2"></i>
+    </Meter>
   </div>
-  <div class="flex gap-1 items-center">
-    <i class="ti ti-cpu"></i>
-    <Meter class="bg-zb-cpu" percent={Math.round(cpu?.usage ?? 0)} />
+  <div class="w-10 h-8">
+    <Meter class="stroke-zb-cpu" percent={Math.round(cpu?.usage ?? 0)}>
+      <i class="ti ti-cpu"></i>
+    </Meter>
   </div>
-  <div class="flex gap-1 items-center">
-    <i class="ti ti-bolt"></i>
+  <div class="w-10 h-8">
     <Meter
-      class="bg-zb-battery-good"
+      class="stroke-zb-battery-good"
       percent={Math.round(battery?.chargePercent ?? 100)}
-    />
+    >
+      <i class="ti ti-bolt"></i>
+    </Meter>
   </div>
 </div>
