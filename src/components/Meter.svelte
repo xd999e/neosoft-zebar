@@ -3,19 +3,24 @@
     percent: number;
     class?: string;
     children?: any;
+    animate?: boolean;
   };
-  let { percent, class: className, children }: Props = $props();
+  let { percent, class: className, children, animate = true }: Props = $props();
+
+  let normalizedPercent = $derived(
+    Number.isNaN(percent) ? 0 : Math.max(0, Math.min(100, percent))
+  );
 
   const size = 100;
   const strokeWidth = 8;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = $derived(circumference * (1 - percent / 100));
+  const strokeDashoffset = $derived(circumference * (1 - normalizedPercent / 100));
 </script>
 
 <div class="relative w-full h-full aspect-square group">
   <div
-    class="flex justify-center items-center w-full h-full transition-all duration-300 ease-in-out group-hover:translate-y-full group-hover:opacity-0"
+    class="flex justify-center items-center w-full h-full {animate ? "transition-all duration-300 ease-in-out group-hover:translate-y-full group-hover:opacity-0" : ""}"
   >
     <svg
       class="h-full"
@@ -52,9 +57,11 @@
     </div>
   </div>
 
-  <span
-    class="absolute inset-0 flex items-center justify-center text-md transform -translate-y-full opacity-0 transition-all duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100"
-  >
-    {percent}%
-  </span>
+  {#if animate}
+    <span
+      class="absolute inset-0 flex items-center justify-center text-md transform -translate-y-full opacity-0 transition-all duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100"
+    >
+      {normalizedPercent}%
+    </span>
+  {/if}
 </div>

@@ -5,49 +5,16 @@
   type RightGroupProps = {
     date: DateOutput;
     glazewm: GlazeWmOutput;
-    network: NetworkOutput;
     weather: WeatherOutput;
     media: MediaOutput;
   };
 
-  let { date, glazewm, network, weather, media }: RightGroupProps = $props();
+  let { date, glazewm, weather, media }: RightGroupProps = $props();
 
 </script>
 
-<div class="flex flex-row gap-3 items-center overflow-hidden">
+<div class="flex flex-row gap-4 items-center overflow-hidden">
   <NowPlaying glazewm={glazewm!} media={media!}/>
-  <div class="">
-    {#if network?.traffic}
-    <div class="flex flex-row items-center gap-1">
-      {#if network.traffic.received}
-        <i class="ti ti-arrow-down"></i>
-        <span class="min-w-20 inline-block text-left">{network.traffic.received.iecValue.toFixed(2)} {network.traffic.received.iecUnit}</span>
-      {/if}
-      {#if network.traffic.transmitted}
-        <i class="ti ti-arrow-up"></i>
-        <span class="min-w-20 inline-block text-left">{network.traffic.transmitted.iecValue.toFixed(2)} {network.traffic.transmitted.iecUnit}</span>
-      {/if}
-    </div>
-    {/if}
-  </div>
-  <div class="flex flex-row items-center gap-1">
-    {#if network?.defaultInterface?.type === "ethernet"}
-      <i class="ti ti-network"></i>
-    {:else if network?.defaultInterface!.type === "wifi"}
-      {#if network.defaultGateway!.signalStrength! >= 75}
-        <i class="ti ti-wifi"></i>
-      {:else if network.defaultGateway!.signalStrength! >= 50}
-        <i class="ti ti-wifi-2"></i>
-      {:else if network.defaultGateway!.signalStrength! >= 25}
-        <i class="ti ti-wifi-1"></i>
-      {:else}
-        <i class="ti ti-wifi-off"></i>
-      {/if}
-      {network.defaultGateway?.ssid}
-    {:else}
-      <i class="ti ti-wifi-off"></i>
-    {/if}
-  </div>
   {#if weather}
     <div class="truncate">
       {#if weather.status === "clear_day"}

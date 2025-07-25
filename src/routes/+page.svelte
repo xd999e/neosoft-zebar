@@ -35,7 +35,7 @@
       cpu: { type: "cpu" },
       date: { type: "date", formatting: "HH:mm" },
       glazewm: { type: "glazewm" },
-      memory: { type: "memory" },
+      memory: { type: "memory"},
       network: { type: "network" },
       weather: { type: "weather" },
       media: { type: "media" }
@@ -72,7 +72,7 @@
   class="grid grid-cols-3 items-center h-bar my-zby mx-zbx text-zb-text text-zb-size font-base"
 >
   <Group class="justify-self-start">
-    <LeftGroup battery={battery!} cpu={cpu!} memory={memory!} />
+    <LeftGroup battery={battery!} cpu={cpu!} memory={memory!} network={network!} glazewm={glazewm!} />
   </Group>
   <Group
     class="justify-self-center {glazewm?.currentMonitor.hasFocus
@@ -85,7 +85,6 @@
     <RightGroup
       date={date!}
       glazewm={glazewm!}
-      network={network!}
       weather={weather!}
       media={media!}
     />
