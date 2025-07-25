@@ -18,9 +18,9 @@
   const strokeDashoffset = $derived(circumference * (1 - normalizedPercent / 100));
 </script>
 
-<div class="relative w-full h-full aspect-square group">
+<div class="relative group {className}">
   <div
-    class="flex justify-center items-center w-full h-full {animate ? "transition-all duration-300 ease-in-out group-hover:translate-y-full group-hover:opacity-0" : ""}"
+    class="flex justify-center items-center aspect-square h-full {animate ? "transition-all duration-300 ease-in-out group-hover:translate-y-full group-hover:opacity-0" : ""}"
   >
     <svg
       class="h-full"

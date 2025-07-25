@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
   /* sizes */
   --height: 3.7rem;
@@ -18,7 +20,7 @@
   --shadow-size-button: 0rem;
 
   /* colors */
-  --text: var(--rp-text);
+  /* --text: var(--rp-text);
   --accent: var(--rp-accent);
   --bg: var(--rp-overlay);
   --border: var(--rp-highlight-low);
@@ -42,7 +44,36 @@
   --not-playing: var(--rp-love);
   --now-playing: var(--rp-pine);
   --network: var(--rp-text);
-  --weather: var(--rp-text);
+  --weather: var(--rp-text); */
+
+  --text: var(--tau-text);
+  --accent: var(--tau-accent);
+  --bg: var(--tau-overlay);
+  --border: var(--tau-highlight-low);
+  --shadow: var(--tau-highlight-low);
+  --icon: var(--tau-love);
+  --memory: var(--tau-weak);
+  --cpu: var(--tau-accent);
+  --cpu-high-usage: var(--tau-strong);
+  --battery-good: var(--tau-mid);
+  /* --battery-mid: var(--tau-gold); */
+  /* --battery-low: var(--tau-love); */
+  --focused-process: var(--tau-text);
+  --process: var(--tau-muted);
+  --displayed: var(--tau-text);
+  --ws-1: var(--tau-weak);
+  --ws-2: var(--tau-low);
+  --ws-3: var(--tau-accent);
+  --ws-4: var(--tau-mid);
+  --ws-5: var(--tau-strong);
+  --tiling-direction: var(--tau-weak);
+  --not-playing: var(--tau-love);
+  --network: var(--tau-text);
+  --weather: var(--tau-text);
+}
+
+html {
+  font-size: var(--font-size);
 }
 
 * {

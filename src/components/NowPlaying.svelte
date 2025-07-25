@@ -18,7 +18,7 @@
 {#if glazewm?.allMonitors && glazewm?.currentMonitor?.id === glazewm.allMonitors[0]?.id && media?.currentSession}
   <div class="flex items-center gap-3">
     <button
-      class="transition hover:text-zb-accent hover:scale-125 duration-150"
+      class="transition hover:text-zb-accent hover:scale-125 duration-300"
       aria-label="Previous"
       onclick={() => media.previous()}
     >
@@ -29,21 +29,20 @@
       aria-label="Toggle"
       onclick={() => media.togglePlayPause()}
     >
-      <div class="w-6 h-8">
-        <Meter
-          animate={false}
-          class="stroke-zb-accent"
-          percent={Math.round(
-            (media.currentSession.position / media.currentSession.endTime) * 100
-          )}
-        >
-          <i
-            class="ti ti-{media.currentSession.isPlaying
-              ? 'player-pause'
-              : 'player-play'}"
-          ></i>
-        </Meter>
-      </div>
+      <Meter
+        animate={false}
+        class="stroke-zb-accent h-8"
+        percent={Math.round(
+          (media.currentSession.position / media.currentSession.endTime) * 100
+        )}
+      >
+        <i
+          class="ti ti-{media.currentSession.isPlaying
+            ? 'player-pause'
+            : 'player-play'}
+             transform group-hover:scale-125"
+        ></i>
+      </Meter>
       <div class="relative flex items-center justify-center min-w-24 max-w-md">
         <span
           class="transition duration-300 ease-in-out group-hover:translate-y-full group-hover:opacity-0"
@@ -65,7 +64,7 @@
       </div>
     </button>
     <button
-      class="transition hover:text-zb-accent hover:scale-125 duration-150"
+      class="transition hover:text-zb-accent hover:scale-125 duration-300"
       aria-label="Next"
       onclick={() => media.next()}
     >

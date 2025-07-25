@@ -13,7 +13,7 @@
 
 </script>
 
-<div class="flex flex-row gap-4 items-center overflow-hidden">
+<div class="flex flex-row gap-4 items-center">
   <NowPlaying glazewm={glazewm!} media={media!}/>
   {#if weather}
     <div class="truncate">

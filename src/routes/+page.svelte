@@ -32,13 +32,13 @@
   onMount(() => {
     const providers = zebar.createProviderGroup({
       battery: { type: "battery" },
-      cpu: { type: "cpu" },
+      cpu: { type: "cpu", refreshInterval: 2000 },
       date: { type: "date", formatting: "HH:mm" },
       glazewm: { type: "glazewm" },
       memory: { type: "memory"},
-      network: { type: "network" },
+      network: { type: "network", refreshInterval: 2000 },
       weather: { type: "weather" },
-      media: { type: "media" }
+      media: { type: "media", refreshInterval: 1000 },
     });
 
     providers.onOutput(() => {
