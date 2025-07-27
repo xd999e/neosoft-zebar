@@ -72,7 +72,9 @@ export default {
       },
       margin: {
         zbx: "var(--bar-margin-x)",
-        zby: "var(--bar-margin-y)"
+        zby: "var(--bar-margin-y)",
+        zrby: "var(--right-margin)",
+        zlby: "var(--left-margin)"
       }
     }
   },

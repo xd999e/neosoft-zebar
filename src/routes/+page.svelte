@@ -9,7 +9,7 @@
     DateOutput,
     NetworkOutput,
     WeatherOutput,
-    MediaOutput,
+    MediaOutput
   } from "zebar";
 
   import { Effect } from "@tauri-apps/api/window";
@@ -19,6 +19,7 @@
   import LeftGroup from "../components/LeftGroup.svelte";
   import RightGroup from "../components/RightGroup.svelte";
   import Workspaces from "../components/Workspaces.svelte";
+  import { isOnPrimaryMonitor } from "../utils/glazeWmUtils";
 
   let battery = $state<BatteryOutput | null>();
   let cpu = $state<CpuOutput | null>();
@@ -35,10 +36,10 @@
       cpu: { type: "cpu", refreshInterval: 2000 },
       date: { type: "date", formatting: "HH:mm" },
       glazewm: { type: "glazewm" },
-      memory: { type: "memory"},
+      memory: { type: "memory" },
       network: { type: "network", refreshInterval: 2000 },
       weather: { type: "weather" },
-      media: { type: "media", refreshInterval: 1000 },
+      media: { type: "media", refreshInterval: 1000 }
     });
 
     providers.onOutput(() => {
@@ -52,7 +53,7 @@
       media = providers.outputMap.media;
     });
 
-/*     
+    /*     
     Found a way to set window effects
     Requires adding the following line to packages/desktop/capabilities/widget.json under permissions (zebar source code):
         "core:window:allow-set-effects"
@@ -65,29 +66,42 @@
     This is a temporary solution while waiting for https://github.com/glzr-io/zebar/pull/133 (one might say it's even better)
     I will come back to this later to play around with it.
  */
+    const window = zebar?.currentWidget()?.tauriWindow;
+    window.setEffects({ effects: [Effect.Blur] });
   });
 </script>
 
 <div
-  class="grid grid-cols-3 items-center h-bar my-zby mx-zbx text-zb-text text-zb-size font-base"
+  class="h-bar text-zb-text text-zb-size font-base transition-colors bg-gradient-to-t {glazewm?.currentMonitor.hasFocus ? 'from-gray-500/85' : 'from-zb-base/85'} to-zb-base/0"
 >
-  <Group class="justify-self-start">
-    <LeftGroup battery={battery!} cpu={cpu!} memory={memory!} network={network!} glazewm={glazewm!} />
-  </Group>
-  <Group
-    class="justify-self-center {glazewm?.currentMonitor.hasFocus
-      ? '!border-zb-accent border-4'
-      : ''}"
-  >
-    <Workspaces glazewm={glazewm!} />
-  </Group>
-  <Group class="justify-self-end">
-    <RightGroup
-      date={date!}
-      glazewm={glazewm!}
-      weather={weather!}
-      media={media!}
-    />
-  </Group>
+  <div class="my-zby mx-zbx h-full flex justify-between items-center">
+    <div
+      class="flex items-center gap-4 {isOnPrimaryMonitor(glazewm)
+        ? 'ml-zlby'
+        : ''}"
+    >
+      <Group class="">
+        <LeftGroup
+          battery={battery!}
+          cpu={cpu!}
+          memory={memory!}
+          network={network!}
+          glazewm={glazewm!}
+        />
+      </Group>
+      <Group
+        class=" "
+      >
+        <Workspaces glazewm={glazewm!} />
+      </Group>
+    </div>
+    <Group class={isOnPrimaryMonitor(glazewm) ? "mr-zrby" : ""}>
+      <RightGroup
+        date={date!}
+        glazewm={glazewm!}
+        weather={weather!}
+        media={media!}
+      />
+    </Group>
+  </div>
 </div>
-

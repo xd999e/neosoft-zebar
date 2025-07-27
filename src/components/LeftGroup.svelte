@@ -9,6 +9,7 @@
 
   import Button from "./Button.svelte";
   import Meter from "./Meter.svelte";
+  import { isOnPrimaryMonitor } from "../utils/glazeWmUtils";
 
   type LeftGroupProps = {
     battery: BatteryOutput;
@@ -50,7 +51,7 @@
       <i class="ti ti-bolt"></i>
     </Meter>
   {/if}
-  {#if glazewm?.allMonitors && glazewm?.currentMonitor?.id === glazewm.allMonitors[0]?.id}
+  {#if isOnPrimaryMonitor(glazewm)}
     <div class="flex flex-row items-center gap-1">
       {#if network?.defaultInterface?.type === "ethernet"}
         <i class="ti ti-network"></i>

@@ -93,7 +93,7 @@
           {@const icon = getProcessIcon(child as Window)}
           {#if icon}
             <span
-              class="flex items-center {child.hasFocus
+              class="flex items-center text-xl {child.hasFocus
                 ? "text-zb-focused-process"
                 : "text-zb-process"}"
             >

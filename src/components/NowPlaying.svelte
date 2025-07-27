@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { GlazeWmOutput, MediaOutput } from "zebar";
+  import { isOnPrimaryMonitor } from "../utils/glazeWmUtils";
   import Meter from "./Meter.svelte";
 
   let { glazewm, media }: { glazewm: GlazeWmOutput; media: MediaOutput } =
@@ -15,7 +16,7 @@
   };
 </script>
 
-{#if glazewm?.allMonitors && glazewm?.currentMonitor?.id === glazewm.allMonitors[0]?.id && media?.currentSession}
+{#if isOnPrimaryMonitor(glazewm) && media?.currentSession}
   <div class="flex items-center gap-3">
     <button
       class="transition hover:text-zb-accent hover:scale-125 duration-300"
@@ -43,7 +44,7 @@
              transform group-hover:scale-125"
         ></i>
       </Meter>
-      <div class="relative flex items-center justify-center min-w-24 max-w-md">
+      <div class="relative flex items-center justify-center ml-2 min-w-24 max-w-md">
         <span
           class="transition duration-300 ease-in-out group-hover:translate-y-full group-hover:opacity-0"
         >
