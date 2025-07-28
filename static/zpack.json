@@ -30,16 +30,16 @@
           "name": "default",
           "anchor": "bottom_left",
           "offsetX": "0px",
-          "offsetY": "8px",
+          "offsetY": "0px",
           "width": "100%",
-          "height": "55px",
+          "height": "40px",
           "monitorSelection": {
             "type": "all"
           },
           "dockToEdge": {
             "enabled": true,
             "edge": "bottom",
-            "windowMargin": "0px"
+            "windowMargin": "10px"
           }
         }
       ]

@@ -50,7 +50,9 @@ export default {
       boxShadow: {
         button:
           "var(--shadow-size-button) var(--shadow-size-button) 0 hsl(var(--shadow))",
-        bar: "var(--shadow-size-bar) var(--shadow-size-bar) 0 hsl(var(--shadow))"
+        bar: "var(--shadow-size-bar) var(--shadow-size-bar) 0 hsl(var(--shadow))",
+        "inverted-l": "var(--radius) 0 0 0 hsl(var(--bg))",
+        "inverted-r": "calc(-1*var(--radius)) 0 0 0 hsl(var(--bg))"
       },
       translate: {
         boxShadowX: "var(--shadow-size-button)",
@@ -68,7 +70,14 @@ export default {
         "zb-size": "var(--font-size)"
       },
       height: {
-        bar: "var(--height)"
+        bar: "var(--height)",
+        radius: "var(--radius)"
+      },
+      width: {
+        radius: "var(--radius)"
+      },
+      inset: {
+        radius: "var(--radius)"
       },
       margin: {
         zbx: "var(--bar-margin-x)",

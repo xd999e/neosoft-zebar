@@ -74,13 +74,13 @@
 <div
   class="h-bar text-zb-text text-zb-size font-base transition-colors bg-gradient-to-t {glazewm?.currentMonitor.hasFocus ? 'from-gray-500/85' : 'from-zb-base/85'} to-zb-base/0"
 >
-  <div class="my-zby mx-zbx h-full flex justify-between items-center">
+  <div class="my-zby mx-zbx h-full flex justify-between items-end">
     <div
-      class="flex items-center gap-4 {isOnPrimaryMonitor(glazewm)
+      class="h-full flex items-end gap-4 {isOnPrimaryMonitor(glazewm)
         ? 'ml-zlby'
         : ''}"
     >
-      <Group class="">
+      <Group class="mr-[calc(var(--radius)*2)]">
         <LeftGroup
           battery={battery!}
           cpu={cpu!}
