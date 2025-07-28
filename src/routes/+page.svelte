@@ -20,6 +20,7 @@
   import RightGroup from "../components/RightGroup.svelte";
   import Workspaces from "../components/Workspaces.svelte";
   import { isOnPrimaryMonitor } from "../utils/glazeWmUtils";
+  import ProcessIcons from "../components/ProcessIcons.svelte";
 
   let battery = $state<BatteryOutput | null>();
   let cpu = $state<CpuOutput | null>();
@@ -72,30 +73,39 @@
 </script>
 
 <div
-  class="h-bar text-zb-text text-zb-size font-base transition-colors bg-gradient-to-t {glazewm?.currentMonitor.hasFocus ? 'from-gray-500/85' : 'from-zb-base/85'} to-zb-base/0"
+  class="h-bar text-zb-text text-zb-size font-base transition-colors bg-gradient-to-t {glazewm
+    ?.currentMonitor.hasFocus
+    ? 'from-gray-500/85'
+    : 'from-zb-base/85'} to-zb-base/0"
 >
-  <div class="my-zby mx-zbx h-full flex justify-between items-end">
-    <div
-      class="h-full flex items-end gap-4 {isOnPrimaryMonitor(glazewm)
-        ? 'ml-zlby'
+  <div class="my-zby h-full grid grid-cols-[1fr_auto_1fr] items-center">
+    <Group
+      leftCurve={false}
+      class="justify-self-start h-full px-3 {isOnPrimaryMonitor(glazewm)
+        ? 'pl-zlby'
         : ''}"
     >
-      <Group class="mr-[calc(var(--radius)*2)]">
-        <LeftGroup
-          battery={battery!}
-          cpu={cpu!}
-          memory={memory!}
-          network={network!}
-          glazewm={glazewm!}
-        />
-      </Group>
-      <Group
-        class=" "
-      >
+      <LeftGroup
+        battery={battery!}
+        cpu={cpu!}
+        memory={memory!}
+        network={network!}
+        glazewm={glazewm!}
+      />
+    </Group>
+    <div class="h-full w-full grid grid-cols-[1fr_auto_1fr] items-center">
+      <Group rightCurve={false} class="justify-self-end pl-3">
         <Workspaces glazewm={glazewm!} />
       </Group>
+      <Group leftCurve={false} class="pr-3">
+        <ProcessIcons glazewm={glazewm!} />
+      </Group>
     </div>
-    <Group class={isOnPrimaryMonitor(glazewm) ? "mr-zrby" : ""}>
+    <Group
+      class="justify-self-end px-3 {isOnPrimaryMonitor(glazewm)
+        ? 'pr-zrby'
+        : ''}"
+    >
       <RightGroup
         date={date!}
         glazewm={glazewm!}

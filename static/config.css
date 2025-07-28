@@ -5,10 +5,11 @@
   --height: 40px;
   --bar-margin-y: 0rem;
   --bar-margin-x: 2rem;
+  --process-icon-width: 50px;
 
   /* inner margins */
-  --right-margin: 275px;
-  --left-margin: 30px;
+  --right-margin: 290px;
+  --left-margin: 50px;
 
   /* fonts */
   --font-family: "SF Pro Display", Roboto, Helvetica, Arial, sans-serif;

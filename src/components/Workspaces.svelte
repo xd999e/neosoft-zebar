@@ -7,6 +7,7 @@
   import ignoredApps from "$lib/ignored_apps.json";
 
   import Button from "./Button.svelte";
+  import { getWindows } from "../utils/glazeWmUtils";
 
   const getProcessIcon = (child: Window) => {
     const possibleAppNames = [
@@ -30,17 +31,6 @@
     return ws1.id === ws2.id;
   };
 
-  const getWindows = (workspace: Workspace | SplitContainer) => {
-    let allWindows: Window[] = [];
-    for (const child of workspace.children) {
-      if (child.type === "window") {
-        allWindows.push(child as Window);
-      } else if (child.type === "split") {
-        allWindows.push(...getWindows(child));
-      }
-    }
-    return allWindows;
-  };
 </script>
 
 {#if glazewm}
