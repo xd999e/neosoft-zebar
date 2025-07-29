@@ -39,8 +39,6 @@
 
 <div class="flex items-center">
   {#if glazewm}
-    {#each Array(getWindowCount(glazewm)) as _, i}
-      <div class="flex items-center w-processIcon"></div>
-    {/each}
+    <div class="flex items-center" style="width: calc({getWindowCount(glazewm)} * var(--process-icon-width));"></div>
   {/if}
 </div>

@@ -61,27 +61,26 @@
     Then rebuild and install zebar.
     
     It is then possible to set window effects like so:
-    const window = zebar?.currentWidget()?.window;
-    window.tauri.setEffects({ effects: [Effect.Acrylic]})
+    const window = zebar?.currentWidget()?.tauriWindow;
+    window.setEffects({ effects: [Effect.Acrylic] });
 
     This is a temporary solution while waiting for https://github.com/glzr-io/zebar/pull/133 (one might say it's even better)
-    I will come back to this later to play around with it.
  */
     const window = zebar?.currentWidget()?.tauriWindow;
-    window.setEffects({ effects: [Effect.Blur] });
+    window.setEffects({ effects: [Effect.Acrylic] });
   });
 </script>
 
 <div
   class="h-bar text-zb-text text-zb-size font-base transition-colors bg-gradient-to-t {glazewm
     ?.currentMonitor.hasFocus
-    ? 'from-gray-500/85'
-    : 'from-zb-base/85'} to-zb-base/0"
+    ? 'from-gray-400/40'
+    : 'from-zb-base/40'} to-zb-base/0"
 >
   <div class="my-zby h-full grid grid-cols-[1fr_auto_1fr] items-center">
     <Group
       leftCurve={false}
-      class="justify-self-start h-full px-3 {isOnPrimaryMonitor(glazewm)
+      class="justify-self-start h-full px-4 {isOnPrimaryMonitor(glazewm)
         ? 'pl-zlby'
         : ''}"
     >
@@ -97,12 +96,12 @@
       <Group rightCurve={false} class="justify-self-end pl-3">
         <Workspaces glazewm={glazewm!} />
       </Group>
-      <Group leftCurve={false} class="pr-3">
+      <Group leftCurve={false} class="pr-4">
         <ProcessIcons glazewm={glazewm!} />
       </Group>
     </div>
     <Group
-      class="justify-self-end px-3 {isOnPrimaryMonitor(glazewm)
+      class="justify-self-end px-4 {isOnPrimaryMonitor(glazewm)
         ? 'pr-zrby'
         : ''}"
     >

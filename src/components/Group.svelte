@@ -29,7 +29,7 @@
       class="absolute bottom-0 -left-[calc(var(--radius)*2)] h-radius w-[calc(var(--radius)*2)] rounded-br-base bg-transparent shadow-inverted-l"
     ></div>
   {/if}
-  <div class="overflow-hidden">{@render children()}</div>
+  <div class="overflow-hidden z-10">{@render children()}</div>
   {#if rightCurve}
     <div
       class="absolute bottom-0 -right-[calc(var(--radius)*2)] h-radius w-[calc(var(--radius)*2)] rounded-bl-base bg-transparent shadow-inverted-r"
