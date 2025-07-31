@@ -10,6 +10,24 @@
   import Button from "./Button.svelte";
   import Meter from "./Meter.svelte";
   import { isOnPrimaryMonitor } from "../utils/glazeWmUtils";
+  import MemoryStick from "@lucide/svelte/icons/memory-stick";
+  import Cpu from "@lucide/svelte/icons/cpu";
+  import BatteryCharging from "@lucide/svelte/icons/battery-charging";
+  import BatteryWarning from "@lucide/svelte/icons/battery-warning";
+  import BatteryLow from "@lucide/svelte/icons/battery-low";
+  import BatteryMedium from "@lucide/svelte/icons/battery-medium";
+  import BatteryFull from "@lucide/svelte/icons/battery-full";
+  import Battery from "@lucide/svelte/icons/battery";
+  import EthernetPort from "@lucide/svelte/icons/ethernet-port";
+  import Wifi from "@lucide/svelte/icons/wifi";
+  import WifiHigh from "@lucide/svelte/icons/wifi-high";
+  import WifiLow from "@lucide/svelte/icons/wifi-low";
+  import WifiZero from "@lucide/svelte/icons/wifi-zero";
+  import WifiOff from "@lucide/svelte/icons/wifi-off";
+  import ChevronsDown from "@lucide/svelte/icons/chevrons-down";
+  import ChevronsUp from "@lucide/svelte/icons/chevrons-up";
+
+  import IconHeartFilled from "@tabler/icons-svelte/icons/heart-filled";
 
   type LeftGroupProps = {
     battery: BatteryOutput;
@@ -33,52 +51,59 @@
 </script>
 
 <div class="flex flex-row gap-3 items-center">
-  <Button class="text-zb-icon" iconClass="heart-filled" />
-  <Meter
-    class="stroke-zb-memory h-8"
-    percent={Math.round(memory?.usage ?? 0)}
-  >
-    <i class="ti ti-ruler-2"></i>
+  <Button class="text-zb-icon"><IconHeartFilled class="text-zb-icon" /></Button>
+  <Meter class="stroke-zb-memory h-8" percent={Math.round(memory?.usage ?? 0)}>
+    <MemoryStick />
   </Meter>
   <Meter class="stroke-zb-cpu h-8" percent={Math.round(cpu?.usage ?? 0)}>
-    <i class="ti ti-cpu"></i>
+    <Cpu />
   </Meter>
   {#if battery?.state}
     <Meter
       class="stroke-zb-battery-good h-8"
       percent={Math.round(battery?.chargePercent ?? 100)}
     >
-      <i class="ti ti-bolt"></i>
+      {#if battery?.state === "charging"}
+        <BatteryCharging />
+      {:else if battery?.chargePercent! < 20}
+        <BatteryWarning />
+      {:else if battery?.chargePercent! < 50}
+        <BatteryLow />
+      {:else if battery?.chargePercent! < 80}
+        <BatteryMedium />
+      {:else if battery?.chargePercent! <= 100}
+        <BatteryFull />
+      {:else}
+        <Battery />
+      {/if}
     </Meter>
   {/if}
   {#if isOnPrimaryMonitor(glazewm)}
-    <div class="flex flex-row items-center gap-1">
+    <div class="flex flex-row pl-2 items-center gap-1">
       {#if network?.defaultInterface?.type === "ethernet"}
-        <i class="ti ti-network"></i>
+        <EthernetPort />
       {:else if network?.defaultInterface!.type === "wifi"}
         {#if network.defaultGateway!.signalStrength! >= 75}
-          <i class="ti ti-wifi"></i>
+          <Wifi />
         {:else if network.defaultGateway!.signalStrength! >= 50}
-          <i class="ti ti-wifi-2"></i>
+          <WifiHigh />
         {:else if network.defaultGateway!.signalStrength! >= 25}
-          <i class="ti ti-wifi-1"></i>
+          <WifiLow />
         {:else}
-          <i class="ti ti-wifi-off"></i>
+          <WifiZero />
         {/if}
         {network.defaultGateway?.ssid}
       {:else}
-        <i class="ti ti-wifi-off"></i>
+        <WifiOff />
       {/if}
     </div>
     {#if network?.traffic}
       <div class="flex flex-row items-center gap-2 font-mono">
         {#if network.traffic.received}
           <div class="flex flex-row items-center">
-            <i class="ti ti-arrow-down"></i>
+            <ChevronsDown />
             <div class="flex flex-row items-center gap-1">
-              <span
-                class="inline-block text-right align-middle min-w-12"
-              >
+              <span class="inline-block text-right align-middle min-w-12">
                 {formatNetworkValue(network.traffic.received.iecValue)}
               </span>
               <span class="inline-block align-middle min-w-7">
@@ -89,11 +114,9 @@
         {/if}
         {#if network.traffic.transmitted}
           <div class="flex flex-row items-center">
-            <i class="ti ti-arrow-up"></i>
+            <ChevronsUp />
             <div class="flex flex-row items-center gap-1">
-              <span
-                class="inline-block text-right align-middle min-w-12"
-              >
+              <span class="inline-block text-right align-middle min-w-12">
                 {formatNetworkValue(network.traffic.transmitted.iecValue)}
               </span>
               <span class="inline-block align-middle min-w-7">
