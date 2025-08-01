@@ -39,7 +39,7 @@
           "dockToEdge": {
             "enabled": true,
             "edge": "bottom",
-            "windowMargin": "10px"
+            "windowMargin": "0px"
           }
         }
       ]

@@ -72,12 +72,11 @@
 </script>
 
 <div
-  class="h-bar text-zb-text text-zb-size font-base transition-colors bg-gradient-to-t {glazewm
-    ?.currentMonitor.hasFocus
-    ? 'from-gray-400/40'
-    : 'from-zb-base/40'} to-zb-base/0"
+  class="relative h-bar text-zb-text text-zb-size font-base bg-opacity-0"
 >
-  <div class="my-zby h-full grid grid-cols-[1fr_auto_1fr] items-center">
+  <div class="absolute inset-0 bg-gradient-to-t from-gray-400/40 to-zb-base/0 {!glazewm?.currentMonitor.hasFocus ? 'opacity-0' : ''}"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-zb-base/50 to-zb-base/0 {glazewm?.currentMonitor.hasFocus ? 'opacity-0' : ''}"></div>
+  <div class="relative z-10 my-zby h-full grid grid-cols-[1fr_auto_1fr] items-center">
     <Group
       leftCurve={false}
       class="justify-self-start h-full px-4 {isOnPrimaryMonitor(glazewm)
