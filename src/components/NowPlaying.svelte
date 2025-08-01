@@ -49,7 +49,7 @@
       </Meter>
       <div class="relative flex items-center justify-center ml-2 min-w-24 max-w-md">
         <span
-          class="transition duration-300 ease-in-out group-hover:translate-y-full group-hover:opacity-0"
+          class="transition truncate duration-300 ease-in-out group-hover:translate-y-full group-hover:opacity-0"
         >
           <p class="truncate">
             {media.currentSession.title}
