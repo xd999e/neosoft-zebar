@@ -29,6 +29,7 @@
   import ChevronsUp from "@lucide/svelte/icons/chevrons-up";
 
   import IconHeartFilled from "@tabler/icons-svelte/icons/heart-filled";
+  import Test from "./Test.svelte";
 
   type LeftGroupProps = {
     battery: BatteryOutput;
@@ -50,29 +51,6 @@
     }
   }
 
-  import { RemoteState } from "$lib/remote_state.svelte";
-  import { onDestroy, onMount } from "svelte";
-
-  type Nested = {
-    name: string;
-    nested: {
-      name: string;
-      counter: number;
-    };
-  };
-
-  let counter = RemoteState<Nested>(
-    "test",
-    {
-      name: "Counter",
-      nested: {
-        name: "Nested Counter",
-        counter: 0
-      }
-    },
-    onMount,
-    onDestroy
-  );
 </script>
 
 <div class="flex flex-row gap-3 items-center">
@@ -153,45 +131,5 @@
       </div>
     {/if}
   {/if}
-  <!-- <Button
-    class="rounded-full bg-zb-muted"
-    callback={() => {
-      startWidget("test", {
-        anchor: "bottom_left",
-        offsetX: "250px",
-        offsetY: "-50px",
-        width: "400px",
-        height: "300px",
-        dockToEdge: {
-          edge: "top",
-          enabled: false,
-          windowMargin: "40px"
-        },
-        monitorSelection: { type: "primary" }
-      });
-    }}
-  >
-    Test
-  </Button>
-  <Button
-    class="text-zb-icon"
-    callback={() => {
-      counter.value.nested.counter++;
-    }}
-  >
-    <ChevronsUp />
-    {counter.value.nested.counter}
-  </Button>
-  <Button
-    class="text-zb-icon"
-    callback={() => {
-      counter.value.nested.counter--;
-    }}
-  >
-    <ChevronsDown />
-    {counter.value.nested.counter}
-  </Button>
-  <div class="text-zb-text">
-    {JSON.stringify(counter.value, null, 2)}
-  </div> -->
+  <!-- <Test /> -->
 </div>

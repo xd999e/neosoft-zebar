@@ -9,7 +9,7 @@
 </script>
 
 <button
-  class="flex bg-blend-30 border border-zb-border rounded-base shadow-button hover:border-blend-40 active:border-blend-70 p-1 {rest.class}"
+  class="flex items-center justify-center bg-blend-30 border border-zb-border rounded-base shadow-button hover:border-blend-40 active:border-blend-70 p-1 {rest.class}"
   onclick={callback}
   aria-label={label}
 >

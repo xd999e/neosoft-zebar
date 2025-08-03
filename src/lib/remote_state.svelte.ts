@@ -2,7 +2,7 @@ import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
 import type { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 
 export function RemoteState<T>(
-  name: string,
+  stateIdentifier: string,
   initialValue: T,
   onMount: (f: () => void) => void,
   onDestroy: (f: () => void) => void
@@ -13,7 +13,7 @@ export function RemoteState<T>(
   onMount(() => {
     currentWindow = getCurrentWebviewWindow();
     const unlistenPromise = currentWindow.listen(
-      `remote-state:${name}`,
+      `remote-state:${stateIdentifier}`,
       (event) => {
         const data = event.payload as { value: T };
         // console.log(`Remote state update for ${name}:`, data);
@@ -46,7 +46,7 @@ export function RemoteState<T>(
       //   value
       // );
       target[prop] = value;
-      currentWindow?.emit(`remote-state:${name}`, { value: state.value });
+      currentWindow?.emit(`remote-state:${stateIdentifier}`, state);
       return true;
     }
   };
