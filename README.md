@@ -1,11 +1,13 @@
 The original repo was archived so I guess I maintain this fork now.
 
-This fork has some custom changes for my taste. It has better multi-monitor support (with numbers instead of circles for workspaces and current monitor highlighting), added media controls and Tx/Rx info.
-This is what it looks like:
-<img width="3839" height="84" alt="image" src="https://github.com/user-attachments/assets/a30ef245-ac6a-4c31-90a4-9ee69e091c18" />
+This fork has some custom changes for my taste. This is what it looks like at the moment:
+<img width="3840" height="80" alt="image" src="https://github.com/user-attachments/assets/54a0e164-9e0b-407c-bad8-21e5ce6de20b" />
 
-You're welcome to use it (or the original, it's also really good).
 
+This project would not have been possible without the [original](https://github.com/adriankarlen/neobrutal-zebar), please give it a star!
+
+---
+old readme (im too lazy to update it):
 
 # 🟦 Neobrutal [Zebar](https://github.com/glzr-io/zebar)
 
