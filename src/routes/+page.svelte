@@ -14,7 +14,7 @@
 
   import { Effect } from "@tauri-apps/api/window";
 
-  import "../app.css";
+  import "$src/app.css";
   import Group from "../components/Group.svelte";
   import LeftGroup from "../components/LeftGroup.svelte";
   import RightGroup from "../components/RightGroup.svelte";
@@ -72,7 +72,7 @@
 </script>
 
 <div
-  class="relative h-bar text-zb-text text-zb-size font-base bg-opacity-0"
+  class="relative h-bar font-monst text-zb-text text-zb-size font-base bg-opacity-0"
 >
   <div class="absolute inset-0 bg-gradient-to-t from-gray-400/40 to-zb-base/0 {!glazewm?.currentMonitor.hasFocus ? 'opacity-0' : ''}"></div>
   <div class="absolute inset-0 bg-gradient-to-t from-zb-base/50 to-zb-base/0 {glazewm?.currentMonitor.hasFocus ? 'opacity-0' : ''}"></div>

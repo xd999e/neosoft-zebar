@@ -43,6 +43,19 @@
           }
         }
       ]
+    },
+    {
+      "name": "test",
+      "htmlPath": "./test.html",
+      "zOrder": "top_most",
+      "shownInTaskbar": true,
+      "focused": false,
+      "resizable": true,
+      "transparent": true,
+      "includeFiles": [
+        "**/**"
+      ],
+      "presets": []
     }
   ]
 }

@@ -9,6 +9,7 @@ export default {
         zb: {
           text: "hsl( var(--text) / <alpha-value> )",
           base: "hsl( var(--bg) / <alpha-value> )",
+          muted: "hsl( var(--muted) / <alpha-value> )",
           border: "hsl(var(--border) / <alpha-value> )",
           shadow: "hsl(var(--shadow) / <alpha-value> )",
           icon: "hsl(var(--icon) / <alpha-value> )",
@@ -61,7 +62,7 @@ export default {
         reverseBoxShadowY: "-var(--shadow-size-button)"
       },
       fontFamily: {
-        sans: ["Montserrat", ...defaultTheme.fontFamily.sans]
+        monst: ["Montserrat", ...defaultTheme.fontFamily.sans]
       },
       fontWeight: {
         base: "var(--font-weight)"

@@ -54,6 +54,7 @@
   --text: var(--tau-text);
   --accent: var(--tau-accent);
   --bg: var(--tau-overlay);
+  --muted: var(--tau-muted);
   --border: var(--tau-highlight-low);
   --shadow: var(--tau-highlight-low);
   --icon: var(--tau-love);

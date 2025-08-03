@@ -13,7 +13,7 @@
   const uniqueWindows = (windows: Window[]) => {
     const seen = new Set();
     return windows.filter((window) => {
-      const key = window.processName + window.className;
+      const key = window.processName + window.handle;
         if (seen.has(key)) return false;
         seen.add(key);
         return true;
