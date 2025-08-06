@@ -19,40 +19,14 @@
   import LeftGroup from "../components/LeftGroup.svelte";
   import RightGroup from "../components/RightGroup.svelte";
   import Workspaces from "../components/Workspaces.svelte";
-  import { isOnPrimaryMonitor } from "../utils/glazeWmUtils";
+  import { isOnPrimaryMonitor } from "$src/lib/utils/glazeWmUtils.svelte";
   import ProcessIcons from "../components/ProcessIcons.svelte";
+  import { initProviders, providers } from "$lib/providers.svelte";
 
-  let battery = $state<BatteryOutput | null>();
-  let cpu = $state<CpuOutput | null>();
-  let date = $state<DateOutput | null>();
-  let glazewm = $state<GlazeWmOutput | null>();
-  let memory = $state<MemoryOutput | null>();
-  let network = $state<NetworkOutput | null>();
-  let weather = $state<WeatherOutput | null>();
-  let media = $state<MediaOutput | null>();
+  let glazewm = $derived(providers.glazewm);
 
   onMount(() => {
-    const providers = zebar.createProviderGroup({
-      battery: { type: "battery" },
-      cpu: { type: "cpu", refreshInterval: 2000 },
-      date: { type: "date", formatting: "HH:mm" },
-      glazewm: { type: "glazewm" },
-      memory: { type: "memory" },
-      network: { type: "network", refreshInterval: 2000 },
-      weather: { type: "weather" },
-      media: { type: "media", refreshInterval: 1000 }
-    });
-
-    providers.onOutput(() => {
-      battery = providers.outputMap.battery;
-      cpu = providers.outputMap.cpu;
-      date = providers.outputMap.date;
-      glazewm = providers.outputMap.glazewm;
-      memory = providers.outputMap.memory;
-      network = providers.outputMap.network;
-      weather = providers.outputMap.weather;
-      media = providers.outputMap.media;
-    });
+    initProviders();   
 
     /*     
     Found a way to set window effects
@@ -79,37 +53,28 @@
   <div class="relative z-10 my-zby h-full grid grid-cols-[1fr_auto_1fr] items-center">
     <Group
       leftCurve={false}
-      class="justify-self-start h-full px-4 {isOnPrimaryMonitor(glazewm)
+      class="justify-self-start h-full px-4 {isOnPrimaryMonitor()
         ? 'pl-zlby'
         : ''}"
     >
       <LeftGroup
-        battery={battery!}
-        cpu={cpu!}
-        memory={memory!}
-        network={network!}
-        glazewm={glazewm!}
       />
     </Group>
     <div class="h-full w-full grid grid-cols-[1fr_auto_1fr] items-center">
       <Group rightCurve={false} class="justify-self-end pl-3">
-        <Workspaces glazewm={glazewm!} />
+        <Workspaces />
       </Group>
       <Group leftCurve={false} class="pr-4">
-        <ProcessIcons glazewm={glazewm!} />
+        <ProcessIcons />
       </Group>
     </div>
     <Group
       rightCurve={false}
-      class="justify-self-end px-4 {isOnPrimaryMonitor(glazewm)
+      class="justify-self-end px-4 {isOnPrimaryMonitor()
         ? 'pr-zrby'
         : ''}"
     >
       <RightGroup
-        date={date!}
-        glazewm={glazewm!}
-        weather={weather!}
-        media={media!}
       />
     </Group>
   </div>

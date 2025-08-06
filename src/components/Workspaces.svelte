@@ -6,11 +6,12 @@
   import ignoredApps from "$lib/ignored_apps.json";
 
   import Button from "./Button.svelte";
-  import { getWindows } from "../utils/glazeWmUtils";
+  import { getWindows } from "$src/lib/utils/glazeWmUtils.svelte";
   import ArrowRightLeft from "@lucide/svelte/icons/arrow-right-left";
   import Background from "@tabler/icons-svelte/icons/background";
   import type { Icon as IconType } from "@tabler/icons-svelte";
   import iconMap from "$lib/icon_loader";
+  import { providers } from "$src/lib/providers.svelte";
 
   const getProcessIcon = (child: Window): IconType => {
     const possibleAppNames = [
@@ -39,7 +40,7 @@
     // Fallback
     return Background;
   };
-  let { glazewm }: { glazewm: GlazeWmOutput } = $props();
+  let glazewm = $derived(providers.glazewm);
 
   const workspaceEquals = (ws1: Workspace, ws2: Workspace) => {
     return ws1.id === ws2.id;

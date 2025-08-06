@@ -2,13 +2,14 @@
   import type { Monitor, SplitContainer, Window } from "glazewm";
   import type { GlazeWmOutput } from "zebar";
   import type { Workspace } from "glazewm";
-  import { getWindows, isOnPrimaryMonitor } from "../utils/glazeWmUtils";
+  import { getWindows, isOnPrimaryMonitor } from "$src/lib/utils/glazeWmUtils.svelte";
+  import { providers } from "$src/lib/providers.svelte";
 
   type ProcessIconsProps = {
     glazewm: GlazeWmOutput;
   };
 
-  let { glazewm }: ProcessIconsProps = $props();
+  let glazewm = $derived(providers.glazewm);
 
   const uniqueWindows = (windows: Window[]) => {
     const seen = new Set();
@@ -24,7 +25,7 @@
     const currentMonitor = glazewm.currentMonitor;
     if (!currentMonitor) return 0;
 
-    if (isOnPrimaryMonitor(glazewm)) {
+    if (isOnPrimaryMonitor()) {
       return uniqueWindows(glazewm.allWindows).length;
     }
 

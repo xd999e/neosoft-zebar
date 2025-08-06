@@ -7,21 +7,19 @@
     MediaOutput
   } from "zebar";
   import NowPlaying from "./NowPlaying.svelte";
-  import { isOnPrimaryMonitor } from "../utils/glazeWmUtils";
+  import { isOnPrimaryMonitor } from "$src/lib/utils/glazeWmUtils.svelte";
   import PointFilled from "@tabler/icons-svelte/icons/point-filled";
+  import { providers } from "$src/lib/providers.svelte";
 
-  type RightGroupProps = {
-    date: DateOutput;
-    glazewm: GlazeWmOutput;
-    weather: WeatherOutput;
-    media: MediaOutput;
-  };
+  let glazewm = $derived(providers.glazewm);
+  let media = $derived(providers.media);
+  let date = $derived(providers.date);
+  let weather = $derived(providers.weather);
 
-  let { date, glazewm, weather, media }: RightGroupProps = $props();
 </script>
 
 <div class="flex flex-row gap-4 items-center">
-  <NowPlaying glazewm={glazewm!} media={media!} />
+  <NowPlaying />
   {#if weather}
     <div class="truncate flex items-center">
       <span class="text-2xl">
@@ -54,7 +52,7 @@
       {Math.round(weather.celsiusTemp)}°
     </div>
   {/if}
-  {#if !isOnPrimaryMonitor(glazewm)}
+  {#if !isOnPrimaryMonitor}
     <PointFilled />
     {date?.formatted}
   {/if}

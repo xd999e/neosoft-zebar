@@ -10,7 +10,7 @@
 
   import Button from "./Button.svelte";
   import Meter from "./Meter.svelte";
-  import { isOnPrimaryMonitor } from "../utils/glazeWmUtils";
+  import { isOnPrimaryMonitor } from "$src/lib/utils/glazeWmUtils.svelte";
   import MemoryStick from "@lucide/svelte/icons/memory-stick";
   import Cpu from "@lucide/svelte/icons/cpu";
   import BatteryCharging from "@lucide/svelte/icons/battery-charging";
@@ -30,16 +30,13 @@
 
   import IconHeartFilled from "@tabler/icons-svelte/icons/heart-filled";
   import Test from "./Test.svelte";
+  import { providers } from "$lib/providers.svelte";
 
-  type LeftGroupProps = {
-    battery: BatteryOutput;
-    cpu: CpuOutput;
-    memory: MemoryOutput;
-    network: NetworkOutput;
-    glazewm: GlazeWmOutput;
-  };
+  let memory = $derived(providers.memory);
+  let cpu = $derived(providers.cpu);
+  let battery = $derived(providers.battery);
+  let network = $derived(providers.network);
 
-  let { battery, cpu, memory, network, glazewm }: LeftGroupProps = $props();
 
   // Format network values with adaptive decimal places
   function formatNetworkValue(value: number): string {
@@ -81,7 +78,7 @@
       {/if}
     </Meter>
   {/if}
-  {#if isOnPrimaryMonitor(glazewm)}
+  {#if isOnPrimaryMonitor()}
     <div class="flex flex-row pl-2 items-center gap-1">
       {#if network?.defaultInterface?.type === "ethernet"}
         <EthernetPort />

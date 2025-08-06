@@ -1,15 +1,16 @@
 <script lang="ts">
   import type { GlazeWmOutput, MediaOutput } from "zebar";
-  import { isOnPrimaryMonitor } from "../utils/glazeWmUtils";
+  import { isOnPrimaryMonitor } from "$src/lib/utils/glazeWmUtils.svelte";
   import Meter from "./Meter.svelte";
   import Pause from "@lucide/svelte/icons/pause";
   import Play from "@lucide/svelte/icons/play";
   import SkipBack from "@lucide/svelte/icons/skip-back";
   import SkipForward from "@lucide/svelte/icons/skip-forward";
+  import { providers } from "$src/lib/providers.svelte";
 
-  let { glazewm, media }: { glazewm: GlazeWmOutput; media: MediaOutput } =
-    $props();
-
+  let glazewm = $derived(providers.glazewm);
+  let media = $derived(providers.media);
+  
   const secondsToHms = (d: number) => {
     d = Number(d);
     const h = Math.floor(d / 3600);
@@ -20,7 +21,7 @@
   };
 </script>
 
-{#if isOnPrimaryMonitor(glazewm) && media?.currentSession}
+{#if isOnPrimaryMonitor() && media?.currentSession}
   <div class="flex items-center gap-3">
     <button
       class="transition hover:text-zb-accent hover:scale-125 duration-300"
