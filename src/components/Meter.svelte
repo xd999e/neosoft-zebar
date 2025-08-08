@@ -20,10 +20,10 @@
 
 <div class="relative group {className}">
   <div
-    class="flex justify-center items-center aspect-square h-full {animate ? "transition-all duration-300 ease-in-out group-hover:translate-y-full group-hover:opacity-0" : ""}"
+    class="flex justify-center items-center aspect-square h-full {animate ? "transition-all group-hover:translate-y-full group-hover:opacity-0" : ""}"
   >
     <svg
-      class="h-full"
+      class="h-full transition-all"
       viewBox="0 0 {size} {size}"
       preserveAspectRatio="xMidYMid meet"
     >
@@ -38,7 +38,7 @@
       ></circle>
       <!-- Progress circle -->
       <circle
-        class={className}
+        class="transition-all {className}"
         stroke-width={strokeWidth}
         stroke-linecap="round"
         r={radius}
@@ -59,7 +59,7 @@
 
   {#if animate}
     <span
-      class="absolute inset-0 flex items-center justify-center text-md transform -translate-y-full opacity-0 transition-all duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100"
+      class="absolute inset-0 flex items-center justify-center text-md transform -translate-y-full opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
     >
       {normalizedPercent}%
     </span>

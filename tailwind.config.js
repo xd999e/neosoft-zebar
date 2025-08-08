@@ -61,6 +61,9 @@ export default {
         reverseBoxShadowX: "-var(--shadow-size-button)",
         reverseBoxShadowY: "-var(--shadow-size-button)"
       },
+      transitionDuration: {
+        DEFAULT: "var(--transition-duration)",
+      },
       fontFamily: {
         monst: ["Montserrat", ...defaultTheme.fontFamily.sans]
       },

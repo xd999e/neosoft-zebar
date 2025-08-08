@@ -24,6 +24,9 @@
   --shadow-size-bar: 0rem;
   --shadow-size-button: 0rem;
 
+  /* transition */
+  --transition-duration: 0.4s;
+
   /* colors */
   /* --text: var(--rp-text);
   --accent: var(--rp-accent);
@@ -80,8 +83,4 @@
 
 html {
   font-size: var(--font-size);
-}
-
-* {
-  transition: all 0.3s ease-out;
 }

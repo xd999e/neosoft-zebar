@@ -52,7 +52,7 @@
       {Math.round(weather.celsiusTemp)}°
     </div>
   {/if}
-  {#if !isOnPrimaryMonitor}
+  {#if !isOnPrimaryMonitor()}
     <PointFilled />
     {date?.formatted}
   {/if}

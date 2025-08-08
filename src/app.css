@@ -27,3 +27,8 @@
   stroke-width: 6%;
   stroke: currentColor;
 }
+
+* {
+  @apply transition-colors;
+  @apply transition-opacity;
+}

@@ -12,6 +12,9 @@
   import type { Icon as IconType } from "@tabler/icons-svelte";
   import iconMap from "$lib/icon_loader";
   import { providers } from "$src/lib/providers.svelte";
+  import SmoothDiv from "./SmoothDiv.svelte";
+  import { flip } from "svelte/animate";
+  import { fly } from "svelte/transition";
 
   const getProcessIcon = (child: Window): IconType => {
     const possibleAppNames = [
@@ -48,20 +51,28 @@
 </script>
 
 {#if glazewm}
-  <div class="flex flex-row gap-2 items-center">
-    {#each glazewm.allWorkspaces as workspace, i}
-      {#if glazewm.currentWorkspaces.some( (ws) => workspaceEquals(ws, workspace) )}
-        <Button
-          class="box-border mx-1 px-6 text-zb-ws-{i} {workspace.isDisplayed
-            ? `border-zb-ws-${i} hover:border-blend-80`
-            : ''}"
-          callback={() =>
-            glazewm!.runCommand(`focus --workspace ${workspace.name}`)}
+  <div class="flex gap-2 items-center">
+    <SmoothDiv outerClass="" innerClass="flex gap-2 items-center justify-end">
+      {#each glazewm.currentWorkspaces as workspace, i (workspace.id)}
+        {@const globalIndex = glazewm.allWorkspaces.findIndex((ws) =>
+          workspaceEquals(ws, workspace)
+        )}
+        <div
+          transition:fly={{ y: 20, duration: 400 }}
+          animate:flip={{ duration: 400 }}
         >
-          {workspace.name}
-        </Button>
-      {/if}
-    {/each}
+          <Button
+            class="box-border mx-1 px-6 text-zb-ws-{globalIndex} {workspace.isDisplayed
+              ? `border-zb-ws-${globalIndex} hover:border-blend-80`
+              : ''}"
+            callback={() =>
+              glazewm!.runCommand(`focus --workspace ${workspace.name}`)}
+          >
+            {workspace.name}
+          </Button>
+        </div>
+      {/each}
+    </SmoothDiv>
     <button
       aria-label="tiling-direction"
       class="flex items-center justify-center text-zb-tiling-direction"
@@ -96,23 +107,23 @@
         </button>
       </div>
     {/each}
-    <div class="flex items-center gap-1">
-      {#if glazewm.displayedWorkspace}
-        {#each getWindows(glazewm.displayedWorkspace) as child}
+    {#if glazewm.displayedWorkspace}
+      <SmoothDiv innerClass="flex items-center gap-1">
+        {#each getWindows(glazewm.displayedWorkspace) as child (child.id)}
           {@const icon = getProcessIcon(child as Window)}
-          {#if icon}
-            <span
-              class="flex items-center text-xl {child.hasFocus
-                ? 'text-zb-focused-process'
-                : 'text-zb-process'}"
-            >
-              <!-- svelte-ignore svelte_component_deprecated -->
-              <!-- actually stupid, svelte doesn't render correctly when doing `{icon}` -->
-              <svelte:component this={icon} />
-            </span>
-          {/if}
+          <span
+            transition:fly|global={{ y: 20, duration: 400 }}
+            animate:flip={{ duration: 400 }}
+            class="flex items-center text-xl {child.hasFocus
+              ? 'text-zb-focused-process'
+              : 'text-zb-process'}"
+          >
+            <!-- svelte-ignore svelte_component_deprecated -->
+            <!-- actually stupid, svelte doesn't render correctly when doing `{icon}` -->
+            <svelte:component this={icon} />
+          </span>
         {/each}
-      {/if}
-    </div>
+      </SmoothDiv>
+    {/if}
   </div>
 {/if}
