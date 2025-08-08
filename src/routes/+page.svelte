@@ -62,10 +62,10 @@
       <LeftGroup />
     </Group>
     <div class="h-full w-full grid grid-cols-[1fr_auto_1fr] items-center">
-      <Group rightCurve={false} outerClass="justify-self-end" innerClass="pl-3">
+      <Group rightCurve={false} outerClass="justify-self-end" innerClass="pl-1">
         <Workspaces />
       </Group>
-      <Group leftCurve={false} outerClass="pr-4">
+      <Group leftCurve={false} outerClass="px-2">
         <ProcessIcons />
       </Group>
     </div>

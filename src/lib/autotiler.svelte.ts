@@ -21,15 +21,21 @@ const focusedWindow: Window | null = $derived.by(() => {
   }
   return null;
 });
+const focusedWindowId = $derived(focusedWindow?.id || null);
 
 export function initializeAutotiler() {
   $effect(() => {
-    if (!currentMonitor || !focusedWindow) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    focusedWindowId; // Trigger effect when focusedWindowId changes (MUST BE FIRST!!!)
+    const monitor = untrack(() => currentMonitor);
+    const window = untrack(() => focusedWindow);
+
+    if (!monitor || !window) {
       return;
     }
 
-    const height = focusedWindow.height;
-    const width = focusedWindow.width;
+    const height = window.height;
+    const width = window.width;
 
     const aspectRatio = width / height;
     const glazewm = untrack(() => providers.glazewm);

@@ -48,8 +48,8 @@
 </script>
 
 {#if glazewm}
-  <div class="flex gap-2 items-center">
-    <SmoothDiv outerClass="" innerClass="flex gap-2 items-center justify-end">
+  <div class="flex items-center">
+    <SmoothDiv outerClass="" innerClass="flex items-center justify-end">
       {#each glazewm.currentWorkspaces as workspace, i (workspace.id)}
         {@const globalIndex = glazewm.allWorkspaces.findIndex((ws) =>
           workspaceEquals(ws, workspace)
@@ -57,6 +57,7 @@
         <div
           transition:fly={{ y: 20, duration: 400 }}
           animate:flip={{ duration: 400 }}
+          class="mx-1"
         >
           <Button
             class="box-border mx-1 px-6 text-zb-ws-{globalIndex} {workspace.isDisplayed
@@ -72,7 +73,7 @@
     </SmoothDiv>
     <button
       aria-label="tiling-direction"
-      class="flex items-center justify-center text-zb-tiling-direction"
+      class="flex items-center justify-center mx-1 text-zb-tiling-direction"
       onclick={() => glazewm!.runCommand("toggle-tiling-direction")}
     >
       <ArrowRightLeft
@@ -81,10 +82,12 @@
           : 'rotate-0'}"
       />
     </button>
-    {#each glazewm.bindingModes as bindingMode, i}
-      <div class="flex items-center">
+    <SmoothDiv innerClass="flex items-center">
+      {#each glazewm.bindingModes as bindingMode, i (bindingMode.name)}
         <button
-          class="pb-[4px]"
+          transition:fly={{ y: 20, duration: 400 }}
+          animate:flip={{ duration: 400 }}
+          class="mx-[0.5rem]"
           onclick={() => {
             switch (bindingMode.name.toLowerCase()) {
               case "pause":
@@ -102,16 +105,16 @@
         >
           {bindingMode.displayName ?? bindingMode.name}
         </button>
-      </div>
-    {/each}
+      {/each}
+    </SmoothDiv>
     {#if glazewm.displayedWorkspace}
-      <SmoothDiv innerClass="flex items-center gap-1">
+      <SmoothDiv innerClass="flex items-center h-full">
         {#each getWindows(glazewm.displayedWorkspace) as child (child.id)}
           {@const icon = getProcessIcon(child as Window)}
           <span
             transition:fly|global={{ y: 20, duration: 400 }}
             animate:flip={{ duration: 400 }}
-            class="flex items-center text-xl {child.hasFocus
+            class="flex items-center text-xl mx-1 {child.hasFocus
               ? 'text-zb-focused-process'
               : 'text-zb-process'}"
           >
