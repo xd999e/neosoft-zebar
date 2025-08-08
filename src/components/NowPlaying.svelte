@@ -1,14 +1,13 @@
 <script lang="ts">
-  import type { GlazeWmOutput, MediaOutput } from "zebar";
-  import { isOnPrimaryMonitor } from "$src/lib/utils/glazeWmUtils.svelte";
-  import Meter from "./Meter.svelte";
+  import { providers } from "$lib/providers.svelte";
+  import { isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
   import Pause from "@lucide/svelte/icons/pause";
   import Play from "@lucide/svelte/icons/play";
   import SkipBack from "@lucide/svelte/icons/skip-back";
   import SkipForward from "@lucide/svelte/icons/skip-forward";
-  import { providers } from "$src/lib/providers.svelte";
-  import SmoothDiv from "./SmoothDiv.svelte";
   import { fly } from "svelte/transition";
+  import Meter from "./Meter.svelte";
+  import SmoothDiv from "./SmoothDiv.svelte";
 
   let glazewm = $derived(providers.glazewm);
   let media = $derived(providers.media);

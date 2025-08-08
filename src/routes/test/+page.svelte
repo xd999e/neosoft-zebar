@@ -1,9 +1,8 @@
 <script lang="ts">
-  import "$src/app.css";
   import { RemoteState } from "$lib/remote_state.svelte";
   import { onDestroy, onMount } from "svelte";
   import { getCurrentWindow } from "@tauri-apps/api/window";
-  import Button from "$src/components/Button.svelte";
+  import Button from "$comp/Button.svelte";
 
   let counter = RemoteState("counter", 0, onMount, onDestroy);
   let enabled = RemoteState("enabled", true, onMount, onDestroy);

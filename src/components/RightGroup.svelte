@@ -1,15 +1,8 @@
 <script lang="ts">
-  import type {
-    DateOutput,
-    GlazeWmOutput,
-    NetworkOutput,
-    WeatherOutput,
-    MediaOutput
-  } from "zebar";
-  import NowPlaying from "./NowPlaying.svelte";
-  import { isOnPrimaryMonitor } from "$src/lib/utils/glazeWmUtils.svelte";
+  import { providers } from "$lib/providers.svelte";
+  import { isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
   import PointFilled from "@tabler/icons-svelte/icons/point-filled";
-  import { providers } from "$src/lib/providers.svelte";
+  import NowPlaying from "./NowPlaying.svelte";
 
   let glazewm = $derived(providers.glazewm);
   let media = $derived(providers.media);

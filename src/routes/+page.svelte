@@ -5,15 +5,16 @@
   import { Effect } from "@tauri-apps/api/window";
 
   import { initProviders, providers } from "$lib/providers.svelte";
-  import "$src/app.css";
-  import { isOnPrimaryMonitor } from "$src/lib/utils/glazeWmUtils.svelte";
+  import { isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
   import Group from "../components/Group.svelte";
   import LeftGroup from "../components/LeftGroup.svelte";
   import ProcessIcons from "../components/ProcessIcons.svelte";
   import RightGroup from "../components/RightGroup.svelte";
   import Workspaces from "../components/Workspaces.svelte";
+  import { initializeAutotiler } from "$lib/autotiler.svelte";
 
   let glazewm = $derived(providers.glazewm);
+  initializeAutotiler();
 
   onMount(() => {
     initProviders();

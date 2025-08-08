@@ -10,7 +10,7 @@
 
   import Button from "./Button.svelte";
   import Meter from "./Meter.svelte";
-  import { isOnPrimaryMonitor } from "$src/lib/utils/glazeWmUtils.svelte";
+  import { isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
   import MemoryStick from "@lucide/svelte/icons/memory-stick";
   import Cpu from "@lucide/svelte/icons/cpu";
   import BatteryCharging from "@lucide/svelte/icons/battery-charging";

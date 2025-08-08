@@ -1,20 +1,17 @@
 <script lang="ts">
-  import type { SplitContainer, Window } from "glazewm";
-  import type { GlazeWmOutput } from "zebar";
-  import type { Workspace } from "glazewm";
+  import type { Window, Workspace } from "glazewm";
 
+  import iconMap from "$lib/icon_loader";
   import ignoredApps from "$lib/ignored_apps.json";
-
-  import Button from "./Button.svelte";
-  import { getWindows } from "$src/lib/utils/glazeWmUtils.svelte";
+  import { providers } from "$lib/providers.svelte";
+  import { getWindows } from "$lib/utils/glaze_wm_utils.svelte";
   import ArrowRightLeft from "@lucide/svelte/icons/arrow-right-left";
   import Background from "@tabler/icons-svelte/icons/background";
   import type { Icon as IconType } from "@tabler/icons-svelte";
-  import iconMap from "$lib/icon_loader";
-  import { providers } from "$src/lib/providers.svelte";
-  import SmoothDiv from "./SmoothDiv.svelte";
   import { flip } from "svelte/animate";
   import { fly } from "svelte/transition";
+  import Button from "./Button.svelte";
+  import SmoothDiv from "./SmoothDiv.svelte";
 
   const getProcessIcon = (child: Window): IconType => {
     const possibleAppNames = [
@@ -79,7 +76,7 @@
       onclick={() => glazewm!.runCommand("toggle-tiling-direction")}
     >
       <ArrowRightLeft
-        class="transform {glazewm?.tilingDirection === 'vertical'
+        class="transition transform {glazewm?.tilingDirection === 'vertical'
           ? 'rotate-90'
           : 'rotate-0'}"
       />

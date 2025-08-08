@@ -1,9 +1,8 @@
 <script lang="ts">
-  import type { Monitor, SplitContainer, Window } from "glazewm";
+  import { providers } from "$lib/providers.svelte";
+  import { getWindows, isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
+  import type { Window } from "glazewm";
   import type { GlazeWmOutput } from "zebar";
-  import type { Workspace } from "glazewm";
-  import { getWindows, isOnPrimaryMonitor } from "$src/lib/utils/glazeWmUtils.svelte";
-  import { providers } from "$src/lib/providers.svelte";
 
   type ProcessIconsProps = {
     glazewm: GlazeWmOutput;

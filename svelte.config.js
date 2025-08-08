@@ -12,7 +12,7 @@ const config = {
       strict: true,
     }),
     alias: {
-      "$src": "src"
+      "$comp": "src/components",
     }
   }
 };
