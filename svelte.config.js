@@ -13,6 +13,7 @@ const config = {
     }),
     alias: {
       "$comp": "src/components",
+      "$static": "static"
     }
   }
 };

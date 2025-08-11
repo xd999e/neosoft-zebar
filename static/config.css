@@ -2,7 +2,7 @@
 
 :root {
   /* sizes */
-  --height: 40px;
+  --height: 100%;
   --bar-margin-y: 0rem;
   --bar-margin-x: 2rem;
   --process-icon-width: 50px;

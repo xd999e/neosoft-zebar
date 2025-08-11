@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "ATTACHMENT_DIRECTION": {
+            "enum": [
+                "top",
+                "bottom",
+                "floating"
+            ],
+            "type": "string"
+        }
+    },
+    "properties": {
+        "direction": {
+            "$ref": "#/definitions/ATTACHMENT_DIRECTION"
+        }
+    },
+    "type": "object"
+}

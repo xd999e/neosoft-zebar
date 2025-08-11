@@ -36,45 +36,51 @@
   });
 </script>
 
-<div
-  class="relative h-bar font-monst text-zb-text text-zb-size font-base bg-opacity-0"
->
+<div class="flex items-center h-full w-full">
   <div
-    class="absolute inset-0 bg-gradient-to-t from-gray-400/40 to-zb-base/0 {!glazewm
-      ?.currentMonitor.hasFocus
-      ? 'opacity-0'
-      : ''}"
-  ></div>
-  <div
-    class="absolute inset-0 bg-gradient-to-t from-zb-base/50 to-zb-base/0 {glazewm
-      ?.currentMonitor.hasFocus
-      ? 'opacity-0'
-      : ''}"
-  ></div>
-  <div
-    class="relative z-10 my-zby h-full grid grid-cols-[1fr_auto_1fr] items-center"
+    class="relative flex items-center h-bar w-full font-monst text-zb-text text-zb-size font-base bg-opacity-0"
   >
-    <Group
-      leftCurve={false}
-      outerClass="justify-self-start h-full"
-      innerClass="px-4 {isOnPrimaryMonitor() ? 'pl-zlby' : ''}"
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-gray-400/40 to-zb-base/0 {!glazewm
+        ?.currentMonitor.hasFocus
+        ? 'opacity-0'
+        : ''}"
+    ></div>
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-zb-base/50 to-zb-base/0 {glazewm
+        ?.currentMonitor.hasFocus
+        ? 'opacity-0'
+        : ''}"
+    ></div>
+    <div
+      class="relative z-10 my-zby h-full w-full grid grid-cols-[1fr_auto_1fr] items-center"
     >
-      <LeftGroup />
-    </Group>
-    <div class="h-full w-full grid grid-cols-[1fr_auto_1fr] items-center">
-      <Group rightCurve={false} outerClass="justify-self-end" innerClass="pl-1">
-        <Workspaces />
+      <Group
+        leftCurve={false}
+        outerClass="justify-self-start h-full"
+        innerClass="px-4 {isOnPrimaryMonitor() ? 'pl-zlby' : ''}"
+      >
+        <LeftGroup />
       </Group>
-      <Group leftCurve={false} outerClass="px-2">
-        <ProcessIcons />
+      <div class="h-full w-full grid grid-cols-[1fr_auto_1fr] items-center">
+        <Group
+          rightCurve={false}
+          outerClass="justify-self-end"
+          innerClass="pl-1"
+        >
+          <Workspaces />
+        </Group>
+        <Group leftCurve={false} outerClass="px-2">
+          <ProcessIcons />
+        </Group>
+      </div>
+      <Group
+        rightCurve={false}
+        outerClass="justify-self-end"
+        innerClass="px-4 {isOnPrimaryMonitor() ? 'pr-zrby' : ''}"
+      >
+        <RightGroup />
       </Group>
     </div>
-    <Group
-      rightCurve={false}
-      outerClass="justify-self-end"
-      innerClass="px-4 {isOnPrimaryMonitor() ? 'pr-zrby' : ''}"
-    >
-      <RightGroup />
-    </Group>
   </div>
 </div>

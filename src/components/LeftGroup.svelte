@@ -1,6 +1,6 @@
 <script lang="ts">
   import {
-    startWidget,
+    // startWidget,
     type BatteryOutput,
     type CpuOutput,
     type GlazeWmOutput,
@@ -29,14 +29,14 @@
   import ChevronsUp from "@lucide/svelte/icons/chevrons-up";
 
   import IconHeartFilled from "@tabler/icons-svelte/icons/heart-filled";
-  import Test from "./Test.svelte";
+  // import Test from "./Test.svelte";
   import { providers } from "$lib/providers.svelte";
+  import { config } from "$lib/config_loader.svelte";
 
   let memory = $derived(providers.memory);
   let cpu = $derived(providers.cpu);
   let battery = $derived(providers.battery);
   let network = $derived(providers.network);
-
 
   // Format network values with adaptive decimal places
   function formatNetworkValue(value: number): string {
@@ -47,7 +47,6 @@
       return expanded.slice(0, 5);
     }
   }
-
 </script>
 
 <div class="flex flex-row gap-3 items-center">
@@ -129,4 +128,5 @@
     {/if}
   {/if}
   <!-- <Test /> -->
+  config: {JSON.stringify(config)}
 </div>

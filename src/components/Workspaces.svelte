@@ -49,8 +49,11 @@
 
 {#if glazewm}
   <div class="flex items-center">
-    <SmoothDiv outerClass="" innerClass="flex items-center justify-end">
-      {#each glazewm.currentWorkspaces as workspace, i (workspace.id)}
+    <!-- We're using flex-row-reverse to make the flip animation more correct,
+    since this div is attached to the right (otherwise the animation would treat it as entering from the left).
+    To cancel out the effect, we're using a reverse order for the children. -->
+    <SmoothDiv outerClass="" innerClass="flex flex-row-reverse items-center">
+      {#each glazewm.currentWorkspaces.slice().reverse() as workspace, i (workspace.id)}
         {@const globalIndex = glazewm.allWorkspaces.findIndex((ws) =>
           workspaceEquals(ws, workspace)
         )}
@@ -114,7 +117,7 @@
           <span
             transition:fly|global={{ y: 20, duration: 400 }}
             animate:flip={{ duration: 400 }}
-            class="flex items-center text-xl mx-1 {child.hasFocus
+            class="flex items-center text-xl ml-1 {child.hasFocus
               ? 'text-zb-focused-process'
               : 'text-zb-process'}"
           >
