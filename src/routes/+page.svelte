@@ -12,7 +12,7 @@
   import RightGroup from "../components/RightGroup.svelte";
   import Workspaces from "../components/Workspaces.svelte";
   import { initializeAutotiler } from "$lib/autotiler.svelte";
-  import { GRADIENT_DIRECTION, config } from "$lib/config_loader.svelte";
+  import { GRADIENT_DIRECTION, config } from "$lib/config.svelte";
 
   let glazewm = $derived(providers.glazewm);
   initializeAutotiler();
@@ -42,57 +42,59 @@
     class="relative flex items-center h-bar w-full font-monst text-zb-text text-zb-size font-base bg-opacity-0"
   >
     {#if config.gradient !== GRADIENT_DIRECTION.SOLID && config.gradient !== GRADIENT_DIRECTION.DISABLED}
-    <div
-      class="absolute inset-0 {config.gradient === GRADIENT_DIRECTION.BOTTOM
-        ? 'bg-gradient-to-t'
-        : config.gradient === GRADIENT_DIRECTION.TOP
-          ? 'bg-gradient-to-b'
-          : ''} from-gray-400/40 to-zb-base/0 {!glazewm?.currentMonitor.hasFocus
-        ? 'opacity-0'
-        : ''}"
-    ></div>
-    <div
-      class="absolute inset-0 {config.gradient === GRADIENT_DIRECTION.BOTTOM
-        ? 'bg-gradient-to-t'
-        : config.gradient === GRADIENT_DIRECTION.TOP
-          ? 'bg-gradient-to-b'
-          : ''} from-zb-base/50 to-zb-base/0 {glazewm
-        ?.currentMonitor.hasFocus
-        ? 'opacity-0'
-        : ''}"
-    ></div>
+      <div
+        class="absolute inset-0 {config.gradient === GRADIENT_DIRECTION.BOTTOM
+          ? 'bg-gradient-to-t'
+          : config.gradient === GRADIENT_DIRECTION.TOP
+            ? 'bg-gradient-to-b'
+            : ''} from-gray-400/40 to-zb-base/0 {!glazewm?.currentMonitor
+          .hasFocus
+          ? 'opacity-0'
+          : ''}"
+      ></div>
+      <div
+        class="absolute inset-0 {config.gradient === GRADIENT_DIRECTION.BOTTOM
+          ? 'bg-gradient-to-t'
+          : config.gradient === GRADIENT_DIRECTION.TOP
+            ? 'bg-gradient-to-b'
+            : ''} from-zb-base/50 to-zb-base/0 {glazewm?.currentMonitor.hasFocus
+          ? 'opacity-0'
+          : ''}"
+      ></div>
     {:else if config.gradient === GRADIENT_DIRECTION.SOLID}
       <div
-        class="absolute inset-0 bg-gray-400/40 {!glazewm
-          ?.currentMonitor.hasFocus
+        class="absolute inset-0 bg-gray-400/40 {!glazewm?.currentMonitor
+          .hasFocus
           ? 'opacity-0'
           : ''}"
       ></div>
     {/if}
     <div
-      class="relative z-10 my-zby h-full w-full grid grid-cols-[1fr_auto_1fr] items-center"
+      class="relative z-10 my-zby mx-zbx h-full w-full grid grid-cols-[1fr_auto_1fr] items-center"
     >
       <Group
-        leftCurve={false}
+        leftCurve={!config.attach_sides}
         outerClass="justify-self-start h-full"
         innerClass="px-4 {isOnPrimaryMonitor() ? 'pl-zlby' : ''}"
       >
         <LeftGroup />
       </Group>
-      <div class="h-full w-full grid grid-cols-[1fr_auto_1fr] items-center">
+      <div class="h-full w-full {config.taskbar_integration.enabled ? 'grid grid-cols-[1fr_auto_1fr]' : 'flex justify-center'} items-center">
         <Group
-          rightCurve={false}
+          rightCurve={!config.taskbar_integration.enabled}
           outerClass="justify-self-end"
-          innerClass="pl-1"
+          innerClass={config.taskbar_integration.enabled ? 'pl-3' : 'px-3'}
         >
           <Workspaces />
         </Group>
-        <Group leftCurve={false} outerClass="px-2">
-          <ProcessIcons />
-        </Group>
+        {#if config.taskbar_integration.enabled}
+          <Group leftCurve={false} outerClass="px-2">
+            <ProcessIcons />
+          </Group>
+        {/if}
       </div>
       <Group
-        rightCurve={false}
+        rightCurve={!config.attach_sides}
         outerClass="justify-self-end"
         innerClass="px-4 {isOnPrimaryMonitor() ? 'pr-zrby' : ''}"
       >

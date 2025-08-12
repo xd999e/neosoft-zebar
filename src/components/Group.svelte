@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import SmoothDiv from "./SmoothDiv.svelte";
-  import { config, ATTACHMENT_DIRECTION } from "$lib/config_loader.svelte";
+  import { config, ATTACHMENT_DIRECTION } from "$lib/config.svelte";
   type Props = {
     children: Snippet;
     outerClass?: string;

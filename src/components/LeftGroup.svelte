@@ -31,7 +31,7 @@
   import IconHeartFilled from "@tabler/icons-svelte/icons/heart-filled";
   // import Test from "./Test.svelte";
   import { providers } from "$lib/providers.svelte";
-  import { config } from "$lib/config_loader.svelte";
+  import { config } from "$lib/config.svelte";
 
   let memory = $derived(providers.memory);
   let cpu = $derived(providers.cpu);

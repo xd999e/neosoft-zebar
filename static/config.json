@@ -1,5 +1,10 @@
 {
     "$schema": "./schema.json",
     "direction": "bottom",
-    "gradient": "bottom"
+    "gradient": "bottom",
+    "attach_sides": true,
+    "taskbar_integration": {
+        "enabled": true,
+        "extra_icons": 0
+    }
 }

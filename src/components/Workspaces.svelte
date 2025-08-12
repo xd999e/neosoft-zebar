@@ -60,10 +60,10 @@
         <div
           transition:fly={{ y: 20, duration: 400 }}
           animate:flip={{ duration: 400 }}
-          class="mx-1"
+          class="mr-2"
         >
           <Button
-            class="box-border mx-1 px-6 text-zb-ws-{globalIndex} {workspace.isDisplayed
+            class="box-border px-6 text-zb-ws-{globalIndex} {workspace.isDisplayed
               ? `border-zb-ws-${globalIndex} hover:border-blend-80`
               : ''}"
             callback={() =>

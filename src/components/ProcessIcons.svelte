@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { config } from "$lib/config.svelte";
   import { providers } from "$lib/providers.svelte";
   import { getWindows, isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
   import type { Window } from "glazewm";
@@ -39,6 +40,6 @@
 
 <div class="flex items-center">
   {#if glazewm}
-    <div class="flex items-center" style="width: calc({getWindowCount(glazewm)} * var(--process-icon-width));"></div>
+    <div class="flex items-center" style="width: calc({config.taskbar_integration.extra_icons + getWindowCount(glazewm)} * var(--process-icon-width));"></div>
   {/if}
 </div>

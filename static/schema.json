@@ -17,16 +17,37 @@
                 "disabled"
             ],
             "type": "string"
+        },
+        "TaskbarIntegration": {
+            "properties": {
+                "enabled": {
+                    "description": "Whether to integrate with the windows taskbar.",
+                    "type": "boolean"
+                },
+                "extra_icons": {
+                    "description": "The number of additional icons that appear in the taskbar (like windows logo or search).",
+                    "type": "number"
+                }
+            },
+            "type": "object"
         }
     },
     "properties": {
+        "attach_sides": {
+            "description": "Whether to attach the left and right sides of the widgets or to use smooth corners.\n\nTo see the full corners, you must have some margin (`--bar-margin-x` in `config.css`)",
+            "type": "boolean"
+        },
         "direction": {
             "$ref": "#/definitions/ATTACHMENT_DIRECTION",
-            "description": "The visual direction of the widget.\n\ntop- The top of the widget has inverted corner radius,\nand the bottom has normal corner radius.\n\nbottom- The bottom of the widget has inverted corner radius,\nand the top has normal corner radius.\n\nfloating- All corners of the widget have normal corner radius."
+            "description": "The visual direction of the widget.\n\n`top`- The top of the widget has inverted corner radius, and the bottom has normal corner radius.\n\n`bottom`- The bottom of the widget has inverted corner radius, and the top has normal corner radius.\n\n`floating`- All corners of the widget have normal corner radius."
         },
         "gradient": {
             "$ref": "#/definitions/GRADIENT_DIRECTION",
-            "description": "The direction of the background gradient.\n\ntop- From top to transparent bottom.\n\nbottom- From bottom to transparent top.\n\nsolid- Solid color background.\n\ndisabled- Background color is disabled."
+            "description": "The direction of the background gradient.\n\n`top`- From top to transparent bottom.\n\n`bottom`- From bottom to transparent top.\n\n`solid`- Solid color background.\n\n`disabled`- Background color is disabled."
+        },
+        "taskbar_integration": {
+            "$ref": "#/definitions/TaskbarIntegration",
+            "description": "Whether to integrate with the windows taskbar.\n\nRight now, this feature only adds an area at the center of the widget that contains the window icons. Please see README for more information."
         }
     },
     "type": "object"
