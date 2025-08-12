@@ -60,7 +60,8 @@
   <div
     class="overflow-hidden z-10 {curve(
       leftCurve,
-      rightCurve
+      rightCurve,
+      config.direction
     )} py-1 {innerClass}"
   >
     {@render children()}

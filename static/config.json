@@ -1,4 +1,5 @@
 {
     "$schema": "./schema.json",
-    "direction": "bottom"
+    "direction": "bottom",
+    "gradient": "bottom"
 }

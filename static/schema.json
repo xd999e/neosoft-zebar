@@ -8,12 +8,27 @@
                 "floating"
             ],
             "type": "string"
+        },
+        "GRADIENT_DIRECTION": {
+            "enum": [
+                "top",
+                "bottom",
+                "solid",
+                "disabled"
+            ],
+            "type": "string"
         }
     },
     "properties": {
         "direction": {
-            "$ref": "#/definitions/ATTACHMENT_DIRECTION"
+            "$ref": "#/definitions/ATTACHMENT_DIRECTION",
+            "description": "The visual direction of the widget.\n\ntop- The top of the widget has inverted corner radius,\nand the bottom has normal corner radius.\n\nbottom- The bottom of the widget has inverted corner radius,\nand the top has normal corner radius.\n\nfloating- All corners of the widget have normal corner radius."
+        },
+        "gradient": {
+            "$ref": "#/definitions/GRADIENT_DIRECTION",
+            "description": "The direction of the background gradient.\n\ntop- From top to transparent bottom.\n\nbottom- From bottom to transparent top.\n\nsolid- Solid color background.\n\ndisabled- Background color is disabled."
         }
     },
     "type": "object"
 }
+

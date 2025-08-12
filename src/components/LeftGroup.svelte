@@ -128,5 +128,9 @@
     {/if}
   {/if}
   <!-- <Test /> -->
-  config: {JSON.stringify(config)}
+  <!-- <div class="max-w-72 text-sm max-h-4">
+    <div class="overflow-scroll">
+      config: {JSON.stringify(config)}
+    </div>
+  </div> -->
 </div>
