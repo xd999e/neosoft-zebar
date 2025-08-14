@@ -12,6 +12,8 @@
   import { fly } from "svelte/transition";
   import Button from "./Button.svelte";
   import SmoothDiv from "./SmoothDiv.svelte";
+  import { onMount } from "svelte";
+  import { config } from "$lib/config.svelte";
 
   const getProcessIcon = (child: Window): IconType => {
     const possibleAppNames = [
@@ -49,22 +51,19 @@
 
 {#if glazewm}
   <div class="flex items-center">
-    <!-- We're using flex-row-reverse to make the flip animation more correct,
-    since this div is attached to the right (otherwise the animation would treat it as entering from the left).
-    To cancel out the effect, we're using a reverse order for the children. -->
-    <SmoothDiv outerClass="" innerClass="flex flex-row-reverse items-center">
-      {#each glazewm.currentWorkspaces.slice().reverse() as workspace, i (workspace.id)}
+    <SmoothDiv outerClass="flex justify-end" innerClass="flex items-center">
+      {#each glazewm.currentWorkspaces as workspace, i (workspace.id)}
         {@const globalIndex = glazewm.allWorkspaces.findIndex((ws) =>
           workspaceEquals(ws, workspace)
         )}
         <div
-          transition:fly={{ y: 20, duration: 400 }}
-          animate:flip={{ duration: 400 }}
+          transition:fly={{ y: 20, duration: config.transition_duration }}
+          animate:flip={{ duration: config.transition_duration }}
           class="mr-2"
         >
           <Button
             class="box-border px-6 text-zb-ws-{globalIndex} {workspace.isDisplayed
-              ? `border-zb-ws-${globalIndex} hover:border-blend-80`
+              ? `border-zb-ws-${globalIndex} hover:border-blend-70 active:!border-blend-50`
               : ''}"
             callback={() =>
               glazewm!.runCommand(`focus --workspace ${workspace.name}`)}
@@ -85,11 +84,11 @@
           : 'rotate-0'}"
       />
     </button>
-    <SmoothDiv innerClass="flex items-center">
+    <SmoothDiv outerClass="flex justify-end" innerClass="flex items-center">
       {#each glazewm.bindingModes as bindingMode, i (bindingMode.name)}
         <button
-          transition:fly={{ y: 20, duration: 400 }}
-          animate:flip={{ duration: 400 }}
+          transition:fly={{ y: 20, duration: config.transition_duration }}
+          animate:flip={{ duration: config.transition_duration }}
           class="mx-[0.5rem]"
           onclick={() => {
             switch (bindingMode.name.toLowerCase()) {
@@ -111,12 +110,12 @@
       {/each}
     </SmoothDiv>
     {#if glazewm.displayedWorkspace}
-      <SmoothDiv innerClass="flex items-center h-full">
+      <SmoothDiv outerClass="flex justify-end" innerClass="flex items-center h-full">
         {#each getWindows(glazewm.displayedWorkspace) as child (child.id)}
           {@const icon = getProcessIcon(child as Window)}
           <span
-            transition:fly|global={{ y: 20, duration: 400 }}
-            animate:flip={{ duration: 400 }}
+            transition:fly|global={{ y: 20, duration: config.transition_duration }}
+            animate:flip={{ duration: config.transition_duration }}
             class="flex items-center text-xl ml-1 {child.hasFocus
               ? 'text-zb-focused-process'
               : 'text-zb-process'}"

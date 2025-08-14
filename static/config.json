@@ -6,5 +6,6 @@
     "taskbar_integration": {
         "enabled": true,
         "extra_icons": 0
-    }
+    },
+    "transition_duration": 400
 }

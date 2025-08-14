@@ -65,7 +65,7 @@ export default {
         DEFAULT: "var(--transition-duration)",
       },
       fontFamily: {
-        monst: ["Montserrat", ...defaultTheme.fontFamily.sans]
+        zb: ["var(--font-family)", ...defaultTheme.fontFamily.sans]
       },
       fontWeight: {
         base: "var(--font-weight)"

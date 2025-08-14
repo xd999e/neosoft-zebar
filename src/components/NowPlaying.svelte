@@ -8,6 +8,7 @@
   import { fly } from "svelte/transition";
   import Meter from "./Meter.svelte";
   import SmoothDiv from "./SmoothDiv.svelte";
+  import { config } from "$lib/config.svelte";
 
   let glazewm = $derived(providers.glazewm);
   let media = $derived(providers.media);
@@ -22,9 +23,9 @@
   };
 </script>
 
-<SmoothDiv>
+<SmoothDiv outerClass="flex justify-end">
   {#if isOnPrimaryMonitor() && media?.currentSession}
-    <div transition:fly={{ y: 20, duration: 400 }} class="flex items-center gap-3">
+    <div transition:fly={{ y: 20, duration: config.transition_duration }} class="flex items-center gap-3 mr-2">
       <button
         class="transition hover:text-zb-accent hover:scale-125"
         aria-label="Previous"
@@ -50,8 +51,9 @@
             <Play class="transition transform group-hover:scale-125" />
           {/if}
         </Meter>
-        <div
-          class="relative flex items-center justify-center ml-2 min-w-24 max-w-md"
+        <SmoothDiv
+          outerClass="ml-2"
+          innerClass="relative flex items-center justify-center min-w-24 max-w-md"
         >
           <span
             class="transition truncate group-hover:translate-y-full group-hover:opacity-0"
@@ -70,7 +72,7 @@
               media.currentSession.endTime
             )}
           </span>
-        </div>
+        </SmoothDiv>
       </button>
       <button
         class="transition hover:text-zb-accent hover:scale-125"

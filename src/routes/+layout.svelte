@@ -1,7 +1,7 @@
 <script lang="ts">
   import "../app.css";
   import { onMount } from "svelte";
-  import { loadConfig } from "$lib/config.svelte";
+  import { config, loadConfig } from "$lib/config.svelte";
 
   let { children } = $props();
 
@@ -10,4 +10,4 @@
   });
 </script>
 
-{@render children()}
+<div style="--transition-duration: {config.transition_duration}ms;">{@render children()}</div>

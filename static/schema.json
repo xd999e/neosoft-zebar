@@ -48,6 +48,10 @@
         "taskbar_integration": {
             "$ref": "#/definitions/TaskbarIntegration",
             "description": "Whether to integrate with the windows taskbar.\n\nRight now, this feature only adds an area at the center of the widget that contains the window icons. Please see README for more information."
+        },
+        "transition_duration": {
+            "description": "The duration of transitions in milliseconds.",
+            "type": "number"
         }
     },
     "type": "object"

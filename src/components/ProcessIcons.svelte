@@ -4,6 +4,7 @@
   import { getWindows, isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
   import type { Window } from "glazewm";
   import type { GlazeWmOutput } from "zebar";
+  import SmoothDiv from "./SmoothDiv.svelte";
 
   type ProcessIconsProps = {
     glazewm: GlazeWmOutput;
@@ -38,8 +39,8 @@
   };
 </script>
 
-<div class="flex items-center">
+<SmoothDiv>
   {#if glazewm}
     <div class="flex items-center" style="width: calc({config.taskbar_integration.extra_icons + getWindowCount(glazewm)} * var(--process-icon-width));"></div>
   {/if}
-</div>
+</SmoothDiv>

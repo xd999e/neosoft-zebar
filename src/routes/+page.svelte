@@ -39,7 +39,7 @@
 
 <div class="flex items-center h-full w-full">
   <div
-    class="relative flex items-center h-bar w-full font-monst text-zb-text text-zb-size font-base bg-opacity-0"
+    class="relative flex items-stretch h-bar w-full font-zb text-zb-text text-zb-size font-base bg-opacity-0"
   >
     {#if config.gradient !== GRADIENT_DIRECTION.SOLID && config.gradient !== GRADIENT_DIRECTION.DISABLED}
       <div
@@ -70,20 +70,26 @@
       ></div>
     {/if}
     <div
-      class="relative z-10 my-zby mx-zbx h-full w-full grid grid-cols-[1fr_auto_1fr] items-center"
+      class="relative z-10 my-zby mx-zbx h-full w-full grid grid-cols-[1fr_auto_1fr] grid-rows-1 items-center"
     >
       <Group
         leftCurve={!config.attach_sides}
-        outerClass="justify-self-start h-full"
-        innerClass="px-4 {isOnPrimaryMonitor() ? 'pl-zlby' : ''}"
+        outerClass="h-full justify-self-start"
+        innerClass="h-full px-4 {isOnPrimaryMonitor() ? 'pl-zlby' : ''}"
       >
         <LeftGroup />
       </Group>
-      <div class="h-full w-full {config.taskbar_integration.enabled ? 'grid grid-cols-[1fr_auto_1fr]' : 'flex justify-center'} items-center">
+      <div
+        class="h-full {config.taskbar_integration.enabled
+          ? 'grid grid-cols-[1fr_auto_1fr] grid-rows-1'
+          : 'flex justify-center'} items-center"
+      >
         <Group
           rightCurve={!config.taskbar_integration.enabled}
-          outerClass="justify-self-end"
-          innerClass={config.taskbar_integration.enabled ? 'pl-3' : 'px-3'}
+          outerClass="h-full justify-self-end"
+          innerClass="h-full {config.taskbar_integration.enabled
+            ? 'pl-3'
+            : 'px-3'}"
         >
           <Workspaces />
         </Group>
@@ -95,8 +101,8 @@
       </div>
       <Group
         rightCurve={!config.attach_sides}
-        outerClass="justify-self-end"
-        innerClass="px-4 {isOnPrimaryMonitor() ? 'pr-zrby' : ''}"
+        outerClass="h-full justify-self-end"
+        innerClass="h-full px-4 flex items-center {isOnPrimaryMonitor() ? 'pr-zrby' : ''}"
       >
         <RightGroup />
       </Group>

@@ -34,12 +34,18 @@ export interface Config {
    * To see the full corners, you must have some margin (`--bar-margin-x` in `config.css`)
    */
   attach_sides: boolean;
+
   /**
    * Whether to integrate with the windows taskbar.
    * 
    * Right now, this feature only adds an area at the center of the widget that contains the window icons. Please see README for more information.
    */
   taskbar_integration: TaskbarIntegration;
+
+  /**
+   * The duration of transitions in milliseconds.
+   */
+  transition_duration: number;
 };
 
 export enum ATTACHMENT_DIRECTION {

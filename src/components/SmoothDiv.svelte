@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { config } from "$lib/config.svelte";
   // This component is used to create a smooth size transition
   // when the content changes size or added/deleted. (otherwise, the size change is abrupt)
   import type { Snippet } from "svelte";
+  import { Spring } from "svelte/motion";
 
   type Props = {
     innerClass?: string;
@@ -10,18 +12,24 @@
   };
 
   let { innerClass, outerClass, children }: Props = $props();
-  let width: number | undefined = $state();
-  let height: number | undefined = $state();
+  const widthSpring = new Spring(0);
+  const heightSpring = new Spring(0);
+
+  $effect(() => {
+    const duration = config.transition_duration;
+    widthSpring.stiffness = 50 / duration;
+    heightSpring.stiffness = 50 / duration;
+  });
 </script>
 
 <div
-  class="relative transition-[width,height] {outerClass}"
-  style="width: {width}px; height: {height}px;"
+  class="relative {outerClass}"
+  style="width: {widthSpring.current}px; height: {heightSpring.current}px;"
 >
   <div
     class="w-fit h-fit {innerClass}"
-    bind:clientWidth={width}
-    bind:clientHeight={height}
+    bind:clientWidth={widthSpring.target}
+    bind:clientHeight={heightSpring.target}
   >
     {@render children()}
   </div>

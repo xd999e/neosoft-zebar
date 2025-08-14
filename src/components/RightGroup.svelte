@@ -8,13 +8,12 @@
   let media = $derived(providers.media);
   let date = $derived(providers.date);
   let weather = $derived(providers.weather);
-
 </script>
 
-<div class="flex flex-row gap-4 items-center">
+<div class="flex flex-row items-center">
   <NowPlaying />
   {#if weather}
-    <div class="truncate flex items-center">
+    <div class="truncate flex items-center mr-2">
       <span class="text-2xl">
         {#if weather.status === "clear_day"}
           <i class="nf nf-weather-day_sunny"></i>
@@ -46,7 +45,7 @@
     </div>
   {/if}
   {#if !isOnPrimaryMonitor()}
-    <PointFilled />
+    <PointFilled class="mr-2" />
     {date?.formatted}
   {/if}
 </div>

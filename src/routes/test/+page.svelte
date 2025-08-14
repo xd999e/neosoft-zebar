@@ -27,7 +27,7 @@
 </script>
 
 <div
-  class="bg-zb-base border-8 border-red-600 h-screen w-screen font-monst text-zb-text text-lg"
+  class="bg-zb-base border-8 border-red-600 h-screen w-screen font-zb text-zb-text text-lg"
 >
   Counter: {JSON.stringify(counter, null, 2)}
   Derived: {derivedTest}
