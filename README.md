@@ -19,11 +19,11 @@ A Zebar configuration forked from [Neobrutal Zebar](https://github.com/adriankar
 
 ![fullscreen](./misc/fullscreen.png)
 
-![workspaces](./misc/workspaces.mp4)
+https://github.com/user-attachments/assets/f1c8f09f-aa07-4077-890b-8d1162ef65af
 
-![System Info](./misc/sysinfo.mp4)
+https://github.com/user-attachments/assets/c0abbb25-0e5a-4531-9400-c52b9a7f2ffe
 
-![Media](./misc/media.mp4)
+https://github.com/user-attachments/assets/47b0a9ae-4f7d-4784-a224-cdf0b10943aa
 
 ### Taskbar Integration
 ![Taskbar Integration](./misc/taskbar-integration.png)
