@@ -2,22 +2,24 @@
 
 :root {
   /* sizes */
-  --height: 40px;
-  --bar-margin-y: 0rem;
-  --bar-margin-x: 2rem;
+  --height: 100%;
   --process-icon-width: 50px;
+  
+  /* outer margins */
+  --bar-margin-y: 0rem;
+  --bar-margin-x: 0rem;
 
   /* inner margins */
   --right-margin: 290px;
   --left-margin: 50px;
 
   /* fonts */
-  --font-family: "SF Pro Display", Roboto, Helvetica, Arial, sans-serif;
+  --font-family: Montserrat, "SF Pro Display", Roboto, Helvetica, Arial, sans-serif;
   --font-size: 14px;
   --font-weight: 500;
 
   /* border */
-  --border-size: 0.125rem;
+  --border-size: 0.1rem;
   --radius: 20px;
 
   /* shadow */
@@ -54,15 +56,16 @@
   --text: var(--tau-text);
   --accent: var(--tau-accent);
   --bg: var(--tau-overlay);
+  --muted: var(--tau-muted);
   --border: var(--tau-highlight-low);
   --shadow: var(--tau-highlight-low);
   --icon: var(--tau-love);
   --memory: var(--tau-weak);
   --cpu: var(--tau-accent);
   --cpu-high-usage: var(--tau-strong);
-  --battery-good: var(--tau-mid);
-  /* --battery-mid: var(--tau-gold); */
-  /* --battery-low: var(--tau-love); */
+  --battery-good: var(--tau-weak);
+  --battery-mid: var(--tau-mid);
+  --battery-low: var(--tau-strong);
   --focused-process: var(--tau-text);
   --process: var(--tau-muted);
   --displayed: var(--tau-text);
@@ -75,12 +78,6 @@
   --not-playing: var(--tau-love);
   --network: var(--tau-text);
   --weather: var(--tau-text);
-}
-
-html {
-  font-size: var(--font-size);
-}
-
-* {
-  transition: all 0.3s ease-out;
+  --bg-focused: var(--tau-highlight-high) / 0.4;
+  --bg-unfocused: var(--tau-overlay) / 0.5;
 }

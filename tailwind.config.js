@@ -9,8 +9,11 @@ export default {
         zb: {
           text: "hsl( var(--text) / <alpha-value> )",
           base: "hsl( var(--bg) / <alpha-value> )",
+          muted: "hsl( var(--muted) / <alpha-value> )",
           border: "hsl(var(--border) / <alpha-value> )",
           shadow: "hsl(var(--shadow) / <alpha-value> )",
+          "bg-focused": "hsl(var(--bg-focused))",
+          "bg-unfocused": "hsl(var(--bg-unfocused))",
           icon: "hsl(var(--icon) / <alpha-value> )",
           memory: "hsl(var(--memory) / <alpha-value> )",
           cpu: "hsl(var(--cpu) / <alpha-value> )",
@@ -60,8 +63,11 @@ export default {
         reverseBoxShadowX: "-var(--shadow-size-button)",
         reverseBoxShadowY: "-var(--shadow-size-button)"
       },
+      transitionDuration: {
+        DEFAULT: "var(--transition-duration)",
+      },
       fontFamily: {
-        sans: ["Montserrat", ...defaultTheme.fontFamily.sans]
+        zb: ["var(--font-family)", ...defaultTheme.fontFamily.sans]
       },
       fontWeight: {
         base: "var(--font-weight)"

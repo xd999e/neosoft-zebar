@@ -1,15 +1,25 @@
 import { ContainerType, type SplitContainer, type Window, type Workspace } from "glazewm";
-import type { GlazeWmOutput } from "zebar";
+import { providers } from "../providers.svelte";
 
 /**
  * Checks if the current monitor is the primary monitor (first in allMonitors)
  */
-export function isOnPrimaryMonitor(glazewm: GlazeWmOutput | undefined | null): boolean {
-  return !!glazewm?.allMonitors && 
-         !!glazewm?.currentMonitor?.id && 
-         glazewm.currentMonitor.id === glazewm.allMonitors[0]?.id;
-}
+// function isOnPrimaryMonitor(glazewm: GlazeWmOutput | undefined | null): boolean {
+//   return !!glazewm?.allMonitors && 
+//          !!glazewm?.currentMonitor?.id && 
+//          glazewm.currentMonitor.id === glazewm.allMonitors[0]?.id;
+// }
 
+const isOnPrimaryMonitorState = $derived.by(() => {
+    const glazewm = providers.glazewm;
+    return !!glazewm?.allMonitors && 
+           !!glazewm?.currentMonitor?.id &&
+            glazewm.currentMonitor.id === glazewm.allMonitors[0]?.id;
+})
+
+export function isOnPrimaryMonitor(): boolean {
+    return isOnPrimaryMonitorState;
+}
 
 /**
  * Returns all windows in the given workspace

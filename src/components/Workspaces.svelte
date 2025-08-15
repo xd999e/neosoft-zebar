@@ -1,16 +1,18 @@
 <script lang="ts">
-  import type { SplitContainer, Window } from "glazewm";
-  import type { GlazeWmOutput } from "zebar";
-  import type { Workspace } from "glazewm";
+  import type { Window, Workspace } from "glazewm";
 
-  import ignoredApps from "$lib/ignored_apps.json";
-
-  import Button from "./Button.svelte";
-  import { getWindows } from "../utils/glazeWmUtils";
-  import ArrowRightLeft from "@lucide/svelte/icons/arrow-right-left";
-  import Background from "@tabler/icons-svelte/icons/background";
-  import type { Icon as IconType } from "@tabler/icons-svelte";
+  import { config } from "$lib/config.svelte";
   import iconMap from "$lib/icon_loader";
+  import ignoredApps from "$lib/ignored_apps.json";
+  import { providers } from "$lib/providers.svelte";
+  import { getWindows } from "$lib/utils/glaze_wm_utils.svelte";
+  import ArrowRightLeft from "@lucide/svelte/icons/arrow-right-left";
+  import type { Icon as IconType } from "@tabler/icons-svelte";
+  import Background from "@tabler/icons-svelte/icons/background";
+  import { flip } from "svelte/animate";
+  import { fly } from "svelte/transition";
+  import Button from "./Button.svelte";
+  import SmoothDiv from "./SmoothDiv.svelte";
 
   const getProcessIcon = (child: Window): IconType => {
     const possibleAppNames = [
@@ -39,7 +41,7 @@
     // Fallback
     return Background;
   };
-  let { glazewm }: { glazewm: GlazeWmOutput } = $props();
+  let glazewm = $derived(providers.glazewm);
 
   const workspaceEquals = (ws1: Workspace, ws2: Workspace) => {
     return ws1.id === ws2.id;
@@ -47,35 +49,46 @@
 </script>
 
 {#if glazewm}
-  <div class="flex flex-row gap-2 items-center">
-    {#each glazewm.allWorkspaces as workspace, i}
-      {#if glazewm.currentWorkspaces.some( (ws) => workspaceEquals(ws, workspace) )}
-        <Button
-          class="box-border mx-1 px-6 text-zb-ws-{i} {workspace.isDisplayed
-            ? `border-zb-ws-${i} hover:border-blend-80`
-            : ''}"
-          callback={() =>
-            glazewm!.runCommand(`focus --workspace ${workspace.name}`)}
+  <div class="flex items-center">
+    <SmoothDiv outerClass="flex justify-end" innerClass="flex items-center">
+      {#each glazewm.currentWorkspaces as workspace, i (workspace.id)}
+        {@const globalIndex = glazewm.allWorkspaces.findIndex((ws) =>
+          workspaceEquals(ws, workspace)
+        )}
+        <div
+          transition:fly={{ y: 20, duration: config.transitionDuration }}
+          animate:flip={{ duration: config.transitionDuration }}
+          class="mr-2"
         >
-          {workspace.name}
-        </Button>
-      {/if}
-    {/each}
+          <Button
+            class="box-border px-6 text-zb-ws-{globalIndex} {workspace.isDisplayed
+              ? `border-zb-ws-${globalIndex} hover:border-blend-70 active:!border-blend-50`
+              : ''}"
+            callback={() =>
+              glazewm!.runCommand(`focus --workspace ${workspace.name}`)}
+          >
+            {workspace.name}
+          </Button>
+        </div>
+      {/each}
+    </SmoothDiv>
     <button
       aria-label="tiling-direction"
-      class="flex items-center justify-center text-zb-tiling-direction"
+      class="flex items-center justify-center mx-1 text-zb-tiling-direction"
       onclick={() => glazewm!.runCommand("toggle-tiling-direction")}
     >
       <ArrowRightLeft
-        class="transform {glazewm?.tilingDirection === 'vertical'
+        class="transition transform {glazewm?.tilingDirection === 'vertical'
           ? 'rotate-90'
           : 'rotate-0'}"
       />
     </button>
-    {#each glazewm.bindingModes as bindingMode, i}
-      <div class="flex items-center">
+    <SmoothDiv outerClass="flex justify-end" innerClass="flex items-center">
+      {#each glazewm.bindingModes as bindingMode, i (bindingMode.name)}
         <button
-          class="pb-[4px]"
+          transition:fly={{ y: 20, duration: config.transitionDuration }}
+          animate:flip={{ duration: config.transitionDuration }}
+          class="mx-[0.5rem]"
           onclick={() => {
             switch (bindingMode.name.toLowerCase()) {
               case "pause":
@@ -93,25 +106,25 @@
         >
           {bindingMode.displayName ?? bindingMode.name}
         </button>
-      </div>
-    {/each}
-    <div class="flex items-center gap-1">
-      {#if glazewm.displayedWorkspace}
-        {#each getWindows(glazewm.displayedWorkspace) as child}
+      {/each}
+    </SmoothDiv>
+    {#if glazewm.displayedWorkspace}
+      <SmoothDiv outerClass="flex justify-end" innerClass="flex items-center h-full">
+        {#each getWindows(glazewm.displayedWorkspace) as child (child.id)}
           {@const icon = getProcessIcon(child as Window)}
-          {#if icon}
-            <span
-              class="flex items-center text-xl {child.hasFocus
-                ? 'text-zb-focused-process'
-                : 'text-zb-process'}"
-            >
-              <!-- svelte-ignore svelte_component_deprecated -->
-              <!-- actually stupid, svelte doesn't render correctly when doing `{icon}` -->
-              <svelte:component this={icon} />
-            </span>
-          {/if}
+          <span
+            transition:fly|global={{ y: 20, duration: config.transitionDuration }}
+            animate:flip={{ duration: config.transitionDuration }}
+            class="flex items-center text-xl ml-1 {child.hasFocus
+              ? 'text-zb-focused-process'
+              : 'text-zb-process'}"
+          >
+            <!-- svelte-ignore svelte_component_deprecated -->
+            <!-- actually stupid, svelte doesn't render correctly when doing `{icon}` -->
+            <svelte:component this={icon} />
+          </span>
         {/each}
-      {/if}
-    </div>
+      </SmoothDiv>
+    {/if}
   </div>
 {/if}

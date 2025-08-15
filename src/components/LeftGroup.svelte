@@ -1,15 +1,16 @@
 <script lang="ts">
-  import type {
-    BatteryOutput,
-    CpuOutput,
-    GlazeWmOutput,
-    MemoryOutput,
-    NetworkOutput
+  import {
+    // startWidget,
+    type BatteryOutput,
+    type CpuOutput,
+    type GlazeWmOutput,
+    type MemoryOutput,
+    type NetworkOutput
   } from "zebar";
 
   import Button from "./Button.svelte";
   import Meter from "./Meter.svelte";
-  import { isOnPrimaryMonitor } from "../utils/glazeWmUtils";
+  import { isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
   import MemoryStick from "@lucide/svelte/icons/memory-stick";
   import Cpu from "@lucide/svelte/icons/cpu";
   import BatteryCharging from "@lucide/svelte/icons/battery-charging";
@@ -28,16 +29,14 @@
   import ChevronsUp from "@lucide/svelte/icons/chevrons-up";
 
   import IconHeartFilled from "@tabler/icons-svelte/icons/heart-filled";
+  // import Test from "./Test.svelte";
+  import { providers } from "$lib/providers.svelte";
+  import { config } from "$lib/config.svelte";
 
-  type LeftGroupProps = {
-    battery: BatteryOutput;
-    cpu: CpuOutput;
-    memory: MemoryOutput;
-    network: NetworkOutput;
-    glazewm: GlazeWmOutput;
-  };
-
-  let { battery, cpu, memory, network, glazewm }: LeftGroupProps = $props();
+  let memory = $derived(providers.memory);
+  let cpu = $derived(providers.cpu);
+  let battery = $derived(providers.battery);
+  let network = $derived(providers.network);
 
   // Format network values with adaptive decimal places
   function formatNetworkValue(value: number): string {
@@ -78,7 +77,7 @@
       {/if}
     </Meter>
   {/if}
-  {#if isOnPrimaryMonitor(glazewm)}
+  {#if isOnPrimaryMonitor()}
     <div class="flex flex-row pl-2 items-center gap-1">
       {#if network?.defaultInterface?.type === "ethernet"}
         <EthernetPort />
@@ -128,4 +127,10 @@
       </div>
     {/if}
   {/if}
+  <!-- <Test /> -->
+  <!-- <div class="max-w-72 text-sm max-h-4">
+    <div class="overflow-scroll">
+      config: {JSON.stringify(config)}
+    </div>
+  </div> -->
 </div>

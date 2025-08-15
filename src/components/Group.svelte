@@ -1,38 +1,76 @@
 <script lang="ts">
+  import type { AttachmentDirection } from "$lib/config.svelte";
+  import { config } from "$lib/config.svelte";
   import type { Snippet } from "svelte";
   type Props = {
     children: Snippet;
-    class?: string;
+    outerClass?: string;
+    innerClass?: string;
     leftCurve?: boolean;
     rightCurve?: boolean;
   };
+
   let {
     children,
-    class: className,
+    outerClass,
+    innerClass,
     leftCurve = true,
     rightCurve = true
   }: Props = $props();
 
-  const curve = (left: boolean, right: boolean) => {
-    if (left && right) return "rounded-t-base";
-    if (left) return "rounded-tl-base";
-    if (right) return "rounded-tr-base";
-    return "";
+  const curve = (
+    left: boolean,
+    right: boolean,
+    direction: AttachmentDirection
+  ) => {
+    switch (direction) {
+      case "bottom":
+        if (left && right) return "rounded-t-base";
+        if (left) return "rounded-tl-base";
+        if (right) return "rounded-tr-base";
+        return "";
+      case "top":
+        if (left && right) return "rounded-b-base";
+        if (left) return "rounded-bl-base";
+        if (right) return "rounded-br-base";
+        return "";
+      case "floating":
+        if (left && right) return "rounded-l-base";
+        if (left) return "rounded-l-base";
+        if (right) return "rounded-r-base";
+        return "";
+    }
   };
 </script>
 
 <div
-  class="relative flex items-center h-full py-1 bg-zb-base border-zb-border {curve(leftCurve, rightCurve)} {className}"
+  class="relative flex items-center h-full bg-zb-base border-zb-border {curve(
+    leftCurve,
+    rightCurve,
+    config.direction
+  )} {outerClass}"
 >
-  {#if leftCurve}
+  {#if leftCurve && config.direction !== "floating"}
     <div
-      class="absolute bottom-0 -left-[calc(var(--radius)*2)] h-radius w-[calc(var(--radius)*2)] rounded-br-base bg-transparent shadow-inverted-l"
+      class="absolute {config.direction === "bottom"
+        ? 'bottom-0 rounded-br-base'
+        : 'top-0 rounded-tr-base'} -left-[calc(var(--radius)*2)] h-radius w-[calc(var(--radius)*2)] bg-transparent shadow-inverted-l"
     ></div>
   {/if}
-  <div class="overflow-hidden z-10">{@render children()}</div>
-  {#if rightCurve}
+  <div
+    class="overflow-hidden z-10 {curve(
+      leftCurve,
+      rightCurve,
+      config.direction
+    )} py-1 {innerClass}"
+  >
+    {@render children()}
+  </div>
+  {#if rightCurve && config.direction !== "floating"}
     <div
-      class="absolute bottom-0 -right-[calc(var(--radius)*2)] h-radius w-[calc(var(--radius)*2)] rounded-bl-base bg-transparent shadow-inverted-r"
+      class="absolute {config.direction === "bottom"
+        ? 'bottom-0 rounded-bl-base'
+        : 'top-0 rounded-tl-base'} -right-[calc(var(--radius)*2)] h-radius w-[calc(var(--radius)*2)] bg-transparent shadow-inverted-r"
     ></div>
   {/if}
 </div>

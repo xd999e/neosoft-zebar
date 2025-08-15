@@ -1,58 +1,24 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import * as zebar from "zebar";
-  import type {
-    BatteryOutput,
-    CpuOutput,
-    GlazeWmOutput,
-    MemoryOutput,
-    DateOutput,
-    NetworkOutput,
-    WeatherOutput,
-    MediaOutput
-  } from "zebar";
 
   import { Effect } from "@tauri-apps/api/window";
 
-  import "../app.css";
+  import { initializeAutotiler } from "$lib/autotiler.svelte";
+  import { config, configLoaded } from "$lib/config.svelte";
+  import { initProviders, providers } from "$lib/providers.svelte";
+  import { isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
   import Group from "../components/Group.svelte";
   import LeftGroup from "../components/LeftGroup.svelte";
+  import ProcessIcons from "../components/ProcessIcons.svelte";
   import RightGroup from "../components/RightGroup.svelte";
   import Workspaces from "../components/Workspaces.svelte";
-  import { isOnPrimaryMonitor } from "../utils/glazeWmUtils";
-  import ProcessIcons from "../components/ProcessIcons.svelte";
 
-  let battery = $state<BatteryOutput | null>();
-  let cpu = $state<CpuOutput | null>();
-  let date = $state<DateOutput | null>();
-  let glazewm = $state<GlazeWmOutput | null>();
-  let memory = $state<MemoryOutput | null>();
-  let network = $state<NetworkOutput | null>();
-  let weather = $state<WeatherOutput | null>();
-  let media = $state<MediaOutput | null>();
+  let glazewm = $derived(providers.glazewm);
+  initializeAutotiler();
 
   onMount(() => {
-    const providers = zebar.createProviderGroup({
-      battery: { type: "battery" },
-      cpu: { type: "cpu", refreshInterval: 2000 },
-      date: { type: "date", formatting: "HH:mm" },
-      glazewm: { type: "glazewm" },
-      memory: { type: "memory" },
-      network: { type: "network", refreshInterval: 2000 },
-      weather: { type: "weather" },
-      media: { type: "media", refreshInterval: 1000 }
-    });
-
-    providers.onOutput(() => {
-      battery = providers.outputMap.battery;
-      cpu = providers.outputMap.cpu;
-      date = providers.outputMap.date;
-      glazewm = providers.outputMap.glazewm;
-      memory = providers.outputMap.memory;
-      network = providers.outputMap.network;
-      weather = providers.outputMap.weather;
-      media = providers.outputMap.media;
-    });
+    initProviders();
 
     /*     
     Found a way to set window effects
@@ -66,51 +32,102 @@
 
     This is a temporary solution while waiting for https://github.com/glzr-io/zebar/pull/133 (one might say it's even better)
  */
-    const window = zebar?.currentWidget()?.tauriWindow;
-    window.setEffects({ effects: [Effect.Acrylic] });
+    configLoaded
+      .then((config) => {
+        const effect = config.backgroundEffect;
+        const window = zebar.currentWidget().tauriWindow;
+        switch (effect) {
+          case "acrylic":
+            window.setEffects({ effects: [Effect.Acrylic] });
+            console.log("Set window effect to acrylic");
+            break;
+          case "blur":
+            window.setEffects({ effects: [Effect.Blur] });
+            console.log("Set window effect to blur");
+            break;
+          case "mica":
+            window.setEffects({ effects: [Effect.Mica] });
+            console.log("Set window effect to mica");
+            break;
+          case "inherit":
+            window.clearEffects();
+            console.log("Set window effect to inherit");
+            break;
+        }
+      })
+      .catch((error) => {
+        console.error("Error setting window effects:", error);
+      });
   });
 </script>
 
-<div
-  class="relative h-bar text-zb-text text-zb-size font-base bg-opacity-0"
->
-  <div class="absolute inset-0 bg-gradient-to-t from-gray-400/40 to-zb-base/0 {!glazewm?.currentMonitor.hasFocus ? 'opacity-0' : ''}"></div>
-  <div class="absolute inset-0 bg-gradient-to-t from-zb-base/50 to-zb-base/0 {glazewm?.currentMonitor.hasFocus ? 'opacity-0' : ''}"></div>
-  <div class="relative z-10 my-zby h-full grid grid-cols-[1fr_auto_1fr] items-center">
-    <Group
-      leftCurve={false}
-      class="justify-self-start h-full px-4 {isOnPrimaryMonitor(glazewm)
-        ? 'pl-zlby'
-        : ''}"
+<div class="flex items-center h-full w-full">
+  <div
+    class="relative flex items-stretch h-bar w-full font-zb text-zb-text text-zb-size font-base bg-opacity-0"
+  >
+    {#if config.gradient !== "solid" && config.gradient !== "disabled"}
+      <div
+        class="absolute inset-0 {config.gradient === 'bottom'
+          ? 'bg-gradient-to-t'
+          : 'bg-gradient-to-b'} from-zb-bg-focused to-transparent {!glazewm
+          ?.currentMonitor.hasFocus
+          ? 'opacity-0'
+          : ''}"
+      ></div>
+      <div
+        class="absolute inset-0 {config.gradient === 'bottom'
+          ? 'bg-gradient-to-t'
+          : 'bg-gradient-to-b'} from-zb-bg-unfocused to-transparent {glazewm
+          ?.currentMonitor.hasFocus
+          ? 'opacity-0'
+          : ''}"
+      ></div>
+    {:else if config.gradient === "solid"}
+      <div
+        class="absolute inset-0 {glazewm?.currentMonitor.hasFocus
+          ? 'bg-zb-bg-focused'
+          : 'bg-zb-bg-unfocused'}"
+      ></div>
+    {/if}
+    <div
+      class="relative z-10 my-zby mx-zbx h-full w-full grid grid-cols-[1fr_auto_1fr] grid-rows-1 items-center"
     >
-      <LeftGroup
-        battery={battery!}
-        cpu={cpu!}
-        memory={memory!}
-        network={network!}
-        glazewm={glazewm!}
-      />
-    </Group>
-    <div class="h-full w-full grid grid-cols-[1fr_auto_1fr] items-center">
-      <Group rightCurve={false} class="justify-self-end pl-3">
-        <Workspaces glazewm={glazewm!} />
+      <Group
+        leftCurve={!config.attachSides}
+        outerClass="h-full justify-self-start"
+        innerClass="h-full px-4 {isOnPrimaryMonitor() ? 'pl-zlby' : ''}"
+      >
+        <LeftGroup />
       </Group>
-      <Group leftCurve={false} class="pr-4">
-        <ProcessIcons glazewm={glazewm!} />
+      <div
+        class="h-full {config.taskbarIntegration.enabled
+          ? 'grid grid-cols-[1fr_auto_1fr] grid-rows-1'
+          : 'flex justify-center'} items-center"
+      >
+        <Group
+          rightCurve={!config.taskbarIntegration.enabled}
+          outerClass="h-full justify-self-end"
+          innerClass="h-full {config.taskbarIntegration.enabled
+            ? 'pl-3'
+            : 'px-3'}"
+        >
+          <Workspaces />
+        </Group>
+        {#if config.taskbarIntegration.enabled}
+          <Group leftCurve={false} outerClass="px-2">
+            <ProcessIcons />
+          </Group>
+        {/if}
+      </div>
+      <Group
+        rightCurve={!config.attachSides}
+        outerClass="h-full justify-self-end"
+        innerClass="h-full px-4 flex items-center {isOnPrimaryMonitor()
+          ? 'pr-zrby'
+          : ''}"
+      >
+        <RightGroup />
       </Group>
     </div>
-    <Group
-      rightCurve={false}
-      class="justify-self-end px-4 {isOnPrimaryMonitor(glazewm)
-        ? 'pr-zrby'
-        : ''}"
-    >
-      <RightGroup
-        date={date!}
-        glazewm={glazewm!}
-        weather={weather!}
-        media={media!}
-      />
-    </Group>
   </div>
 </div>

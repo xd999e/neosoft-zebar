@@ -1,29 +1,20 @@
 <script lang="ts">
-  import type {
-    DateOutput,
-    GlazeWmOutput,
-    NetworkOutput,
-    WeatherOutput,
-    MediaOutput
-  } from "zebar";
-  import NowPlaying from "./NowPlaying.svelte";
-  import { isOnPrimaryMonitor } from "../utils/glazeWmUtils";
+  import { config } from "$lib/config.svelte";
+  import { providers } from "$lib/providers.svelte";
+  import { isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
   import PointFilled from "@tabler/icons-svelte/icons/point-filled";
+  import NowPlaying from "./NowPlaying.svelte";
 
-  type RightGroupProps = {
-    date: DateOutput;
-    glazewm: GlazeWmOutput;
-    weather: WeatherOutput;
-    media: MediaOutput;
-  };
-
-  let { date, glazewm, weather, media }: RightGroupProps = $props();
+  let glazewm = $derived(providers.glazewm);
+  let media = $derived(providers.media);
+  let date = $derived(providers.date);
+  let weather = $derived(providers.weather);
 </script>
 
-<div class="flex flex-row gap-4 items-center">
-  <NowPlaying glazewm={glazewm!} media={media!} />
+<div class="flex flex-row items-center">
+  <NowPlaying />
   {#if weather}
-    <div class="truncate flex items-center">
+    <div class="truncate flex items-center mr-2">
       <span class="text-2xl">
         {#if weather.status === "clear_day"}
           <i class="nf nf-weather-day_sunny"></i>
@@ -54,8 +45,8 @@
       {Math.round(weather.celsiusTemp)}°
     </div>
   {/if}
-  {#if !isOnPrimaryMonitor(glazewm)}
-    <PointFilled />
+  {#if !isOnPrimaryMonitor() || !config.taskbarIntegration.enabled}
+    <PointFilled class="mr-2" />
     {date?.formatted}
   {/if}
 </div>
