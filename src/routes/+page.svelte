@@ -4,6 +4,8 @@
 
   import { Effect } from "@tauri-apps/api/window";
 
+  import { initializeAutotiler } from "$lib/autotiler.svelte";
+  import { config, configLoaded } from "$lib/config.svelte";
   import { initProviders, providers } from "$lib/providers.svelte";
   import { isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
   import Group from "../components/Group.svelte";
@@ -11,8 +13,6 @@
   import ProcessIcons from "../components/ProcessIcons.svelte";
   import RightGroup from "../components/RightGroup.svelte";
   import Workspaces from "../components/Workspaces.svelte";
-  import { initializeAutotiler } from "$lib/autotiler.svelte";
-  import { GRADIENT_DIRECTION, config } from "$lib/config.svelte";
 
   let glazewm = $derived(providers.glazewm);
   initializeAutotiler();
@@ -32,8 +32,32 @@
 
     This is a temporary solution while waiting for https://github.com/glzr-io/zebar/pull/133 (one might say it's even better)
  */
-    const window = zebar?.currentWidget()?.tauriWindow;
-    window.setEffects({ effects: [Effect.Acrylic] });
+    configLoaded
+      .then((config) => {
+        const effect = config.backgroundEffect;
+        const window = zebar.currentWidget().tauriWindow;
+        switch (effect) {
+          case "acrylic":
+            window.setEffects({ effects: [Effect.Acrylic] });
+            console.log("Set window effect to acrylic");
+            break;
+          case "blur":
+            window.setEffects({ effects: [Effect.Blur] });
+            console.log("Set window effect to blur");
+            break;
+          case "mica":
+            window.setEffects({ effects: [Effect.Mica] });
+            console.log("Set window effect to mica");
+            break;
+          case "inherit":
+            window.clearEffects();
+            console.log("Set window effect to inherit");
+            break;
+        }
+      })
+      .catch((error) => {
+        console.error("Error setting window effects:", error);
+      });
   });
 </script>
 
@@ -41,68 +65,66 @@
   <div
     class="relative flex items-stretch h-bar w-full font-zb text-zb-text text-zb-size font-base bg-opacity-0"
   >
-    {#if config.gradient !== GRADIENT_DIRECTION.SOLID && config.gradient !== GRADIENT_DIRECTION.DISABLED}
+    {#if config.gradient !== "solid" && config.gradient !== "disabled"}
       <div
-        class="absolute inset-0 {config.gradient === GRADIENT_DIRECTION.BOTTOM
+        class="absolute inset-0 {config.gradient === 'bottom'
           ? 'bg-gradient-to-t'
-          : config.gradient === GRADIENT_DIRECTION.TOP
-            ? 'bg-gradient-to-b'
-            : ''} from-gray-400/40 to-zb-base/0 {!glazewm?.currentMonitor
-          .hasFocus
+          : 'bg-gradient-to-b'} from-zb-bg-focused to-transparent {!glazewm
+          ?.currentMonitor.hasFocus
           ? 'opacity-0'
           : ''}"
       ></div>
       <div
-        class="absolute inset-0 {config.gradient === GRADIENT_DIRECTION.BOTTOM
+        class="absolute inset-0 {config.gradient === 'bottom'
           ? 'bg-gradient-to-t'
-          : config.gradient === GRADIENT_DIRECTION.TOP
-            ? 'bg-gradient-to-b'
-            : ''} from-zb-base/50 to-zb-base/0 {glazewm?.currentMonitor.hasFocus
+          : 'bg-gradient-to-b'} from-zb-bg-unfocused to-transparent {glazewm
+          ?.currentMonitor.hasFocus
           ? 'opacity-0'
           : ''}"
       ></div>
-    {:else if config.gradient === GRADIENT_DIRECTION.SOLID}
+    {:else if config.gradient === "solid"}
       <div
-        class="absolute inset-0 bg-gray-400/40 {!glazewm?.currentMonitor
-          .hasFocus
-          ? 'opacity-0'
-          : ''}"
+        class="absolute inset-0 {glazewm?.currentMonitor.hasFocus
+          ? 'bg-zb-bg-focused'
+          : 'bg-zb-bg-unfocused'}"
       ></div>
     {/if}
     <div
       class="relative z-10 my-zby mx-zbx h-full w-full grid grid-cols-[1fr_auto_1fr] grid-rows-1 items-center"
     >
       <Group
-        leftCurve={!config.attach_sides}
+        leftCurve={!config.attachSides}
         outerClass="h-full justify-self-start"
         innerClass="h-full px-4 {isOnPrimaryMonitor() ? 'pl-zlby' : ''}"
       >
         <LeftGroup />
       </Group>
       <div
-        class="h-full {config.taskbar_integration.enabled
+        class="h-full {config.taskbarIntegration.enabled
           ? 'grid grid-cols-[1fr_auto_1fr] grid-rows-1'
           : 'flex justify-center'} items-center"
       >
         <Group
-          rightCurve={!config.taskbar_integration.enabled}
+          rightCurve={!config.taskbarIntegration.enabled}
           outerClass="h-full justify-self-end"
-          innerClass="h-full {config.taskbar_integration.enabled
+          innerClass="h-full {config.taskbarIntegration.enabled
             ? 'pl-3'
             : 'px-3'}"
         >
           <Workspaces />
         </Group>
-        {#if config.taskbar_integration.enabled}
+        {#if config.taskbarIntegration.enabled}
           <Group leftCurve={false} outerClass="px-2">
             <ProcessIcons />
           </Group>
         {/if}
       </div>
       <Group
-        rightCurve={!config.attach_sides}
+        rightCurve={!config.attachSides}
         outerClass="h-full justify-self-end"
-        innerClass="h-full px-4 flex items-center {isOnPrimaryMonitor() ? 'pr-zrby' : ''}"
+        innerClass="h-full px-4 flex items-center {isOnPrimaryMonitor()
+          ? 'pr-zrby'
+          : ''}"
       >
         <RightGroup />
       </Group>

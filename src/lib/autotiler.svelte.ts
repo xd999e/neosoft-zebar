@@ -1,6 +1,7 @@
 import { untrack } from "svelte";
 import { providers } from "./providers.svelte";
 import { ContainerType, type Window } from "glazewm";
+import { config } from "./config.svelte";
 
 // Each autotiler is only responsible for one monitor
 
@@ -25,8 +26,14 @@ const focusedWindowId = $derived(focusedWindow?.id || null);
 
 export function initializeAutotiler() {
   $effect(() => {
+    // Trigger effect when focusedWindowId changes (MUST BE FIRST!!!)
+    // Using ID to avoid unnecessary updates
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    focusedWindowId; // Trigger effect when focusedWindowId changes (MUST BE FIRST!!!)
+    focusedWindowId;
+    if (!config.enableAutoTiling) {
+      // Auto-tiling is disabled
+      return;
+    }
     const monitor = untrack(() => currentMonitor);
     const window = untrack(() => focusedWindow);
 

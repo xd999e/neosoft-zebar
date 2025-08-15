@@ -16,9 +16,13 @@
   const heightSpring = new Spring(0);
 
   $effect(() => {
-    const duration = config.transition_duration;
-    widthSpring.stiffness = 50 / duration;
-    heightSpring.stiffness = 50 / duration;
+    const duration = config.transitionDuration;
+    const stiffness = 50 / duration;
+    const damp = 2 * Math.sqrt(stiffness);
+    widthSpring.stiffness = stiffness;
+    widthSpring.damping = damp;
+    heightSpring.stiffness = stiffness;
+    heightSpring.damping = damp;
   });
 </script>
 

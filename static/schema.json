@@ -1,22 +1,61 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "definitions": {
-        "ATTACHMENT_DIRECTION": {
+        "AttachmentDirection": {
             "enum": [
-                "top",
                 "bottom",
-                "floating"
+                "floating",
+                "top"
             ],
             "type": "string"
         },
-        "GRADIENT_DIRECTION": {
+        "BackgroundEffect": {
             "enum": [
-                "top",
-                "bottom",
-                "solid",
-                "disabled"
+                "acrylic",
+                "blur",
+                "inherit",
+                "mica"
             ],
             "type": "string"
+        },
+        "GradientDirection": {
+            "enum": [
+                "bottom",
+                "disabled",
+                "solid",
+                "top"
+            ],
+            "type": "string"
+        },
+        "ProvidersConfig": {
+            "properties": {
+                "enableErrorLogging": {
+                    "description": "Whether to enable error logging for providers.",
+                    "type": "boolean"
+                },
+                "refreshIntervals": {
+                    "description": "The refresh intervals for some providers.",
+                    "properties": {
+                        "battery": {
+                            "type": "number"
+                        },
+                        "cpu": {
+                            "type": "number"
+                        },
+                        "memory": {
+                            "type": "number"
+                        },
+                        "network": {
+                            "type": "number"
+                        },
+                        "weather": {
+                            "type": "number"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
         },
         "TaskbarIntegration": {
             "properties": {
@@ -24,32 +63,59 @@
                     "description": "Whether to integrate with the windows taskbar.",
                     "type": "boolean"
                 },
-                "extra_icons": {
+                "extraIcons": {
                     "description": "The number of additional icons that appear in the taskbar (like windows logo or search).",
                     "type": "number"
+                },
+                "primaryMonitorSelection": {
+                    "$ref": "#/definitions/WindowSelection",
+                    "description": "Which windows to include in the number of taskbar icons."
+                },
+                "secondaryMonitorSelection": {
+                    "$ref": "#/definitions/WindowSelection"
                 }
             },
             "type": "object"
+        },
+        "WindowSelection": {
+            "enum": [
+                "all",
+                "monitor",
+                "workspace"
+            ],
+            "type": "string"
         }
     },
     "properties": {
-        "attach_sides": {
+        "attachSides": {
             "description": "Whether to attach the left and right sides of the widgets or to use smooth corners.\n\nTo see the full corners, you must have some margin (`--bar-margin-x` in `config.css`)",
             "type": "boolean"
         },
+        "backgroundEffect": {
+            "$ref": "#/definitions/BackgroundEffect",
+            "description": "The background effect to use for the widget.\n\nNOTE: In order to use anything other than inherit, you must recompile zebar with an extra permission. More details in the README.\n\n`inherit`- Don't change the effect, and use the one defined in zpack.json (probably transparent).\n`acrylic`- Use an acrylic background effect. Windows 10, 11.\n`blur`- Use a blur background effect. Windows 10, 11.\n`mica`- Use a mica background effect. Windows 11 only."
+        },
         "direction": {
-            "$ref": "#/definitions/ATTACHMENT_DIRECTION",
+            "$ref": "#/definitions/AttachmentDirection",
             "description": "The visual direction of the widget.\n\n`top`- The top of the widget has inverted corner radius, and the bottom has normal corner radius.\n\n`bottom`- The bottom of the widget has inverted corner radius, and the top has normal corner radius.\n\n`floating`- All corners of the widget have normal corner radius."
         },
+        "enableAutoTiling": {
+            "description": "Whether to enable built-in automatic tiling of windows.",
+            "type": "boolean"
+        },
         "gradient": {
-            "$ref": "#/definitions/GRADIENT_DIRECTION",
+            "$ref": "#/definitions/GradientDirection",
             "description": "The direction of the background gradient.\n\n`top`- From top to transparent bottom.\n\n`bottom`- From bottom to transparent top.\n\n`solid`- Solid color background.\n\n`disabled`- Background color is disabled."
         },
-        "taskbar_integration": {
+        "providersConfig": {
+            "$ref": "#/definitions/ProvidersConfig",
+            "description": "Options for the providers, including refresh intervals and error logging."
+        },
+        "taskbarIntegration": {
             "$ref": "#/definitions/TaskbarIntegration",
             "description": "Whether to integrate with the windows taskbar.\n\nRight now, this feature only adds an area at the center of the widget that contains the window icons. Please see README for more information."
         },
-        "transition_duration": {
+        "transitionDuration": {
             "description": "The duration of transitions in milliseconds.",
             "type": "number"
         }

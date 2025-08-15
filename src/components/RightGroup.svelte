@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { config } from "$lib/config.svelte";
   import { providers } from "$lib/providers.svelte";
   import { isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
   import PointFilled from "@tabler/icons-svelte/icons/point-filled";
@@ -44,7 +45,7 @@
       {Math.round(weather.celsiusTemp)}°
     </div>
   {/if}
-  {#if !isOnPrimaryMonitor()}
+  {#if !isOnPrimaryMonitor() || !config.taskbarIntegration.enabled}
     <PointFilled class="mr-2" />
     {date?.formatted}
   {/if}

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { config } from "$lib/config.svelte";
   import { providers } from "$lib/providers.svelte";
   import { isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
   import Pause from "@lucide/svelte/icons/pause";
@@ -8,7 +9,6 @@
   import { fly } from "svelte/transition";
   import Meter from "./Meter.svelte";
   import SmoothDiv from "./SmoothDiv.svelte";
-  import { config } from "$lib/config.svelte";
 
   let glazewm = $derived(providers.glazewm);
   let media = $derived(providers.media);
@@ -25,7 +25,7 @@
 
 <SmoothDiv outerClass="flex justify-end">
   {#if isOnPrimaryMonitor() && media?.currentSession}
-    <div transition:fly={{ y: 20, duration: config.transition_duration }} class="flex items-center gap-3 mr-2">
+    <div transition:fly={{ y: 20, duration: config.transitionDuration }} class="flex items-center gap-3 mr-2">
       <button
         class="transition hover:text-zb-accent hover:scale-125"
         aria-label="Previous"

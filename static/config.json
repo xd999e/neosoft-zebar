@@ -2,10 +2,24 @@
     "$schema": "./schema.json",
     "direction": "bottom",
     "gradient": "bottom",
-    "attach_sides": true,
-    "taskbar_integration": {
+    "attachSides": true,
+    "taskbarIntegration": {
         "enabled": true,
-        "extra_icons": 0
+        "extraIcons": 0,
+        "primaryMonitorSelection": "all",
+        "secondaryMonitorSelection": "monitor"
     },
-    "transition_duration": 400
+    "transitionDuration": 400,
+    "providersConfig": {
+        "refreshIntervals": {
+            "cpu": 2000,
+            "memory": 5000,
+            "battery": 60000,
+            "weather": 900000,
+            "network": 2000
+        },
+        "enableErrorLogging": false
+    },
+    "backgroundEffect": "acrylic",
+    "enableAutoTiling": true
 }

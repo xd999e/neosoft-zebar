@@ -26,11 +26,6 @@
   --shadow-size-bar: 0rem;
   --shadow-size-button: 0rem;
 
-  /* transition */
-  /* If you want to override this, you must set the number (transition_duration) in config.json
-    (otherwise svelte animations won't use the new duration) */
-  --transition-duration: 400ms;
-
   /* colors */
   /* --text: var(--rp-text);
   --accent: var(--rp-accent);
@@ -83,4 +78,6 @@
   --not-playing: var(--tau-love);
   --network: var(--tau-text);
   --weather: var(--tau-text);
+  --bg-focused: var(--tau-highlight-high) / 0.4;
+  --bg-unfocused: var(--tau-overlay) / 0.5;
 }

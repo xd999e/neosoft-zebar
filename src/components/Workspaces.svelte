@@ -1,19 +1,18 @@
 <script lang="ts">
   import type { Window, Workspace } from "glazewm";
 
+  import { config } from "$lib/config.svelte";
   import iconMap from "$lib/icon_loader";
   import ignoredApps from "$lib/ignored_apps.json";
   import { providers } from "$lib/providers.svelte";
   import { getWindows } from "$lib/utils/glaze_wm_utils.svelte";
   import ArrowRightLeft from "@lucide/svelte/icons/arrow-right-left";
-  import Background from "@tabler/icons-svelte/icons/background";
   import type { Icon as IconType } from "@tabler/icons-svelte";
+  import Background from "@tabler/icons-svelte/icons/background";
   import { flip } from "svelte/animate";
   import { fly } from "svelte/transition";
   import Button from "./Button.svelte";
   import SmoothDiv from "./SmoothDiv.svelte";
-  import { onMount } from "svelte";
-  import { config } from "$lib/config.svelte";
 
   const getProcessIcon = (child: Window): IconType => {
     const possibleAppNames = [
@@ -57,8 +56,8 @@
           workspaceEquals(ws, workspace)
         )}
         <div
-          transition:fly={{ y: 20, duration: config.transition_duration }}
-          animate:flip={{ duration: config.transition_duration }}
+          transition:fly={{ y: 20, duration: config.transitionDuration }}
+          animate:flip={{ duration: config.transitionDuration }}
           class="mr-2"
         >
           <Button
@@ -87,8 +86,8 @@
     <SmoothDiv outerClass="flex justify-end" innerClass="flex items-center">
       {#each glazewm.bindingModes as bindingMode, i (bindingMode.name)}
         <button
-          transition:fly={{ y: 20, duration: config.transition_duration }}
-          animate:flip={{ duration: config.transition_duration }}
+          transition:fly={{ y: 20, duration: config.transitionDuration }}
+          animate:flip={{ duration: config.transitionDuration }}
           class="mx-[0.5rem]"
           onclick={() => {
             switch (bindingMode.name.toLowerCase()) {
@@ -114,8 +113,8 @@
         {#each getWindows(glazewm.displayedWorkspace) as child (child.id)}
           {@const icon = getProcessIcon(child as Window)}
           <span
-            transition:fly|global={{ y: 20, duration: config.transition_duration }}
-            animate:flip={{ duration: config.transition_duration }}
+            transition:fly|global={{ y: 20, duration: config.transitionDuration }}
+            animate:flip={{ duration: config.transitionDuration }}
             class="flex items-center text-xl ml-1 {child.hasFocus
               ? 'text-zb-focused-process'
               : 'text-zb-process'}"

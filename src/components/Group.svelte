@@ -1,7 +1,7 @@
 <script lang="ts">
+  import type { AttachmentDirection } from "$lib/config.svelte";
+  import { config } from "$lib/config.svelte";
   import type { Snippet } from "svelte";
-  import SmoothDiv from "./SmoothDiv.svelte";
-  import { config, ATTACHMENT_DIRECTION } from "$lib/config.svelte";
   type Props = {
     children: Snippet;
     outerClass?: string;
@@ -21,20 +21,20 @@
   const curve = (
     left: boolean,
     right: boolean,
-    direction: ATTACHMENT_DIRECTION
+    direction: AttachmentDirection
   ) => {
     switch (direction) {
-      case ATTACHMENT_DIRECTION.BOTTOM:
+      case "bottom":
         if (left && right) return "rounded-t-base";
         if (left) return "rounded-tl-base";
         if (right) return "rounded-tr-base";
         return "";
-      case ATTACHMENT_DIRECTION.TOP:
+      case "top":
         if (left && right) return "rounded-b-base";
         if (left) return "rounded-bl-base";
         if (right) return "rounded-br-base";
         return "";
-      case ATTACHMENT_DIRECTION.FLOATING:
+      case "floating":
         if (left && right) return "rounded-l-base";
         if (left) return "rounded-l-base";
         if (right) return "rounded-r-base";
@@ -50,9 +50,9 @@
     config.direction
   )} {outerClass}"
 >
-  {#if leftCurve && config.direction != ATTACHMENT_DIRECTION.FLOATING}
+  {#if leftCurve && config.direction !== "floating"}
     <div
-      class="absolute {config.direction == ATTACHMENT_DIRECTION.BOTTOM
+      class="absolute {config.direction === "bottom"
         ? 'bottom-0 rounded-br-base'
         : 'top-0 rounded-tr-base'} -left-[calc(var(--radius)*2)] h-radius w-[calc(var(--radius)*2)] bg-transparent shadow-inverted-l"
     ></div>
@@ -66,9 +66,9 @@
   >
     {@render children()}
   </div>
-  {#if rightCurve && config.direction != ATTACHMENT_DIRECTION.FLOATING}
+  {#if rightCurve && config.direction !== "floating"}
     <div
-      class="absolute {config.direction == ATTACHMENT_DIRECTION.BOTTOM
+      class="absolute {config.direction === "bottom"
         ? 'bottom-0 rounded-bl-base'
         : 'top-0 rounded-tl-base'} -right-[calc(var(--radius)*2)] h-radius w-[calc(var(--radius)*2)] bg-transparent shadow-inverted-r"
     ></div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { config } from "$lib/config.svelte";
+  import { config, type TaskbarIntegration } from "$lib/config.svelte";
   import { providers } from "$lib/providers.svelte";
   import { getWindows, isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
   import type { Window } from "glazewm";
@@ -22,25 +22,56 @@
     });
   };
 
-  const getWindowCount = (glazewm: GlazeWmOutput) => {
-    const currentMonitor = glazewm.currentMonitor;
-    if (!currentMonitor) return 0;
+  const getIconCount = (glazewm: GlazeWmOutput, integrationConfig: TaskbarIntegration) => {
+    // const currentMonitor = glazewm.currentMonitor;
+    // if (!currentMonitor) return 0;
 
-    if (isOnPrimaryMonitor()) {
-      return uniqueWindows(glazewm.allWindows).length;
-    }
+    // if (isOnPrimaryMonitor()) {
+    //   return uniqueWindows(glazewm.allWindows).length;
+    // }
 
-    const workspaces = currentMonitor.children;
+    // const workspaces = currentMonitor.children;
+    // let windows: Window[] = [];
+    // for (const workspace of workspaces) {
+    //   windows.push(...getWindows(workspace));
+    // }
     let windows: Window[] = [];
-    for (const workspace of workspaces) {
-      windows.push(...getWindows(workspace));
+    if (isOnPrimaryMonitor()) {
+      switch (integrationConfig.primaryMonitorSelection) {
+        case "workspace":
+          windows = getWindows(glazewm.displayedWorkspace);
+          break;
+        case "monitor":
+          for (const workspace of glazewm.currentMonitor.children) {
+            windows.push(...getWindows(workspace));
+          }
+          break;
+        case "all":
+          windows = glazewm.allWindows;
+          break;
+      }
+    } else {
+      switch (integrationConfig.secondaryMonitorSelection) {
+        case "workspace":
+          windows = getWindows(glazewm.displayedWorkspace);
+          break;
+        case "monitor":
+          for (const workspace of glazewm.currentMonitor.children) {
+            windows.push(...getWindows(workspace));
+          }
+          break;
+        case "all":
+          windows = glazewm.allWindows;
+          break;
+      }
     }
+
     return uniqueWindows(windows).length;
   };
 </script>
 
 <SmoothDiv>
   {#if glazewm}
-    <div class="flex items-center" style="width: calc({config.taskbar_integration.extra_icons + getWindowCount(glazewm)} * var(--process-icon-width));"></div>
+    <div class="flex items-center" style="width: calc({config.taskbarIntegration.extraIcons + getIconCount(glazewm, config.taskbarIntegration)} * var(--process-icon-width));"></div>
   {/if}
 </SmoothDiv>

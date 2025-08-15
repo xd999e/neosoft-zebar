@@ -12,6 +12,8 @@ export default {
           muted: "hsl( var(--muted) / <alpha-value> )",
           border: "hsl(var(--border) / <alpha-value> )",
           shadow: "hsl(var(--shadow) / <alpha-value> )",
+          "bg-focused": "hsl(var(--bg-focused))",
+          "bg-unfocused": "hsl(var(--bg-unfocused))",
           icon: "hsl(var(--icon) / <alpha-value> )",
           memory: "hsl(var(--memory) / <alpha-value> )",
           cpu: "hsl(var(--cpu) / <alpha-value> )",
