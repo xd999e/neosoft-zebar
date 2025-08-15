@@ -1,94 +1,69 @@
-The original repo was archived so I guess I maintain this fork now.
-
-This fork has some custom changes for my taste. This is what it looks like at the moment:
-<img width="3840" height="80" alt="image" src="https://github.com/user-attachments/assets/54a0e164-9e0b-407c-bad8-21e5ce6de20b" />
-
-
-This project would not have been possible without the [original](https://github.com/adriankarlen/neobrutal-zebar), please give it a star!
-
----
-old readme (im too lazy to update it):
-
-# 🟦 Neobrutal [Zebar](https://github.com/glzr-io/zebar)
-
-An Zebar configuration for Zebar V2 build in Svelte with Tailwind. If you are
-still using V1 of Zebar the old config is available in the [V1 branch](https://github.com/adriankarlen/neobrutal-zebar/tree/v1).
-
-> [!IMPORTANT]
-> 
-> I am no longer using a Windows computer and therefore the repo has been
-> archived. If you are interested in continuing the development I will stick
-> around in the GlazeWM Discord for a while, and you can contact me there.
+# Neosoft [Zebar](https://github.com/glzr-io/zebar)
+A Zebar configuration forked from [Neobrutal Zebar](https://github.com/adriankarlen/neobrutal-zebar) for Zebar V3, built with Svelte and Tailwind. This project would not have been possible without the original—please give it a star!
 
 ## ✨ Features
 
-- Process icons for current workspace, with current focus indicator.
-- System information meters, with dynamic coloring and animations.
-- Spotify, currently playing song.
-- Configuration using CSS-variables.
+- Process icons for the current workspace with focus indicators
+- System information meters with dynamic coloring and animations
+- Smooth animations
+- Media controls
+- Configuration using CSS variables and a JSON file
+- Customizable layout and appearance
+- Built-in auto-tiler
+- Multi-monitor support
+- Windows Taskbar integration (experimental)
+- Background effects (Acrylic, Blur, Mica)
 
-> [!IMPORTANT]
->
-> This configuration is it's early development. Contributions are
-> welcome, especially to the process icon map, as I only mapped the ones I use
-> that could not be automapped.
 
 ## 🖼️ Showcase
 
-### Fullscreen
+![fullscreen](./misc/fullscreen.png)
 
-![image](https://github.com/adriankarlen/neobrutal-zebar/blob/main/misc/fullscreen.png)
+![workspaces](./misc/workspaces.mp4)
 
-### Workspaces
+![System Info](./misc/sysinfo.mp4)
 
-https://github.com/user-attachments/assets/38e4a09f-1583-4e2a-84e5-6da7156402b2
+![Media](./misc/media.mp4)
 
-### System info
+### Taskbar Integration
+![Taskbar Integration](./misc/taskbar-integration.png)
 
-https://github.com/user-attachments/assets/185f238c-03b8-4f63-87a2-2d36d6b31039
+## 🚀 Getting Started
 
-## 🚀 Getting started
+### Simple Installation (Using Defaults)
 
-### Simple installation (using defaults)
-
-Download the `neobrutal-zebar.zip` from the latest release. Unzip the contents
-inside your zebar config directory. Adjust the `config.css` as needed.
+Download `neosoft-zebar.zip` from the latest release. Extract the contents to your Zebar config directory. Adjust `config.css` and `config.json` as needed (schemas are provided).
 
 > [!NOTE]
-> If you are using window scaling in windows, you might need to edit
-> `bar.zebar.json` to get a correct height (default is `60px`).
+> If you're using window scaling in Windows, you may need to edit `zpack.json` to set the correct height (default is `40px`).
 
-### Advanced installation (building from source)
+### Advanced Installation (Building from Source)
 
 #### Prerequisites
 
-- Package manager/runtime of your choice (`bun` (recommended), `npm`, `pnpm`, `yarn`, etc). I am
-  using `bun` so onwards I will show how to use that.
+- Package manager/runtime of your choice (`bun` (recommended), `npm`, `pnpm`, `yarn`, etc.). We use `bun`, so the following instructions will demonstrate its usage.
 
 #### Instructions
 
-1. Download the repo and unzip it inside you zebar configuration directory
-2. Edit your Zebar `settings.json` to point to the neobrutal directory + `/build/index.html`. Example: `neobrutal-zebar/build/index.html`
-3. Navigate to the root dir of neobrutal-zebar.
-4. Run a install command for your selected package manager.
+1. Download the repository and extract it to your Zebar configuration directory
+2. Edit your Zebar `settings.json` to point to the neosoft directory + `/build/zpack.json`. Example: `neosoft-zebar/build/zpack.json`
+3. Navigate to the root directory of neosoft-zebar
+4. Install dependencies using your selected package manager:
    ```bash
    bun install
    ```
-5. Make any edits you want (see [Themes](#Themes) and [Recipies](#Recipies) )
-6. Build the project
+5. Make any desired edits (see [Themes](#Themes))
+6. Build the project:
    ```bash
    bun run build
    ```
 7. Launch Zebar
 
-In `config.css` there exists a lot of configuration available to tweak.
-
 ## 🎨 Themes
 
-Neobrutal currently ships with 4 different themes, Rosé Pine, Catppuccin, Nord
-and Material. Below follows some examples.
+Neosoft currently ships with 5 different themes: Tau (custom), Rosé Pine, Catppuccin, Nord, and Material. Examples are shown below.
 
-### 🌷Rosé Pine (default)
+### Tau (Default)
 
 <details>
 <summary>Example config</summary>
@@ -97,117 +72,111 @@ and Material. Below follows some examples.
 
 ```css
 /* colors */
---text: var(--rp-text);
---bg: var(--rp-overlay);
---border: var(--rp-highlight-low);
---shadow: var(--rp-highlight-low);
---icon: var(--rp-love);
---memory: var(--rp-iris);
---cpu: var(--rp-rose);
---cpu-high-usage: var(--rp-love);
---battery-good: var(--rp-pine);
---battery-mid: var(--rp-gold);
---battery-low: var(--rp-love);
---focused-process: var(--rp-text);
---process: var(--rp-muted);
---displayed: var(--rp-text);
---ws-1: var(--rp-gold);
---ws-2: var(--rp-love);
---ws-3: var(--rp-pine);
---ws-4: var(--rp-foam);
---ws-5: var(--rp-iris);
---tiling-direction: var(--rp-rose);
---not-playing: var(--rp-love);
---now-playing: var(--rp-pine);
---network: var(--rp-text);
---weather: var(--rp-text);
+  --text: var(--tau-text);
+  --accent: var(--tau-accent);
+  --bg: var(--tau-overlay);
+  --muted: var(--tau-muted);
+  --border: var(--tau-highlight-low);
+  --shadow: var(--tau-highlight-low);
+  --icon: var(--tau-love);
+  --memory: var(--tau-weak);
+  --cpu: var(--tau-accent);
+  --cpu-high-usage: var(--tau-strong);
+  --battery-good: var(--tau-weak);
+  --battery-mid: var(--tau-mid);
+  --battery-low: var(--tau-strong);
+  --focused-process: var(--tau-text);
+  --process: var(--tau-muted);
+  --displayed: var(--tau-text);
+  --ws-1: var(--tau-weak);
+  --ws-2: var(--tau-low);
+  --ws-3: var(--tau-accent);
+  --ws-4: var(--tau-mid);
+  --ws-5: var(--tau-strong);
+  --tiling-direction: var(--tau-weak);
+  --not-playing: var(--tau-love);
+  --network: var(--tau-text);
+  --weather: var(--tau-text);
+  --bg-focused: var(--tau-highlight-high) / 0.4;
+  --bg-unfocused: var(--tau-overlay) / 0.5;
 ```
 
 </details>
 
-### 😸 Catppuccin
+The default `config.css` includes commented-out Rosé Pine colors (the original Neobrutal theme). You can easily switch by commenting out the Tau theme and uncommenting the Rosé Pine theme. Note that not all Rosé Pine colors are fully configured.
 
-<img src="https://github.com/adriankarlen/neobrutal-zebar/blob/main/misc/catppuccin.png" />
+## 🎉 Background Effects
 
-Utilizes [Catppuccin Palette](https://github.com/catppuccin/palette/blob/main/docs/css.md), configure css variables accoriding to your liking.
+> [!NOTE]
+> This feature may not work correctly in Windows 11 (acrylic changes color when focus moves away from Zebar). If it doesn't work, try using a different background effect or use an external application like [Mica For Everyone](https://github.com/MicaForEveryone/MicaForEveryone).
 
-<details>
-<summary>Config show in picture above</summary>
+To enable background effects, you need to recompile Zebar with a modification. You must have Rust and Node.js installed on your system. 
 
-##### config.css
+1. Clone the Zebar repository: `git clone https://github.com/glzr-io/zebar.git`
+2. Navigate to `packages/desktop/capabilities/widget.json` and add the following permission:
 
+```json
+{
+  ...,
+  "permissions": [
+    ...,
+    "core:window:allow-set-always-on-bottom",
+    "core:window:allow-set-always-on-top",
+    "core:window:allow-set-resizable",
+    "core:window:allow-set-position",
+    "core:window:allow-set-size",
+    "core:window:allow-set-title",
+    "core:window:allow-set-effects" <--- ADD THIS
+  ]
+}
+```
+
+3. Recompile Zebar (`npm i` + `npm run build`) and install it from `target/release/bundle/msi/Zebar_..._x64_en-US.msi`
+
+After installation, you can enable background effects in `config.json`.
+
+## 🧪 Taskbar Integration
+
+This is a highly experimental feature that may not work perfectly for everyone and requires extensive tweaking. It adds spaces in the widget containing window icons and the system tray, then moves the widget to overlay the taskbar position. To make both Zebar and the taskbar functional, the taskbar must be configured specifically.
+
+The taskbar must be:
+- Always on top
+- Completely transparent
+- Have clickable-through empty regions (so you can interact with the Zebar widget)
+- Have centered icons
+
+After configuring the taskbar, adjust the Zebar widget sizes and margins to align the icons perfectly. In `config.css`, modify these variables:
 ```css
-/* border */
---radius: 9999px;
-
-/* shadow */
---shadow-size-bar: 0;
---shadow-size-button: 0;
-
-/* colors */
---text: var(--ctp-mocha-text);
---bg: var(--ctp-mocha-surface0);
---border: var(--ctp-mocha-crust);
---border-button: var(--ctp-mocha-crust);
---shadow: var(--ctp-mocha-mantle);
---icon: var(--ctp-mocha-red);
---memory: var(--ctp-mocha-mauve);
---cpu: var(--ctp-mocha-pink);
---cpu-high-usage: var(--ctp-mocha-red);
---battery-good: var(--ctp-mocha-green);
---battery-mid: var(--ctp-mocha-peach);
---battery-low: var(--ctp-mocha-red);
---focused-process: var(--ctp-mocha-text);
---process: var(--ctp-mocha-surface2);
---displayed: var(--ctp-mocha-text);
---ws-1: var(--ctp-mocha-peach);
---ws-2: var(--ctp-mocha-red);
---ws-3: var(--ctp-mocha-green);
---ws-4: var(--ctp-mocha-blue);
---ws-5: var(--ctp-mocha-mauve);
---tiling-direction: var(--ctp-mocha-lavender);
---not-playing: var(--ctp-mocha-red);
---now-playing: var(--ctp-mocha-green);
---network: var(--ctp-mocha-text);
---weather: var(--ctp-mocha-text);
+   --process-icon-width: 50px;
+   --right-margin: 290px;
+   --left-margin: 50px;
 ```
 
-##### src/components/LeftGroup.svelte
-
-```svelte
-<!-- replace this line -->
-<Button class="text-zb-icon" iconClass="heart-filled" />
-<!-- with this line -->
-<Button class="text-zb-icon" iconClass="cat" />
+Enable taskbar integration in `config.json`:
+```json
+{
+   ...
+   "taskbarIntegration": {
+      "enabled": true,
+      "extraIcons": 0,
+      "primaryMonitorSelection": "all",
+      "secondaryMonitorSelection": "monitor"
+   }
+   ...
+}
 ```
 
-</details>
 
-## 🍳 Recipies
+### Windows 10 (Tested Configuration)
 
-<details>
-<summary>Soft Brutal</summary>
+Download and install TaskbarX from the [official GitHub repository](https://github.com/ChrisAnd1998/TaskbarX/releases), then run it with these arguments:
 
-```css
---radius: 9999px;
-```
+`Path\To\TaskbarX\TaskbarX.exe -tbs=1 -cfsa=1 -ftotc=1 -sti=1 -as=backeaseout -rzbt=1 -tbr=25 -tbsg=1`
 
-<img src="https://github.com/adriankarlen/neobrutal-zebar/blob/main/misc/brutal-soft.png" />
-</details>
-<details>
-<summary>Round bars without shadow</summary>
+This creates segments with rounded corners, click-through enabled, transparency, and centered icons. You must also unpin all taskbar icons and remove the Windows search bar (or increase the left margin mentioned above). Adjust the window selection in `config.json` and Windows settings to match your preferences.
 
-```css
---border-size: 1px;
---radius: 9999px;
---shadow-size-bar: 0px;
---shadow-size-button: 0px;
-```
+### Windows 11
 
-<img src="https://github.com/adriankarlen/neobrutal-zebar/blob/main/misc/non-brutal.png" />
-</details>
+This hasn't been tested. If you find a way to achieve the same taskbar effect as TaskbarX, please let us know (Windhawk might be capable of this).
 
-## 📜 License
 
-This project is licensed under the MIT License - see the
-[LICENSE](https://github.com/adriankarlen/neobrutal-zebar/blob/main/LICENSE) file

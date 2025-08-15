@@ -3,13 +3,13 @@
 :root {
   /* sizes */
   --height: 100%;
-  --process-icon-width: 50px;
   
   /* outer margins */
   --bar-margin-y: 0rem;
   --bar-margin-x: 0rem;
 
-  /* inner margins */
+  /* Taskbar integration margins */
+  --process-icon-width: 50px;
   --right-margin: 290px;
   --left-margin: 50px;
 
