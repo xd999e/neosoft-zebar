@@ -128,7 +128,7 @@ const configLoaded = new Promise<Config>((resolve, reject) => {
 
 function loadConfig() {
   console.log("Fetching config...");
-  fetch("/config.json")
+  fetch("config.json")
     .then((response) => response.text())
     .then((data) => {
       const newConfig = JSON5.parse(data);

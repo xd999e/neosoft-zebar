@@ -1,12 +1,12 @@
 {
   "$schema": "https://github.com/glzr-io/zebar/raw/v3.1.1/resources/zpack-schema.json",
   "name": "neosoft-zebar",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A highly customizable (and smooooooth) Zebar build",
   "tags": [],
   "previewImages": [
-    "../misc/fullscreen.png",
-    "../misc/taskbar-integration.png"
+    "misc/fullscreen.png",
+    "misc/taskbar-integration.png"
   ],
   "repositoryUrl": "https://github.com/blaiyz/neosoft-zebar",
   "widgets": [
@@ -31,7 +31,7 @@
       "presets": [
         {
           "name": "default",
-          "anchor": "bottom_left",
+          "anchor": "top_left",
           "offsetX": "0px",
           "offsetY": "0px",
           "width": "100%",
@@ -41,7 +41,7 @@
           },
           "dockToEdge": {
             "enabled": true,
-            "edge": "bottom",
+            "edge": "top",
             "windowMargin": "0px"
           }
         }

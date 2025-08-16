@@ -1,5 +1,5 @@
 # Neosoft [Zebar](https://github.com/glzr-io/zebar)
-A Zebar configuration forked from [Neobrutal Zebar](https://github.com/adriankarlen/neobrutal-zebar) for Zebar V3, built with Svelte and Tailwind. This project would not have been possible without the original—please give it a star!
+A Zebar configuration forked from [Neobrutal Zebar](https://github.com/adriankarlen/neobrutal-zebar) for Zebar V3, built with Svelte and Tailwind. This project would not have been possible without the original, please give it a star!
 
 ## ✨ Features
 
@@ -177,6 +177,6 @@ This creates segments with rounded corners, click-through enabled, transparency,
 
 ### Windows 11
 
-This hasn't been tested. If you find a way to achieve the same taskbar effect as TaskbarX, please let us know (Windhawk might be capable of this).
+This hasn't been tested. If you find a way to achieve the same taskbar effect as TaskbarX, please let me know (Windhawk might be capable of this).
 
 
