@@ -54,9 +54,9 @@ export interface Config {
 
   /**
    * The background effect to use for the widget.
-   * 
+   *
    * NOTE: In order to use anything other than inherit, you must recompile zebar with an extra permission. More details in the README.
-   * 
+   *
    * `inherit`- Don't change the effect, and use the one defined in zpack.json (probably transparent).
    * `acrylic`- Use an acrylic background effect. Windows 10, 11.
    * `blur`- Use a blur background effect. Windows 10, 11.
@@ -83,7 +83,7 @@ export interface TaskbarIntegration {
    * The number of additional icons that appear in the taskbar (like windows logo or search).
    */
   extraIcons: number;
-  
+
   /**
    * Which windows to include in the number of taskbar icons.
    */
@@ -148,4 +148,3 @@ function loadConfig() {
 }
 
 export { config, configLoaded, loadConfig };
-

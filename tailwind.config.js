@@ -64,7 +64,7 @@ export default {
         reverseBoxShadowY: "-var(--shadow-size-button)"
       },
       transitionDuration: {
-        DEFAULT: "var(--transition-duration)",
+        DEFAULT: "var(--transition-duration)"
       },
       fontFamily: {
         zb: ["var(--font-family)", ...defaultTheme.fontFamily.sans]

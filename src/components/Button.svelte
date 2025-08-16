@@ -1,6 +1,8 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
   type ButtonProps = {
-    children?: any;
+    children?: Snippet;
     label?: string;
     callback?: () => void;
     class?: string;

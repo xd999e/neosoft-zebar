@@ -51,7 +51,7 @@
 {#if glazewm}
   <div class="flex items-center">
     <SmoothDiv outerClass="flex justify-end" innerClass="flex items-center">
-      {#each glazewm.currentWorkspaces as workspace, i (workspace.id)}
+      {#each glazewm.currentWorkspaces as workspace (workspace.id)}
         {@const globalIndex = glazewm.allWorkspaces.findIndex((ws) =>
           workspaceEquals(ws, workspace)
         )}
@@ -84,7 +84,7 @@
       />
     </button>
     <SmoothDiv outerClass="flex justify-end" innerClass="flex items-center">
-      {#each glazewm.bindingModes as bindingMode, i (bindingMode.name)}
+      {#each glazewm.bindingModes as bindingMode (bindingMode.name)}
         <button
           transition:fly={{ y: 20, duration: config.transitionDuration }}
           animate:flip={{ duration: config.transitionDuration }}
@@ -109,11 +109,17 @@
       {/each}
     </SmoothDiv>
     {#if glazewm.displayedWorkspace}
-      <SmoothDiv outerClass="flex justify-end" innerClass="flex items-center h-full">
+      <SmoothDiv
+        outerClass="flex justify-end"
+        innerClass="flex items-center h-full"
+      >
         {#each getWindows(glazewm.displayedWorkspace) as child (child.id)}
           {@const icon = getProcessIcon(child as Window)}
           <span
-            transition:fly|global={{ y: 20, duration: config.transitionDuration }}
+            transition:fly|global={{
+              y: 20,
+              duration: config.transitionDuration
+            }}
             animate:flip={{ duration: config.transitionDuration }}
             class="flex items-center text-xl ml-1 {child.hasFocus
               ? 'text-zb-focused-process'

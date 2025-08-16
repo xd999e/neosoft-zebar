@@ -52,7 +52,7 @@
 >
   {#if leftCurve && config.direction !== "floating"}
     <div
-      class="absolute {config.direction === "bottom"
+      class="absolute {config.direction === 'bottom'
         ? 'bottom-0 rounded-br-base'
         : 'top-0 rounded-tr-base'} -left-[calc(var(--radius)*2)] h-radius w-[calc(var(--radius)*2)] bg-transparent shadow-inverted-l"
     ></div>
@@ -68,7 +68,7 @@
   </div>
   {#if rightCurve && config.direction !== "floating"}
     <div
-      class="absolute {config.direction === "bottom"
+      class="absolute {config.direction === 'bottom'
         ? 'bottom-0 rounded-bl-base'
         : 'top-0 rounded-tl-base'} -right-[calc(var(--radius)*2)] h-radius w-[calc(var(--radius)*2)] bg-transparent shadow-inverted-r"
     ></div>

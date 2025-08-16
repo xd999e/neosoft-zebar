@@ -10,7 +10,6 @@
   import Meter from "./Meter.svelte";
   import SmoothDiv from "./SmoothDiv.svelte";
 
-  let glazewm = $derived(providers.glazewm);
   let media = $derived(providers.media);
 
   const secondsToHms = (d: number) => {
@@ -25,7 +24,10 @@
 
 <SmoothDiv outerClass="flex justify-end">
   {#if isOnPrimaryMonitor() && media?.currentSession}
-    <div transition:fly={{ y: 20, duration: config.transitionDuration }} class="flex items-center gap-3 mr-2">
+    <div
+      transition:fly={{ y: 20, duration: config.transitionDuration }}
+      class="flex items-center gap-3 mr-2"
+    >
       <button
         class="transition hover:text-zb-accent hover:scale-125"
         aria-label="Previous"

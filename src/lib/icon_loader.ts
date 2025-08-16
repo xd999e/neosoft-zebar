@@ -4,7 +4,10 @@ const iconMap: { appNames: string[]; icon: IconType }[] = [];
 
 // We are importing the icons statically for offline support and treeshaking.
 import Terminal_2 from "@tabler/icons-svelte/icons/terminal-2";
-iconMap.push({ appNames: ["alacritty", "wezterm", "wezterm-gui", "windowsterminal", "wt"], icon: Terminal_2 });
+iconMap.push({
+  appNames: ["alacritty", "wezterm", "wezterm-gui", "windowsterminal", "wt"],
+  icon: Terminal_2
+});
 
 import BrandVscode from "@tabler/icons-svelte/icons/brand-vscode";
 iconMap.push({ appNames: ["code"], icon: BrandVscode });
@@ -22,7 +25,10 @@ import BrandArc from "@tabler/icons-svelte/icons/brand-arc";
 iconMap.push({ appNames: ["arc"], icon: BrandArc });
 
 import BrandChrome from "@tabler/icons-svelte/icons/brand-chrome";
-iconMap.push({ appNames: ["chrome", "chromium", "thorium"], icon: BrandChrome });
+iconMap.push({
+  appNames: ["chrome", "chromium", "thorium"],
+  icon: BrandChrome
+});
 
 import BrandFirefox from "@tabler/icons-svelte/icons/brand-firefox";
 iconMap.push({ appNames: ["firefox"], icon: BrandFirefox });
@@ -40,13 +46,24 @@ import BrandSpotify from "@tabler/icons-svelte/icons/brand-spotify";
 iconMap.push({ appNames: ["spotify"], icon: BrandSpotify });
 
 import Spy from "@tabler/icons-svelte/icons/spy";
-iconMap.push({ appNames: ["azure vpn client", "AutoHotkey Window Spy", "ProtonVPN", "clash-verge"], icon: Spy });
+iconMap.push({
+  appNames: [
+    "azure vpn client",
+    "AutoHotkey Window Spy",
+    "ProtonVPN",
+    "clash-verge"
+  ],
+  icon: Spy
+});
 
 import Screenshot from "@tabler/icons-svelte/icons/screenshot";
 iconMap.push({ appNames: ["snippingtool"], icon: Screenshot });
 
 import Settings from "@tabler/icons-svelte/icons/settings";
-iconMap.push({ appNames: ["control panel", "settings", "FanControl"], icon: Settings });
+iconMap.push({
+  appNames: ["control panel", "settings", "FanControl"],
+  icon: Settings
+});
 
 import Folder from "@tabler/icons-svelte/icons/folder";
 iconMap.push({ appNames: ["explorer", "dopus", "fpilot"], icon: Folder });
@@ -82,7 +99,18 @@ import BrandDocker from "@tabler/icons-svelte/icons/brand-docker";
 iconMap.push({ appNames: ["Docker Desktop"], icon: BrandDocker });
 
 import BrandKotlin from "@tabler/icons-svelte/icons/brand-kotlin";
-iconMap.push({ appNames: ["clion64", "idea64", "pycharm64", "webstorm64", "goland64", "rider64", "rustrover64"], icon: BrandKotlin });
+iconMap.push({
+  appNames: [
+    "clion64",
+    "idea64",
+    "pycharm64",
+    "webstorm64",
+    "goland64",
+    "rider64",
+    "rustrover64"
+  ],
+  icon: BrandKotlin
+});
 
 import BrandTelegram from "@tabler/icons-svelte/icons/brand-telegram";
 iconMap.push({ appNames: ["telegram", "unigram"], icon: BrandTelegram });
@@ -100,7 +128,10 @@ import Check from "@tabler/icons-svelte/icons/check";
 iconMap.push({ appNames: ["Microsoft To Do"], icon: Check });
 
 import Music from "@tabler/icons-svelte/icons/music";
-iconMap.push({ appNames: ["Media Player", "AppleMusic", "Cider"], icon: Music });
+iconMap.push({
+  appNames: ["Media Player", "AppleMusic", "Cider"],
+  icon: Music
+});
 
 import Markdown from "@tabler/icons-svelte/icons/markdown";
 iconMap.push({ appNames: ["Typora"], icon: Markdown });
@@ -109,10 +140,16 @@ import Notebook from "@tabler/icons-svelte/icons/notebook";
 iconMap.push({ appNames: ["Obsidian", "zotero"], icon: Notebook });
 
 import FileTypePdf from "@tabler/icons-svelte/icons/file-type-pdf";
-iconMap.push({ appNames: ["SumatraPDF", "Acrobat Reader", "Foxit Reader", "sioyek"], icon: FileTypePdf });
+iconMap.push({
+  appNames: ["SumatraPDF", "Acrobat Reader", "Foxit Reader", "sioyek"],
+  icon: FileTypePdf
+});
 
 import FileZip from "@tabler/icons-svelte/icons/file-zip";
-iconMap.push({ appNames: ["7zFM", "WinRAR", "WinZip", "bandizip"], icon: FileZip });
+iconMap.push({
+  appNames: ["7zFM", "WinRAR", "WinZip", "bandizip"],
+  icon: FileZip
+});
 
 import BrandAndroid from "@tabler/icons-svelte/icons/brand-android";
 iconMap.push({ appNames: ["MuMuPlayer"], icon: BrandAndroid });

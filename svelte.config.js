@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-static';
+import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
 const config = {
@@ -9,11 +9,11 @@ const config = {
       assets: "build",
       fallback: undefined,
       precompress: false,
-      strict: true,
+      strict: true
     }),
     alias: {
-      "$comp": "src/components",
-      "$static": "static"
+      $comp: "src/components",
+      $static: "static"
     }
   }
 };

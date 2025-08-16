@@ -1,4 +1,5 @@
 # Neosoft [Zebar](https://github.com/glzr-io/zebar)
+
 A Zebar configuration forked from [Neobrutal Zebar](https://github.com/adriankarlen/neobrutal-zebar) for Zebar V3, built with Svelte and Tailwind. This project would not have been possible without the original, please give it a star!
 
 ## ✨ Features
@@ -14,7 +15,6 @@ A Zebar configuration forked from [Neobrutal Zebar](https://github.com/adriankar
 - Windows Taskbar integration (experimental)
 - Background effects (Acrylic, Blur, Mica)
 
-
 ## 🖼️ Showcase
 
 ![fullscreen](./misc/fullscreen.png)
@@ -26,14 +26,17 @@ https://github.com/user-attachments/assets/c0abbb25-0e5a-4531-9400-c52b9a7f2ffe
 https://github.com/user-attachments/assets/47b0a9ae-4f7d-4784-a224-cdf0b10943aa
 
 ### Taskbar Integration
+
 ![Taskbar Integration](./misc/taskbar-integration.png)
 
 ## 🚀 Getting Started
 
 ### Marketplace
+
 You can now easily install Neosoft Zebar from the Zebar marketplace! Simply search for neosoft-zebar and click install.
 
 ### Manual
+
 Download `neosoft-zebar.zip` from the latest release. Extract the contents to your Zebar config directory.
 
 For both installtion methods, you can adjust `config.css` and `config.json` as needed (schemas are provided).
@@ -76,33 +79,33 @@ Neosoft currently ships with 5 different themes: Tau (custom), Rosé Pine, Catpp
 
 ```css
 /* colors */
-  --text: var(--tau-text);
-  --accent: var(--tau-accent);
-  --bg: var(--tau-overlay);
-  --muted: var(--tau-muted);
-  --border: var(--tau-highlight-low);
-  --shadow: var(--tau-highlight-low);
-  --icon: var(--tau-love);
-  --memory: var(--tau-weak);
-  --cpu: var(--tau-accent);
-  --cpu-high-usage: var(--tau-strong);
-  --battery-good: var(--tau-weak);
-  --battery-mid: var(--tau-mid);
-  --battery-low: var(--tau-strong);
-  --focused-process: var(--tau-text);
-  --process: var(--tau-muted);
-  --displayed: var(--tau-text);
-  --ws-1: var(--tau-weak);
-  --ws-2: var(--tau-low);
-  --ws-3: var(--tau-accent);
-  --ws-4: var(--tau-mid);
-  --ws-5: var(--tau-strong);
-  --tiling-direction: var(--tau-weak);
-  --not-playing: var(--tau-love);
-  --network: var(--tau-text);
-  --weather: var(--tau-text);
-  --bg-focused: var(--tau-highlight-high) / 0.4;
-  --bg-unfocused: var(--tau-overlay) / 0.5;
+--text: var(--tau-text);
+--accent: var(--tau-accent);
+--bg: var(--tau-overlay);
+--muted: var(--tau-muted);
+--border: var(--tau-highlight-low);
+--shadow: var(--tau-highlight-low);
+--icon: var(--tau-love);
+--memory: var(--tau-weak);
+--cpu: var(--tau-accent);
+--cpu-high-usage: var(--tau-strong);
+--battery-good: var(--tau-weak);
+--battery-mid: var(--tau-mid);
+--battery-low: var(--tau-strong);
+--focused-process: var(--tau-text);
+--process: var(--tau-muted);
+--displayed: var(--tau-text);
+--ws-1: var(--tau-weak);
+--ws-2: var(--tau-low);
+--ws-3: var(--tau-accent);
+--ws-4: var(--tau-mid);
+--ws-5: var(--tau-strong);
+--tiling-direction: var(--tau-weak);
+--not-playing: var(--tau-love);
+--network: var(--tau-text);
+--weather: var(--tau-text);
+--bg-focused: var(--tau-highlight-high) / 0.4;
+--bg-unfocused: var(--tau-overlay) / 0.5;
 ```
 
 </details>
@@ -114,7 +117,7 @@ The default `config.css` includes commented-out Rosé Pine colors (the original 
 > [!NOTE]
 > This feature may not work correctly in Windows 11 (acrylic changes color when focus moves away from Zebar). If it doesn't work, try using a different background effect or use an external application like [Mica For Everyone](https://github.com/MicaForEveryone/MicaForEveryone).
 
-To enable background effects, you need to recompile Zebar with a modification. You must have Rust and Node.js installed on your system. 
+To enable background effects, you need to recompile Zebar with a modification. You must have Rust and Node.js installed on your system.
 
 1. Clone the Zebar repository: `git clone https://github.com/glzr-io/zebar.git`
 2. Navigate to `packages/desktop/capabilities/widget.json` and add the following permission:
@@ -144,19 +147,22 @@ After installation, you can enable background effects in `config.json`.
 This is a highly experimental feature that may not work perfectly for everyone and requires extensive tweaking. It adds spaces in the widget containing window icons and the system tray, then moves the widget to overlay the taskbar position. To make both Zebar and the taskbar functional, the taskbar must be configured specifically.
 
 The taskbar must be:
+
 - Always on top
 - Completely transparent
 - Have clickable-through empty regions (so you can interact with the Zebar widget)
 - Have centered icons
 
 After configuring the taskbar, adjust the Zebar widget sizes and margins to align the icons perfectly. In `config.css`, modify these variables:
+
 ```css
-   --process-icon-width: 50px;
-   --right-margin: 290px;
-   --left-margin: 50px;
+--process-icon-width: 50px;
+--right-margin: 290px;
+--left-margin: 50px;
 ```
 
 Enable taskbar integration in `config.json`:
+
 ```json
 {
    ...
@@ -170,7 +176,6 @@ Enable taskbar integration in `config.json`:
 }
 ```
 
-
 ### Windows 10 (Tested Configuration)
 
 Download and install TaskbarX from the [official GitHub repository](https://github.com/ChrisAnd1998/TaskbarX/releases), then run it with these arguments:
@@ -182,5 +187,3 @@ This creates segments with rounded corners, click-through enabled, transparency,
 ### Windows 11
 
 This hasn't been tested. If you find a way to achieve the same taskbar effect as TaskbarX, please let me know (Windhawk might be capable of this).
-
-

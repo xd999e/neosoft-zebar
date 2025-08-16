@@ -5,8 +5,6 @@
   import PointFilled from "@tabler/icons-svelte/icons/point-filled";
   import NowPlaying from "./NowPlaying.svelte";
 
-  let glazewm = $derived(providers.glazewm);
-  let media = $derived(providers.media);
   let date = $derived(providers.date);
   let weather = $derived(providers.weather);
 </script>

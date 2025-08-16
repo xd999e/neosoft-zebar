@@ -4,10 +4,7 @@
   "version": "1.1.0",
   "description": "A highly customizable (and smooooooth) Zebar build",
   "tags": [],
-  "previewImages": [
-    "misc/fullscreen.png",
-    "misc/taskbar-integration.png"
-  ],
+  "previewImages": ["misc/fullscreen.png", "misc/taskbar-integration.png"],
   "repositoryUrl": "https://github.com/blaiyz/neosoft-zebar",
   "widgets": [
     {
@@ -18,9 +15,7 @@
       "focused": false,
       "resizable": false,
       "transparent": true,
-      "includeFiles": [
-        "**"
-      ],
+      "includeFiles": ["**"],
       "caching": {
         "defaultDuration": 604800,
         "rules": []

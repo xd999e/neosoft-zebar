@@ -1,13 +1,4 @@
 <script lang="ts">
-  import {
-    // startWidget,
-    type BatteryOutput,
-    type CpuOutput,
-    type GlazeWmOutput,
-    type MemoryOutput,
-    type NetworkOutput
-  } from "zebar";
-
   import Button from "./Button.svelte";
   import Meter from "./Meter.svelte";
   import { isOnPrimaryMonitor } from "$lib/utils/glaze_wm_utils.svelte";
@@ -31,7 +22,6 @@
   import IconHeartFilled from "@tabler/icons-svelte/icons/heart-filled";
   // import Test from "./Test.svelte";
   import { providers } from "$lib/providers.svelte";
-  import { config } from "$lib/config.svelte";
 
   let memory = $derived(providers.memory);
   let cpu = $derived(providers.cpu);
@@ -64,13 +54,13 @@
     >
       {#if battery?.state === "charging"}
         <BatteryCharging />
-      {:else if battery?.chargePercent! < 20}
+      {:else if (battery?.chargePercent ?? 0) < 20}
         <BatteryWarning />
-      {:else if battery?.chargePercent! < 50}
+      {:else if (battery?.chargePercent ?? 0) < 50}
         <BatteryLow />
-      {:else if battery?.chargePercent! < 80}
+      {:else if (battery?.chargePercent ?? 0) < 80}
         <BatteryMedium />
-      {:else if battery?.chargePercent! <= 100}
+      {:else if (battery?.chargePercent ?? 0) <= 100}
         <BatteryFull />
       {:else}
         <Battery />

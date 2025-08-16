@@ -18,12 +18,14 @@
   }
 }
 
-.lucide-icon, .tabler-icon {
+.lucide-icon,
+.tabler-icon {
   width: 1em;
   height: 1em;
 }
 
-.nf, .tabler-icon {
+.nf,
+.tabler-icon {
   stroke-width: 6%;
   stroke: currentColor;
 }

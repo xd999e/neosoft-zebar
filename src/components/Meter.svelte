@@ -1,8 +1,10 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
+
   type Props = {
     percent: number;
     class?: string;
-    children?: any;
+    children?: Snippet;
     animate?: boolean;
   };
   let { percent, class: className, children, animate = true }: Props = $props();
@@ -15,12 +17,16 @@
   const strokeWidth = 8;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = $derived(circumference * (1 - normalizedPercent / 100));
+  const strokeDashoffset = $derived(
+    circumference * (1 - normalizedPercent / 100)
+  );
 </script>
 
 <div class="relative group {className}">
   <div
-    class="flex justify-center items-center aspect-square h-full {animate ? "transition-all group-hover:translate-y-full group-hover:opacity-0" : ""}"
+    class="flex justify-center items-center aspect-square h-full {animate
+      ? 'transition-all group-hover:translate-y-full group-hover:opacity-0'
+      : ''}"
   >
     <svg
       class="h-full transition-all"
