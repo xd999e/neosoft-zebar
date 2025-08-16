@@ -30,9 +30,13 @@ https://github.com/user-attachments/assets/47b0a9ae-4f7d-4784-a224-cdf0b10943aa
 
 ## 🚀 Getting Started
 
-### Simple Installation (Using Defaults)
+### Marketplace
+You can now easily install Neosoft Zebar from the Zebar marketplace! Simply search for neosoft-zebar and click install.
 
-Download `neosoft-zebar.zip` from the latest release. Extract the contents to your Zebar config directory. Adjust `config.css` and `config.json` as needed (schemas are provided).
+### Manual
+Download `neosoft-zebar.zip` from the latest release. Extract the contents to your Zebar config directory.
+
+For both installtion methods, you can adjust `config.css` and `config.json` as needed (schemas are provided).
 
 > [!NOTE]
 > If you're using window scaling in Windows, you may need to edit `zpack.json` to set the correct height (default is `40px`).
