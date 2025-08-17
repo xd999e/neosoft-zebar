@@ -1,0 +1,103 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version-number:
+        type: string
+        required: true
+      draft:
+        type: boolean
+        required: false
+        default: false
+      release-notes:
+        type: string
+        required: false
+        default: ""
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      version-number: ${{ github.event.inputs.version-number }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build/
+
+      - name: Download Zebar
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: glzr-io/zebar
+          tag: "v3.1.1"
+          fileName: "*x64.deb"
+          out-file-path: "."
+
+      - name: Install Zebar dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libappindicator3-1 libwebkit2gtk-4.1-0 xvfb
+
+      - name: Extract Zebar CLI
+        run: |
+          dpkg-deb -x *x64.deb ./zebar-extracted
+          sudo cp ./zebar-extracted/usr/bin/zebar /usr/local/bin/
+          sudo chmod +x /usr/local/bin/zebar
+
+        # Zebar needs gtk even for headless mode
+      - name: Test Zebar Installation
+        run: |
+          export DISPLAY=:99
+          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          sleep 2
+          zebar --version
+
+      - name: Zip release folder
+        run: zip -r neosoft-zebar.zip build/
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.event.inputs.version-number }}
+          release_name: Release v${{ github.event.inputs.version-number }}
+          draft: ${{ github.event.inputs.draft }}
+          prerelease: false
+
+      # Upload Release Asset
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./neosoft-zebar.zip
+          asset_name: neosoft-zebar.zip
+          asset_content_type: application/zip
+
+      - name: Set short git commit SHA
+        id: vars
+        run: |
+          calculatedSha=$(git rev-parse --short ${{ github.sha }})
+          echo "COMMIT_SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
+
+      - name: Upload to Zebar marketplace
+        env:
+          ZEBAR_PUBLISH_TOKEN: ${{ secrets.ZEBAR_PUBLISH_TOKEN }}
+        run: |
+          export DISPLAY=:99
+          zebar publish --pack-config ./build/zpack.json \
+          --version-override ${{ github.event.inputs.version-number }} \
+          --commit-sha ${{ env.COMMIT_SHORT_SHA }} \
+          --release-notes "${{ github.event.inputs.release-notes }}" \
