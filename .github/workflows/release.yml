@@ -73,9 +73,9 @@ jobs:
           tag_name: v${{ github.event.inputs.version-number }}
           release_name: Release v${{ github.event.inputs.version-number }}
           draft: ${{ github.event.inputs.draft }}
+          body: ${{ github.event.inputs.release-notes }}
           prerelease: false
 
-      # Upload Release Asset
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
@@ -86,12 +86,6 @@ jobs:
           asset_name: neosoft-zebar.zip
           asset_content_type: application/zip
 
-      - name: Set short git commit SHA
-        id: vars
-        run: |
-          calculatedSha=$(git rev-parse --short ${{ github.sha }})
-          echo "COMMIT_SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
-
       - name: Upload to Zebar marketplace
         env:
           ZEBAR_PUBLISH_TOKEN: ${{ secrets.ZEBAR_PUBLISH_TOKEN }}
@@ -99,5 +93,5 @@ jobs:
           export DISPLAY=:99
           zebar publish --pack-config ./build/zpack.json \
           --version-override ${{ github.event.inputs.version-number }} \
-          --commit-sha ${{ env.COMMIT_SHORT_SHA }} \
+          --commit-sha $(git rev-parse --short ${{ github.sha }}) \
           --release-notes "${{ github.event.inputs.release-notes }}" \
