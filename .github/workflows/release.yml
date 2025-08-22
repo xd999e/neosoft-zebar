@@ -87,6 +87,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Upload to Zebar marketplace
+        if: github.event.inputs.draft == false
         env:
           ZEBAR_PUBLISH_TOKEN: ${{ secrets.ZEBAR_PUBLISH_TOKEN }}
         run: |
@@ -95,3 +96,4 @@ jobs:
           --version-override ${{ github.event.inputs.version-number }} \
           --commit-sha $(git rev-parse --short ${{ github.sha }}) \
           --release-notes "${{ github.event.inputs.release-notes }}" \
+          --release-url ${{ steps.create_release.outputs.html_url }}
