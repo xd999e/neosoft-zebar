@@ -54,8 +54,8 @@
           {/if}
         </Meter>
         <SmoothDiv
-          outerClass="ml-2"
-          innerClass="relative flex items-center justify-center min-w-24 max-w-md"
+          outerClass="overflow-hidden"
+          innerClass="relative flex items-center justify-center min-w-24 max-w-24 sm:max-w-48 md:max-w-64 lg:max-w-xs xl:max-w-sm"
         >
           <span
             class="transition truncate group-hover:translate-y-full group-hover:opacity-0"
