@@ -49,7 +49,7 @@ Download `neosoft-zebar.zip` from the latest release. Extract the contents into 
 
 #### Prerequisites
 
-- Package manager/runtime of your choice (`bun` (recommended), `npm`, `pnpm`, `yarn`, etc.). We use `bun`, so the following instructions will demonstrate its usage.
+- Package manager/runtime of your choice (`pnpm` (recommended), `npm`, `bun`, `yarn`, etc.). We use `pnpm`, so the following instructions will demonstrate its usage.
 
 #### Instructions
 
@@ -58,14 +58,17 @@ Download `neosoft-zebar.zip` from the latest release. Extract the contents into 
 3. Navigate to the root directory of neosoft-zebar
 4. Install dependencies using your selected package manager:
    ```bash
-   bun install
+   pnpm install
    ```
 5. Make any desired edits
 6. Build the project:
    ```bash
-   bun run build
+   pnpm run dev
    ```
 7. Reload Zebar
+
+> [!NOTE]
+> `pnpm run dev` creates a local static folder called `dev_static`. This folder is not committed. Use this folder for your custom configurations without affecting the original files. In general, don't use `pnpm run build` unless you are making production changes.
 
 ## 🔧 Configuration
 

@@ -1,10 +1,10 @@
 {
   "$schema": "./schema.json",
-  "direction": "bottom",
-  "gradient": "bottom",
+  "direction": "top",
+  "gradient": "top",
   "attachSides": true,
   "taskbarIntegration": {
-    "enabled": true,
+    "enabled": false,
     "extraIcons": 0,
     "primaryMonitorSelection": "all",
     "secondaryMonitorSelection": "monitor"

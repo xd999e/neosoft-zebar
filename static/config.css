@@ -10,8 +10,8 @@
 
   /* Taskbar integration margins */
   --process-icon-width: 50px;
-  --right-margin: 290px;
-  --left-margin: 50px;
+  --right-margin: 1rem;
+  --left-margin: 1rem;
 
   /* fonts */
   --font-family:

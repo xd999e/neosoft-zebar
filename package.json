@@ -3,10 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "watch": "vite build --watch",
-    "release": "node scripts/release.js",
+    "dev": "node scripts/dev_build.js",
+    "build": "node scripts/build.js",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
