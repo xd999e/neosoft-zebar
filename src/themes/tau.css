@@ -1,10 +1,10 @@
 :root {
-  --tau-overlay: 0 0% 15%; /* #252239 */
-  --tau-muted: 0 0% 53%; /* #918DAB */
-  --tau-text: 0 0% 88%; /* #DFDDF4 */
-  --tau-highlight-low: 0 0% 8%; /* #201F2D */
-  --tau-highlight-med: 204 3% 30%; /* #403D52 */
-  --tau-highlight-high: 217.9 10.6% 64.9%; /* #535068 */
+  --tau-overlay: 0 0% 15%;
+  --tau-muted: 0 0% 53%;
+  --tau-text: 0 0% 88%;
+  --tau-highlight-low: 0 0% 8%;
+  --tau-highlight-med: 204 3% 30%;
+  --tau-highlight-high: 217.9 10.6% 64.9%;
 
   --tau-strong: 2 69% 50%;
   --tau-mid: 20 100% 44%;

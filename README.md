@@ -33,7 +33,7 @@ https://github.com/user-attachments/assets/47b0a9ae-4f7d-4784-a224-cdf0b10943aa
 
 ### Simple Installation
 
-For both installtion methods, you can adjust `config.css` and `config.json` as needed (see [Configuration](#Configuration) and [Css & Themes](#CSS-&-Themes))
+For both installtion methods, you can adjust `config.css` and `config.json` as needed (see [Configuration](#-configuration) and [CSS & Themes](#-css--themes))
 
 #### Marketplace
 
@@ -113,11 +113,12 @@ Some settings might need to be configured in `zpack.json`, which is the configur
 
 Style and color configuration is defined in `config.css`. After making changes there, reload Zebar.
 
-Neosoft Zebar currently ships with 5 different themes: Tau (custom), Rosé Pine, Catppuccin, Nord, and Material. These themes are provided as palletes, with the colors represented by CSS variables. You can see the variables of each theme in [this directory](src/themes). Examples are shown below.
+Neosoft Zebar currently ships with 5 different themes: Tau (custom), Rosé Pine, Catppuccin, Nord, and Material. These themes are provided as palletes, with the colors represented by CSS variables. You can see the variables of each theme in [this directory](src/themes). At the moment, I've provided presets for 2 (+2 flavors) themes which are available below. In order to use them, replace the color variables (variables under `/* colors */`) in `config.css` with the corresponding variables from the desired theme. There are additional themes without presets which you can experiment with on your own, contributions for these themes are welcome!
 
-In order to change the colors into custom ones, you need to replace the variables with HSL colors without commas. For example, to change the text and accent colors modify the first lines:
+In order to use custom colors, you need to replace the color variables with HSL-encoded colors without commas. For example, to change the text and accent colors modify the first lines:
 
-```
+```css
+  /* colors */
   --text: 0 73% 56%;
   --accent: 300 100% 50%;
   ...
@@ -128,12 +129,12 @@ In addition to colors, `config.css` provides variables that control other style 
 > [!TIP]
 > To scale the entire widget, you need to both increase height in `zpack.json` and increase the font size in `config.css`. Neosoft Zebar's component sizes are all sized relative to the font size.
 
+#### **Here are the theme presets:**
+
 ### Tau (Default)
 
 <details>
-<summary>Example config</summary>
-
-##### config.css
+<summary>config.css</summary>
 
 ```css
 /* colors */
@@ -168,8 +169,108 @@ In addition to colors, `config.css` provides variables that control other style 
 
 </details>
 
-**TODO:** Add color preset for each theme.
-The default `config.css` includes commented-out Rosé Pine colors (the original Neobrutal theme). You can easily switch by commenting out the Tau theme and uncommenting the Rosé Pine theme. Note that not all Rosé Pine colors are fully configured.
+### Rosé Pine (includes flavors)
+
+<details>
+<summary>config.css</summary>
+
+#### Base
+
+```css
+/* colors */
+--text: var(--rp-text);
+--accent: var(--rp-foam);
+--bg: var(--rp-overlay);
+--muted: var(--rp-base);
+--border: var(--rp-highlight-low);
+--shadow: var(--rp-highlight-low);
+--icon: var(--rp-love);
+--memory: var(--rp-iris);
+--cpu: var(--rp-rose);
+--cpu-high-usage: var(--rp-love);
+--battery-good: var(--rp-pine);
+--battery-mid: var(--rp-gold);
+--battery-low: var(--rp-love);
+--focused-process: var(--rp-text);
+--process: var(--rp-muted);
+--displayed: var(--rp-text);
+--ws-1: var(--rp-gold);
+--ws-2: var(--rp-love);
+--ws-3: var(--rp-pine);
+--ws-4: var(--rp-foam);
+--ws-5: var(--rp-iris);
+--tiling-direction: var(--rp-rose);
+--network: var(--rp-text);
+--weather: var(--rp-text);
+--bg-focused: var(--rp-subtle) / 0.4;
+--bg-unfocused: var(--rp-base) / 0.5;
+```
+
+#### Moon
+
+```css
+/* colors */
+--text: var(--rp-moon-text);
+--accent: var(--rp-moon-foam);
+--bg: var(--rp-moon-overlay);
+--muted: var(--rp-moon-base);
+--border: var(--rp-moon-highlight-low);
+--shadow: var(--rp-moon-highlight-low);
+--icon: var(--rp-moon-love);
+--memory: var(--rp-moon-iris);
+--cpu: var(--rp-moon-rose);
+--cpu-high-usage: var(--rp-moon-love);
+--battery-good: var(--rp-moon-pine);
+--battery-mid: var(--rp-moon-gold);
+--battery-low: var(--rp-moon-love);
+--focused-process: var(--rp-moon-text);
+--process: var(--rp-moon-muted);
+--displayed: var(--rp-moon-text);
+--ws-1: var(--rp-moon-gold);
+--ws-2: var(--rp-moon-love);
+--ws-3: var(--rp-moon-pine);
+--ws-4: var(--rp-moon-foam);
+--ws-5: var(--rp-moon-iris);
+--tiling-direction: var(--rp-moon-rose);
+--network: var(--rp-moon-text);
+--weather: var(--rp-moon-text);
+--bg-focused: var(--rp-moon-subtle) / 0.4;
+--bg-unfocused: var(--rp-moon-base) / 0.5;
+```
+
+#### Dawn
+
+```css
+/* colors */
+--text: var(--rp-dawn-text);
+--accent: var(--rp-dawn-foam);
+--bg: var(--rp-dawn-base);
+--muted: var(--rp-dawn-base);
+--border: var(--rp-dawn-highlight-low);
+--shadow: var(--rp-dawn-highlight-low);
+--icon: var(--rp-dawn-love);
+--memory: var(--rp-dawn-iris);
+--cpu: var(--rp-dawn-rose);
+--cpu-high-usage: var(--rp-dawn-love);
+--battery-good: var(--rp-dawn-pine);
+--battery-mid: var(--rp-dawn-gold);
+--battery-low: var(--rp-dawn-love);
+--focused-process: var(--rp-dawn-text);
+--process: var(--rp-dawn-muted);
+--displayed: var(--rp-dawn-text);
+--ws-1: var(--rp-dawn-gold);
+--ws-2: var(--rp-dawn-love);
+--ws-3: var(--rp-dawn-pine);
+--ws-4: var(--rp-dawn-foam);
+--ws-5: var(--rp-dawn-iris);
+--tiling-direction: var(--rp-dawn-rose);
+--network: var(--rp-dawn-text);
+--weather: var(--rp-dawn-text);
+--bg-focused: var(--rp-dawn-overlay) / 0.4;
+--bg-unfocused: var(--rp-dawn-text) / 0.5;
+```
+
+</details>
 
 ## 🎉 Background Effects
 
@@ -265,3 +366,9 @@ This creates segments with rounded corners, click-through enabled, transparency,
 ### Windows 11
 
 This hasn't been tested. If you find a way to achieve the same taskbar effect as TaskbarX, please let me know (Windhawk might be capable of this).
+
+## Contribution
+
+Contributions are welcome! If you have suggestions, improvements, or bug fixes, please open an issue or submit a pull request.
+
+An easy way to contribute is by creating theme presets, or by adding additional themes. You can also help with the process icon map in [`src/lib/icon_loader.ts`](src/lib/icon_loader.ts).
