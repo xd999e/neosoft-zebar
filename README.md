@@ -31,18 +31,16 @@ https://github.com/user-attachments/assets/47b0a9ae-4f7d-4784-a224-cdf0b10943aa
 
 ## 🚀 Getting Started
 
-### Marketplace
+### Simple Installation
+For both installtion methods, you can adjust `config.css` and `config.json` as needed (see [Configuration](#Configuration) and [Css & Themes](#CSS-&-Themes))
 
+#### Marketplace
 You can now easily install Neosoft Zebar from the Zebar marketplace! Simply search for neosoft-zebar and click install.
 
-### Manual
+The installation location is in `%appData%\zebar\downloads\blaiyz.neosoft-zebar@<version>` (you can find the config files there).
 
-Download `neosoft-zebar.zip` from the latest release. Extract the contents to your Zebar config directory.
-
-For both installtion methods, you can adjust `config.css` and `config.json` as needed (schemas are provided).
-
-> [!NOTE]
-> If you're using window scaling in Windows, you may need to edit `zpack.json` to set the correct height (default is `40px`).
+#### Manual
+Download `neosoft-zebar.zip` from the latest release. Extract the contents into a folder and place it in your Zebar config directory.
 
 ### Advanced Installation (Building from Source)
 
@@ -52,23 +50,73 @@ For both installtion methods, you can adjust `config.css` and `config.json` as n
 
 #### Instructions
 
-1. Download the repository and extract it to your Zebar configuration directory
-2. Edit your Zebar `settings.json` to point to the neosoft directory + `/build/zpack.json`. Example: `neosoft-zebar/build/zpack.json`
-3. Navigate to the root directory of neosoft-zebar
-4. Install dependencies using your selected package manager:
+1. Download the repository and extract it anywhere
+2. To avoid copying files on each rebuild, create a symlink in the Zebar config directory that points to `path/to/repo/neosoft-zebar/build`
+4. Navigate to the root directory of neosoft-zebar
+5. Install dependencies using your selected package manager:
    ```bash
    bun install
    ```
-5. Make any desired edits (see [Themes](#Themes))
-6. Build the project:
+6. Make any desired edits
+7. Build the project:
    ```bash
    bun run build
    ```
-7. Launch Zebar
+8. Reload Zebar
 
-## 🎨 Themes
+## 🔧 Configuration
+General configuration is defined in `config.json`, which ships together with the Neosoft Zebar bundle. The default configuration is:
+```json
+{
+  "$schema": "./schema.json",
+  "direction": "top",
+  "gradient": "top",
+  "attachSides": true,
+  "taskbarIntegration": {
+    "enabled": false,
+    "extraIcons": 0,
+    "primaryMonitorSelection": "all",
+    "secondaryMonitorSelection": "monitor"
+  },
+  "transitionDuration": 400,
+  "providersConfig": {
+    "refreshIntervals": {
+      "cpu": 2000,
+      "memory": 5000,
+      "battery": 60000,
+      "weather": 900000,
+      "network": 2000
+    },
+    "enableErrorLogging": false
+  },
+  "backgroundEffect": "acrylic",
+  "enableAutoTiling": true
+}
+```
 
-Neosoft currently ships with 5 different themes: Tau (custom), Rosé Pine, Catppuccin, Nord, and Material. Examples are shown below.
+In order to see the description and value options for each field, you need to open `config.json` in VSCode (or any editor that supports json schemas), which then detects the schema (shipped together in `schema.json`) and provides intellisense for each field.
+
+Some settings might need to be configured in `zpack.json`, which is the configuration file Zebar uses (shipped together as well). In there, you have options to change the size and positioning of the widget.
+
+> [!NOTE]
+> If you're using window scaling in Windows, you may need to edit `zpack.json` to set the correct height (default is `40px`).
+
+## 🎨 CSS & Themes
+Style and color configuration is defined in `config.css`. After making changes there, reload Zebar.
+
+Neosoft Zebar currently ships with 5 different themes: Tau (custom), Rosé Pine, Catppuccin, Nord, and Material. These themes are provided as palletes, with the colors represented by CSS variables. You can see the variables of each theme in [this directory](src/themes). Examples are shown below.
+
+In order to change the colors into custom ones, you need to replace the variables with HSL colors without commas. For example, to change the text and accent colors modify the first lines:
+```
+  --text: 0 73% 56%;
+  --accent: 300 100% 50%;
+  ...
+```
+
+In addition to colors, `config.css` provides variables that control other style options, such as border radius with `--radius`, fonts with `--font-family` and different margins. Use all configuration files (`config.json`, `config.css`, `zpack.json`) to achieve the exact widget style you want.
+
+> [!TIP]
+> To scale the entire widget, you need to both increase height in `zpack.json` and increase the font size in `config.css`. Neosoft Zebar's component sizes are all sized relative to the font size.
 
 ### Tau (Default)
 
@@ -110,12 +158,13 @@ Neosoft currently ships with 5 different themes: Tau (custom), Rosé Pine, Catpp
 
 </details>
 
+**TODO:** Add color preset for each theme.
 The default `config.css` includes commented-out Rosé Pine colors (the original Neobrutal theme). You can easily switch by commenting out the Tau theme and uncommenting the Rosé Pine theme. Note that not all Rosé Pine colors are fully configured.
 
 ## 🎉 Background Effects
 
-> [!NOTE]
-> This feature may not work correctly in Windows 11 (acrylic changes color when focus moves away from Zebar). If it doesn't work, try using a different background effect or use an external application like [Mica For Everyone](https://github.com/MicaForEveryone/MicaForEveryone).
+> [!WARNING]
+> This feature does not work in Windows 11 (Currently, supports only Windows 10). To achieve similar background effects, use an external application like [Mica For Everyone](https://github.com/MicaForEveryone/MicaForEveryone).
 
 To enable background effects, you need to recompile Zebar with a modification. You must have Rust and Node.js installed on your system.
 
@@ -138,7 +187,24 @@ To enable background effects, you need to recompile Zebar with a modification. Y
 }
 ```
 
-3. Recompile Zebar (`npm i` + `npm run build`) and install it from `target/release/bundle/msi/Zebar_..._x64_en-US.msi`
+3. Run the following:
+```bash
+# Install pnpm (package manager).
+npm i -g pnpm
+
+# Install dependencies.
+pnpm i
+
+# Build settings UI
+pnpm run --filter zebar --filter @zebar/settings-ui build
+
+# Build Zebar
+pnpm run build
+```
+4. Install the newly built Zebar from `target/release/bundle/msi/Zebar_..._x64_en-US.msi`
+
+> [!NOTE]
+> By default, Zebar uses the rust nightly channel. To install it properly, you need to run (after uninstalling nightly if you have it already installed) `rustup toolchain install nightly --allow-downgrade --profile minimal`, otherwise Zebar may not be able to build. If it still doesn't manage to build, try changing the channel in `rust-toolchain.toml` to `stable`.
 
 After installation, you can enable background effects in `config.json`.
 
