@@ -40,8 +40,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      # Run build to generate the build folder
+      # Cache build folder based on commit SHA
+      - name: Cache build folder
+        id: cache-build
+        uses: actions/cache@v4
+        with:
+          path: build/
+          key: ${{ runner.os }}-build-${{ github.sha }}
+
+      # Run build only if cache miss
       - name: Build project
+        if: steps.cache-build.outputs.cache-hit != 'true'
         run: pnpm run build
 
       # Upload the build folder as an artifact after the build (keeping this for reference)
