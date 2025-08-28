@@ -1,0 +1,65 @@
+name: Publish to Zebar Marketplace
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    if: github.event.release.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Build
+        uses: ./.github/workflows/build.yml
+        with:
+          version-number: ${{ steps.version.outputs.version }}
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build/
+
+      - name: Download Zebar
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: glzr-io/zebar
+          tag: "v3.1.1"
+          fileName: "*x64.deb"
+          out-file-path: "."
+
+      - name: Install Zebar dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libappindicator3-1 libwebkit2gtk-4.1-0 xvfb
+
+      - name: Extract Zebar CLI
+        run: |
+          dpkg-deb -x *x64.deb ./zebar-extracted
+          sudo cp ./zebar-extracted/usr/bin/zebar /usr/local/bin/
+          sudo chmod +x /usr/local/bin/zebar
+
+      - name: Test Zebar Installation
+        run: |
+          export DISPLAY=:99
+          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          sleep 2
+          zebar --version
+
+      - name: Publish to Zebar marketplace
+        env:
+          ZEBAR_PUBLISH_TOKEN: ${{ secrets.ZEBAR_PUBLISH_TOKEN }}
+        run: |
+          export DISPLAY=:99
+          zebar publish --pack-config ./build/zpack.json \
+          --version-override ${{ steps.version.outputs.version }} \
+          --commit-sha $(git rev-parse --short ${{ github.sha }}) \
+          --release-notes "${{ github.event.release.body }}" \
+          --release-url ${{ github.event.release.html_url }}

@@ -34,33 +34,6 @@ jobs:
           name: build
           path: build/
 
-      - name: Download Zebar
-        uses: robinraju/release-downloader@v1
-        with:
-          repository: glzr-io/zebar
-          tag: "v3.1.1"
-          fileName: "*x64.deb"
-          out-file-path: "."
-
-      - name: Install Zebar dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libappindicator3-1 libwebkit2gtk-4.1-0 xvfb
-
-      - name: Extract Zebar CLI
-        run: |
-          dpkg-deb -x *x64.deb ./zebar-extracted
-          sudo cp ./zebar-extracted/usr/bin/zebar /usr/local/bin/
-          sudo chmod +x /usr/local/bin/zebar
-
-        # Zebar needs gtk even for headless mode
-      - name: Test Zebar Installation
-        run: |
-          export DISPLAY=:99
-          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-          sleep 2
-          zebar --version
-
       - name: Zip release folder
         run: zip -r neosoft-zebar.zip build/
 
@@ -85,15 +58,3 @@ jobs:
           asset_path: ./neosoft-zebar.zip
           asset_name: neosoft-zebar.zip
           asset_content_type: application/zip
-
-      - name: Upload to Zebar marketplace
-        if: github.event.inputs.draft == false
-        env:
-          ZEBAR_PUBLISH_TOKEN: ${{ secrets.ZEBAR_PUBLISH_TOKEN }}
-        run: |
-          export DISPLAY=:99
-          zebar publish --pack-config ./build/zpack.json \
-          --version-override ${{ github.event.inputs.version-number }} \
-          --commit-sha $(git rev-parse --short ${{ github.sha }}) \
-          --release-notes "${{ github.event.inputs.release-notes }}" \
-          --release-url ${{ steps.create_release.outputs.html_url }}
