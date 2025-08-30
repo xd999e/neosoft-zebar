@@ -61,7 +61,7 @@
           class="mr-2"
         >
           <Button
-            class="box-border px-6 text-zb-ws-{globalIndex} {workspace.isDisplayed
+            class="box-border min-w-14 px-2 text-zb-ws-{globalIndex} {workspace.isDisplayed
               ? `border-zb-ws-${globalIndex} hover:border-blend-70 active:!border-blend-50`
               : ''}"
             callback={() =>
