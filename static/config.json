@@ -21,5 +21,6 @@
     "enableErrorLogging": false
   },
   "backgroundEffect": "acrylic",
-  "enableAutoTiling": true
+  "enableAutoTiling": true,
+  "showFullDateByDefault": false
 }

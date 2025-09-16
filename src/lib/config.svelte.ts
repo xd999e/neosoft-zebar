@@ -68,6 +68,13 @@ export interface Config {
    * Whether to enable built-in automatic tiling of windows.
    */
   enableAutoTiling: boolean;
+
+  /**
+   * Whether to show the full date by default instead of just the time.
+   *
+   * (This can be toggled in the UI by clicking the date/time)
+   */
+  showFullDateByDefault: boolean;
 }
 
 export type AttachmentDirection = "top" | "bottom" | "floating";

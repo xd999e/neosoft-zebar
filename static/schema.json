@@ -93,6 +93,10 @@
       "$ref": "#/definitions/ProvidersConfig",
       "description": "Options for the providers, including refresh intervals and error logging."
     },
+    "showFullDateByDefault": {
+      "description": "Whether to show the full date by default instead of just the time.\n\n(This can be toggled in the UI by clicking the date/time)",
+      "type": "boolean"
+    },
     "taskbarIntegration": {
       "$ref": "#/definitions/TaskbarIntegration",
       "description": "Whether to integrate with the windows taskbar.\n\nRight now, this feature only adds an area at the center of the widget that contains the window icons. Please see README for more information."
