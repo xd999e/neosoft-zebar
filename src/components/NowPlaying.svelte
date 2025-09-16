@@ -9,8 +9,35 @@
   import { fly } from "svelte/transition";
   import Meter from "./Meter.svelte";
   import SmoothDiv from "./SmoothDiv.svelte";
+  import type { MediaSession } from "zebar";
+  import { untrack } from "svelte";
 
   let media = $derived(providers.media);
+  let mediaTimeout: number | null = null;
+  let shownSession = $state<MediaSession | null>(null);
+
+  $effect(() => {
+    const session = media?.currentSession;
+    const prevSession: MediaSession | null = untrack(() => shownSession);
+    if (session) {
+      if (mediaTimeout) {
+        clearTimeout(mediaTimeout);
+        mediaTimeout = null;
+      }
+      shownSession = session;
+      return;
+    }
+    if (prevSession) {
+      if (mediaTimeout) {
+        return;
+      }
+      mediaTimeout = setTimeout(() => {
+        shownSession = null;
+      }, 2000);
+    } else {
+      shownSession = null;
+    }
+  });
 
   const secondsToHms = (d: number) => {
     d = Number(d);
@@ -23,7 +50,7 @@
 </script>
 
 <SmoothDiv outerClass="flex justify-end">
-  {#if isOnPrimaryMonitor() && media?.currentSession}
+  {#if isOnPrimaryMonitor() && media && shownSession}
     <div
       transition:fly={{ y: 20, duration: config.transitionDuration }}
       class="flex items-center gap-3 mr-2"
@@ -36,7 +63,7 @@
         <SkipBack />
       </button>
       <button
-        class="relative gap-x-2 inline-flex items-center justify-center group transition hover:text-zb-accent"
+        class="relative gap-x-2 overflow-hidden inline-flex items-center justify-center group transition hover:text-zb-accent"
         aria-label="Toggle"
         onclick={() => media.togglePlayPause()}
       >
@@ -44,34 +71,32 @@
           animate={false}
           class="stroke-zb-accent h-8"
           percent={Math.round(
-            (media.currentSession.position / media.currentSession.endTime) * 100
+            (shownSession.position / shownSession.endTime) * 100
           )}
         >
-          {#if media.currentSession.isPlaying}
+          {#if shownSession.isPlaying}
             <Pause class="transition transform group-hover:scale-125" />
           {:else}
             <Play class="transition transform group-hover:scale-125" />
           {/if}
         </Meter>
         <SmoothDiv
-          outerClass="overflow-hidden"
           innerClass="relative flex items-center justify-center min-w-24 max-w-24 sm:max-w-48 md:max-w-64 lg:max-w-xs xl:max-w-sm"
         >
           <span
             class="transition truncate group-hover:translate-y-full group-hover:opacity-0"
           >
             <p class="truncate">
-              {media.currentSession.title}
+              {shownSession.title}
             </p>
           </span>
           <span
-            class="absolute inset-0 inline-flex items-center justify-center transform -translate-y-full {media
-              .currentSession.title
+            class="absolute inset-0 inline-flex items-center justify-center transform -translate-y-full {shownSession.title
               ? 'opacity-0'
               : ''} transition-all group-hover:translate-y-0 group-hover:opacity-100"
           >
-            {secondsToHms(media.currentSession.position)}/{secondsToHms(
-              media.currentSession.endTime
+            {secondsToHms(shownSession.position)}/{secondsToHms(
+              shownSession.endTime
             )}
           </span>
         </SmoothDiv>
