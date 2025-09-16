@@ -8,11 +8,9 @@ import { providers } from "../providers.svelte";
 
 const isOnPrimaryMonitorState = $derived.by(() => {
   const glazewm = providers.glazewm;
-  return (
-    !!glazewm?.allMonitors &&
-    !!glazewm?.currentMonitor?.id &&
-    glazewm.currentMonitor.id === glazewm.allMonitors[0]?.id
-  );
+  const currentMonitor = glazewm?.currentMonitor;
+
+  return !!currentMonitor && currentMonitor.x === 0 && currentMonitor.y === 0;
 });
 
 export function isOnPrimaryMonitor(): boolean {
