@@ -81,6 +81,9 @@ importers:
       svelte-check:
         specifier: ^4.3.1
         version: 4.3.1(picomatch@4.0.3)(svelte@5.38.6)(typescript@5.9.2)
+      svelte-range-slider-pips:
+        specifier: https://github.com/blaiyz/svelte-range-slider-pips/tarball/main
+        version: https://github.com/blaiyz/svelte-range-slider-pips/tarball/main(svelte@5.38.6)
       tailwindcss:
         specifier: ^3.4.17
         version: 3.4.17
@@ -1384,6 +1387,12 @@ packages:
     peerDependenciesMeta:
       svelte:
         optional: true
+
+  svelte-range-slider-pips@https://github.com/blaiyz/svelte-range-slider-pips/tarball/main:
+    resolution: {tarball: https://github.com/blaiyz/svelte-range-slider-pips/tarball/main}
+    version: 4.0.7
+    peerDependencies:
+      svelte: ^4.2.7 || ^5.0.0
 
   svelte@5.38.6:
     resolution: {integrity: sha512-ltBPlkvqk3bgCK7/N323atUpP3O3Y+DrGV4dcULrsSn4fZaaNnOmdplNznwfdWclAgvSr5rxjtzn/zJhRm6TKg==}
@@ -2722,6 +2731,10 @@ snapshots:
       postcss-scss: 4.0.9(postcss@8.5.6)
       postcss-selector-parser: 7.1.0
     optionalDependencies:
+      svelte: 5.38.6
+
+  svelte-range-slider-pips@https://github.com/blaiyz/svelte-range-slider-pips/tarball/main(svelte@5.38.6):
+    dependencies:
       svelte: 5.38.6
 
   svelte@5.38.6:
