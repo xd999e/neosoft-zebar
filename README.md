@@ -284,6 +284,48 @@ In addition to colors, `config.css` provides variables that control other style 
 
 </details>
 
+### Catppuccin (partial)
+
+<details>
+<summary>Colors</summary>
+
+#### Mocha (thanks @Miitto!)
+
+```css
+/* colors */
+--text: var(--ctp-mocha-text);
+--accent: var(--ctp-mocha-lavender);
+--bg: var(--ctp-mocha-base);
+--border: var(--ctp-mocha-overlay0);
+--shadow: var(--cpt-mocha-crust);
+--icon: var(--ctp-mocha-red);
+--memory: var(--ctp-mocha-sky);
+--cpu: var(--ctp-mocha-blue);
+--cpu-high-usage: var(--ctp-mocha-sapphire);
+--battery-good: var(--ctp-mocha-green);
+--battery-mid: var(--ctp-mocha-teal);
+--battery-low: var(--ctp-mocha-red);
+--focused-process: var(--ctp-mocha-text);
+--process: var(--ctp-mocha-subtext0);
+--displayed: var(--ctp-mocha-text);
+--ws-1: var(--ctp-mocha-lavender);
+--ws-2: var(--ctp-mocha-mauve);
+--ws-3: var(--ctp-mocha-sapphire);
+--ws-4: var(--ctp-mocha-green);
+--ws-5: var(--ctp-mocha-peach);
+--tiling-direction: var(--ctp-mocha-rosewater);
+--not-playing: var(--ctp-mocha-red);
+--now-playing: var(--ctp-mocha-teal);
+--weather: var(--ctp-mocha-text);
+--volume-start: var(--ctp-mocha-mauve);
+--volume-end: var(--ctp-mocha-flamingo);
+--volume-inner: var(--ctp-mocha-lavender);
+--bg-focused: var(--ctp-mocha-lavender) / 0.4;
+--bg-unfocused: var(--ctp-mocha-base) / 0.5;
+```
+
+</details>
+
 ## 🎉 Background Effects
 
 > [!WARNING]
@@ -379,7 +421,7 @@ This creates segments with rounded corners, click-through enabled, transparency,
 
 This hasn't been tested. If you find a way to achieve the same taskbar effect as TaskbarX, please let me know (Windhawk might be capable of this).
 
-## Contribution
+## Contributing
 
 Contributions are welcome! If you have suggestions, improvements, or bug fixes, please open an issue or submit a pull request.
 
