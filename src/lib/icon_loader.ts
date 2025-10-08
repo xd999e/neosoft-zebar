@@ -19,7 +19,7 @@ import BrandTeams from "@tabler/icons-svelte/icons/brand-teams";
 iconMap.push({ appNames: ["ms-teams"], icon: BrandTeams });
 
 import Mail from "@tabler/icons-svelte/icons/mail";
-iconMap.push({ appNames: ["airmail", "olk"], icon: Mail });
+iconMap.push({ appNames: ["airmail", "olk", "OUTLOOK"], icon: Mail });
 
 import BrandArc from "@tabler/icons-svelte/icons/brand-arc";
 iconMap.push({ appNames: ["arc"], icon: BrandArc });
@@ -29,6 +29,9 @@ iconMap.push({
   appNames: ["chrome", "chromium", "thorium"],
   icon: BrandChrome
 });
+
+import BrandVivaldi from "@tabler/icons-svelte/icons/brand-vivaldi;
+iconMap.push({ appNames: ["vivaldi"], icon: BrandVivaldi });
 
 import BrandFirefox from "@tabler/icons-svelte/icons/brand-firefox";
 iconMap.push({ appNames: ["firefox"], icon: BrandFirefox });
