@@ -30,7 +30,7 @@ iconMap.push({
   icon: BrandChrome
 });
 
-import BrandVivaldi from "@tabler/icons-svelte/icons/brand-vivaldi;
+import BrandVivaldi from "@tabler/icons-svelte/icons/brand-vivaldi";
 iconMap.push({ appNames: ["vivaldi"], icon: BrandVivaldi });
 
 import BrandFirefox from "@tabler/icons-svelte/icons/brand-firefox";
